@@ -1,0 +1,66 @@
+.container-dimensions{
+  width: 50%;
+  height: 100vh;
+}
+.fluid-container{
+  display: flex;
+}
+.bg-image{
+  background-image: url("https://images.alphacoders.com/210/210941.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.container-route{
+  display: flex;
+}
+.container-route p{
+  margin: 0.5%;
+  cursor: pointer;
+  transition: transform 0.3s ease-out;
+}
+.container-route p:hover{
+  text-decoration: underline;
+}
+.form-inputs{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.left-side,.right-side{
+  width: 30vh;
+  margin: 2%;
+}
+.form-group input{
+  padding: 5%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+.reg-button{
+  margin-left:auto;
+  margin-right: auto;
+  display: block;
+  width: 50%;
+  border-radius: 25px;
+  padding: 1%;
+  border: 0px;
+  background-color: #FF8C00;
+  color: white;
+}
+.reg-button:hover{
+  background-color: #E67A00;
+}
+form{
+
+}
+form h2{
+  margin-left: calc(20%);
+}
+.container-route{
+  margin-left: 10%;
+  margin-top: 15%;
+}
+form{
+  margin-top: 10%;
+}

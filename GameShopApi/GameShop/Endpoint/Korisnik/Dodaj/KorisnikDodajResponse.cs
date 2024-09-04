@@ -22,6 +22,7 @@ namespace GameShop.Endpoint.Korisnik.Dodaj
                 KorisnickoIme = request.KorisnickoIme,
                 Email = request.Email,
                 Lozinka = request.Lozinka,
+                DatumRodjenja = request.DatumRodjenja,
                 isAdmin = false,
                 isKorisnik = true
             };

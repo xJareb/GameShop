@@ -1,0 +1,42 @@
+<div class="fluid-container">
+  <div class="left-container container-dimensions">
+    <div class="container-route">
+      <p routerLink="">Početna</p>
+      <p>></p>
+      <p routerLink="/registracija">Registracija</p>
+    </div>
+    <div class="registracija-forma">
+        <form>
+          <h2>Registruj se</h2>
+          <div class="form-inputs">
+            <div class="left-side">
+              <div class="form-group">
+                <input type="text" class="form-control"  placeholder="Ime" [ngModelOptions]="{standalone: true}" [(ngModel)]="ngIme">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Prezime" [ngModelOptions]="{standalone: true}" [(ngModel)]="ngPrezime">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Korisničko ime" [ngModelOptions]="{standalone: true}" [(ngModel)]="ngKorisnickoIme">
+              </div>
+            </div>
+            <div class="right-side">
+              <div class="form-group">
+                <input type="email" class="form-control" placeholder="Email" [ngModelOptions]="{standalone: true}" [(ngModel)]="ngEmail">
+              </div>
+              <div class="form-group">
+                <input type="date" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="ngDatumRodjenja">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="Lozinka" [ngbTooltip]="tipContent" placement="right-bottom" [ngModelOptions]="{standalone: true}" [(ngModel)]="ngLozinka">
+                <ng-template #tipContent>Vaša lozinka mora imati najmanje 7 znakova, uključujući mala i velika slova te brojeve.</ng-template>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="reg-button" (click)="kreirajKorisnika()">Registruj se</button>
+        </form>
+    </div>
+  </div>
+  <div class="right-container container-dimensions bg-image">
+  </div>
+</div>

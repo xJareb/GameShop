@@ -6,29 +6,31 @@
       <p routerLink="/registracija">Registracija</p>
     </div>
     <div class="registracija-forma">
-        <form>
+        <form [formGroup]="userForm">
           <h2>Registruj se</h2>
           <div class="form-inputs">
             <div class="left-side">
               <div class="form-group">
-                <input type="text" class="form-control"  placeholder="Ime" [ngModelOptions]="{standalone: true}" [(ngModel)]="ngIme">
+                <input type="text" class="form-control"  placeholder="Ime" formControlName="ime" [ngbTooltip]="tipContentIme" placement="top"  [ngStyle]="postaviStilIme()">
+                <ng-template #tipContentIme>Vaše ime mora imati najmanje 4 znakova, uključujući veliko početno slovo.</ng-template>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Prezime" [ngModelOptions]="{standalone: true}" [(ngModel)]="ngPrezime">
+                <input type="text" class="form-control" placeholder="Prezime" formControlName="prezime" [ngbTooltip]="tipContentPrezime" placement="bottom" [ngStyle]="postaviStilPrezime()">
+                <ng-template #tipContentPrezime>Vaše ime mora imati najmanje 4 znakova, uključujući veliko početno slovo.</ng-template>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Korisničko ime" [ngModelOptions]="{standalone: true}" [(ngModel)]="ngKorisnickoIme">
+                <input type="text" class="form-control" placeholder="Korisničko ime" formControlName="korisnickoIme" [ngStyle]="postaviStilKorisnickoIme()">
               </div>
             </div>
             <div class="right-side">
               <div class="form-group">
-                <input type="email" class="form-control" placeholder="Email" [ngModelOptions]="{standalone: true}" [(ngModel)]="ngEmail">
+                <input type="email" class="form-control" placeholder="Email" formControlName="email" [ngStyle]="postaviStilEmail()">
               </div>
               <div class="form-group">
-                <input type="date" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="ngDatumRodjenja">
+                <input type="date" class="form-control" formControlName="datumRodjenja" [ngStyle]="postaviStilDatumRodjenja()">
               </div>
               <div class="form-group">
-                <input type="password" class="form-control" placeholder="Lozinka" [ngbTooltip]="tipContent" placement="right-bottom" [ngModelOptions]="{standalone: true}" [(ngModel)]="ngLozinka">
+                <input type="password" class="form-control" placeholder="Lozinka" [ngbTooltip]="tipContent" placement="right-bottom" formControlName="lozinka" [ngStyle]="postaviStilLozinka()">
                 <ng-template #tipContent>Vaša lozinka mora imati najmanje 7 znakova, uključujući mala i velika slova te brojeve.</ng-template>
               </div>
             </div>

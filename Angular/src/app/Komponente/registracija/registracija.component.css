@@ -17,7 +17,6 @@
 .container-route p{
   margin: 0.5%;
   cursor: pointer;
-  transition: transform 0.3s ease-out;
 }
 .container-route p:hover{
   text-decoration: underline;

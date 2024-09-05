@@ -1,0 +1,74 @@
+.game-panel{
+  width: 90%;
+  min-height: 100vh;
+  margin: auto;
+}
+.route{
+  display: flex;
+
+}
+.route p{
+  margin: 0.5%;
+  cursor: pointer;
+}
+.container-route p:hover{
+  text-decoration: underline;
+}
+.game-grid{
+  width: 90%;
+  height: 80vh;
+  margin: auto;
+  justify-content: center;
+}
+.game-grid{
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+}
+.game-item{
+  border-radius: 10px;
+  width: 30%;
+  position: relative;
+  margin: 1%;
+
+}
+.game-item img{
+  width: 100%;
+  border-radius: 10px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  max-height: 25vh;
+  transition: transform 0.3s ease;
+}
+.discount{
+  width: 50px;
+  height: 25px;
+  background-color: orange;
+  position: absolute;
+  top: 0;
+  text-align: center;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 10px;
+  font-weight: bold;
+  transition: opacity 0.5s ease;
+
+}
+.details{
+  display: flex;
+  justify-content: space-between;
+  color: black;
+  margin-top: 1%;
+}
+.price{
+  font-weight: bold;
+}
+.game-item img:hover{
+  transform: scale(1.04);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+.game-item img:hover ~ .discount{
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}

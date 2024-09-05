@@ -1,0 +1,20 @@
+<div class="game-panel">
+  <div class="route">
+    <p routerLink="/">Početna</p>
+    <p>></p>
+    <p routerLink="/igrice">Igrice</p>
+  </div>
+  <div class="title">
+    <h2 style="text-align: center">Igrice</h2>
+  </div>
+  <div class="game-grid">
+      <div class="game-item" *ngFor="let li of listaIgrica">
+        <img src="{{li.slika}}" alt="">
+        <div class="discount">-32%</div>
+        <div class="details">
+          <p>{{li.naziv}}</p>
+          <p class="price">${{li.akcijskaCijena}}</p>
+        </div>
+      </div>
+  </div>
+</div>

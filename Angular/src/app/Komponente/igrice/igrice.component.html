@@ -9,8 +9,8 @@
   </div>
   <div class="game-grid">
       <div class="game-item" *ngFor="let li of listaIgrica">
-        <img src="{{li.slika}}" alt="">
-        <div class="discount">-32%</div>
+        <img src="{{li.slika}}" alt="" (click)="idiUDetalje(li)">
+        <div class="discount">-{{li.postotakAkcije}}%</div>
         <div class="details">
           <p>{{li.naziv}}</p>
           <p class="price">${{li.akcijskaCijena}}</p>

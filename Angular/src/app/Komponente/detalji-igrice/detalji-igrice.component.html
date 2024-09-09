@@ -1,0 +1,36 @@
+<div class="container-md">
+  <div class="route">
+    <p routerLink="/">Početna</p>
+    <p>></p>
+    <p routerLink="/igrice">Igrice</p>
+    <p>></p>
+    <p>Detalji igrice</p>
+  </div>
+</div>
+<div class="container" *ngFor="let di of detaljiIgrice">
+  <div class="game-info">
+    <img src="{{di.slika}}">
+    <div class="informations">
+      <div class="info">
+        <p>Zanr: </p><span>{{di.zanr}}</span>
+      </div>
+      <div class="info">
+        <p>Izdavac: </p><span>{{di.izdavac}}</span>
+      </div>
+      <div class="info">
+        <p>Datum izlaska: </p><span>{{di.datumIzlaska.substring(0,di.datumIzlaska.indexOf('T'))}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="game-info-more">
+    <h2>{{di.naziv}}</h2>
+    <div class="bio">
+      <p>{{di.opis}}</p>
+    </div>
+  </div>
+  <div class="game-price">
+    <p class="original-price"><span>${{di.cijena}}</span></p>
+    <p class="discount">-{{di.postotakAkcije}}%</p>
+    <p class="final-price">${{di.akcijskaCijena}}</p>
+  </div>
+</div>

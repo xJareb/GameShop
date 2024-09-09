@@ -27,6 +27,7 @@ namespace GameShop.Endpoint.Igrice.Pretrazi
                 Izdavac = x.Izdavac,
                 Opis = x.Opis,
                 Cijena = x.Cijena,
+                PostotakAkcije = x.PostotakAkcije,
                 AkcijskaCijena = x.AkcijskaCijena ?? 0
             }).ToListAsync();
 

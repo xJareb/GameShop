@@ -14,6 +14,7 @@
         public string Izdavac { get; set; }
         public string Opis { get; set; }
         public float Cijena { get; set; }
+        public float PostotakAkcije { get; set; }
         public float AkcijskaCijena { get; set; }
     }
 }

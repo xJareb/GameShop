@@ -59,58 +59,8 @@ export class RegistracijaComponent implements OnInit {
     }
   }
 
-  postaviStilIme(){
-    if (this.userForm.controls['ime'].invalid && !this.userForm.controls['ime'].untouched) {
-      return {
-        'background-color': 'red',
-        'color': 'white'
-      }
-    } else {
-      return {}
-    }
-  }
-  postaviStilPrezime(){
-    if (this.userForm.controls['prezime'].invalid && !this.userForm.controls['prezime'].untouched) {
-      return {
-        'background-color': 'red',
-        'color': 'white'
-      }
-    } else {
-      return {}
-    }
-  }
-  postaviStilKorisnickoIme(){
-    if (this.userForm.controls['korisnickoIme'].invalid && !this.userForm.controls['korisnickoIme'].untouched) {
-      return {
-        'background-color': 'red',
-        'color': 'white'
-      }
-    } else {
-      return {}
-    }
-  }
-  postaviStilEmail(){
-    if (this.userForm.controls['email'].invalid && !this.userForm.controls['email'].untouched) {
-      return {
-        'background-color': 'red',
-        'color': 'white'
-      }
-    } else {
-      return {}
-    }
-  }
-  postaviStilDatumRodjenja(){
-    if (this.userForm.controls['datumRodjenja'].invalid && !this.userForm.controls['datumRodjenja'].untouched) {
-      return {
-        'background-color': 'red',
-        'color': 'white'
-      }
-    } else {
-      return {}
-    }
-  }
-  postaviStilLozinka(){
-    if (this.userForm.controls['lozinka'].invalid && !this.userForm.controls['lozinka'].untouched) {
+  postaviStil(kontrola:string){
+    if (this.userForm.controls[kontrola].invalid && !this.userForm.controls[kontrola].untouched) {
       return {
         'background-color': 'red',
         'color': 'white'

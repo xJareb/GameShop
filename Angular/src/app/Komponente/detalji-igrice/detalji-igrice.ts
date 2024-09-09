@@ -1,4 +1,4 @@
-export interface ListaIgrica {
+export interface DetaljiIgrice {
   igrice: Igrice[]
 }
 

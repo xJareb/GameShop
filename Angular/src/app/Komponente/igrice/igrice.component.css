@@ -72,3 +72,14 @@
   opacity: 0;
   transition: opacity 0.5s ease;
 }
+.category-filter{
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: auto;
+  padding: 0.5%;
+}
+.category-filter p:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}

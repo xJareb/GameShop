@@ -7,6 +7,12 @@
   <div class="title">
     <h2 style="text-align: center">Igrice</h2>
   </div>
+  <div class="category-filter" >
+    <p (click)="izlistajSveIgrice()">Sve</p>
+    <div class="category" *ngFor="let lz of listaZanrova">
+      <p (click)="filtriraj(lz)">{{lz.naziv}}</p>
+    </div>
+  </div>
   <div class="game-grid">
       <div class="game-item" *ngFor="let li of listaIgrica">
         <img src="{{li.slika}}" alt="" (click)="idiUDetalje(li)">

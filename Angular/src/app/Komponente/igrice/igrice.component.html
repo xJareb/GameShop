@@ -8,19 +8,28 @@
     <h2 style="text-align: center">Igrice</h2>
   </div>
   <div class="category-filter" >
-    <p (click)="zanr=0;filter(0,pocetnaCijena,zavrsnaCijena)">Sve</p>
+    <p (click)="zanr=0;filter2(0,pocetnaCijena,zavrsnaCijena,sort)">Sve</p>
     <div class="category" *ngFor="let lz of listaZanrova">
-      <p (click)="uzmiZanr(lz);filter(zanr,pocetnaCijena,zavrsnaCijena)">{{lz.naziv}}</p>
+      <p (click)="uzmiZanr(lz);filter2(zanr,pocetnaCijena,zavrsnaCijena,sort)">{{lz.naziv}}</p>
     </div>
   </div>
-  <div class="price-rangne">
-    <div class="firstPrice">
-      <p>Početna cijena</p>
-      <input type="number" id="pocetna" (change)="filter(zanr,pocetnaCijena,zavrsnaCijena)" [value]="pocetnaCijena" [(ngModel)]="pocetnaCijena" min="1" [max]="zavrsnaCijena">
+  <div class="filter-grid">
+    <div class="price-rangne">
+      <div class="firstPrice">
+        <p>Min</p>
+        <input type="number" id="pocetna" (change)="filter2(zanr,pocetnaCijena,zavrsnaCijena,sort)" [value]="pocetnaCijena" [(ngModel)]="pocetnaCijena" min="1" [max]="zavrsnaCijena">
+      </div>
+      <div class="lastPrice">
+        <p>Max</p>
+        <input type="number" id="zavrsna" (change)="filter2(zanr,pocetnaCijena,zavrsnaCijena,sort)" [value]="zavrsnaCijena" [(ngModel)]="zavrsnaCijena" [min]="pocetnaCijena + 1" max="250">
+      </div>
     </div>
-    <div class="lastPrice">
-      <p>Krajnja cijena</p>
-      <input type="number" id="zavrsna" (change)="filter(zanr,pocetnaCijena,zavrsnaCijena)" [value]="zavrsnaCijena" [(ngModel)]="zavrsnaCijena" [min]="pocetnaCijena + 1" max="250">
+    <div class="sorting">
+      <select id="sort" (change)="test();filter2(zanr,pocetnaCijena,zavrsnaCijena,sort)">
+        <option selected>Relevantno</option>
+        <option value="asc" >Naziv: A - Z</option>
+        <option value="desc">Naziv: Z - A</option>
+      </select>
     </div>
   </div>
   <div class="game-grid">

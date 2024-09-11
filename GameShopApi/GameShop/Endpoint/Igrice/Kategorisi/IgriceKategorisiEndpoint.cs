@@ -17,7 +17,18 @@ namespace GameShop.Endpoint.Igrice.Kategorisi
         [HttpGet("ByKategorija")]
         public override async Task<IgriceKategorisiResponse> Obradi([FromQuery]IgriceKategorisiRequest request, CancellationToken cancellationToken = default)
         {
-            var igrice = await _applicationDbContext.Igrice.Where(i => (i.ZanrID == request.ZanrID || request.ZanrID == 0) && (i.AkcijskaCijena > request.PocetnaCijena && i.AkcijskaCijena < request.KrajnjaCijena)).Select(x => new IgriceKategorisiResponseIgrica()
+            var upit = _applicationDbContext.Igrice.Where
+                (i => (i.ZanrID == request.ZanrID || request.ZanrID == 0) && (i.AkcijskaCijena > request.PocetnaCijena && i.AkcijskaCijena < request.KrajnjaCijena));
+
+            if (request.Sortiranje == "desc")
+            {
+                upit = upit.OrderByDescending(i => i.Naziv);
+            }
+            if (request.Sortiranje == "asc")
+            {
+                upit = upit.OrderBy(i => i.Naziv);
+            }
+            var igrice = await upit.Select(x => new IgriceKategorisiResponseIgrica()
             {
                 Id = x.Id,
                 Naziv = x.Naziv,
@@ -29,7 +40,7 @@ namespace GameShop.Endpoint.Igrice.Kategorisi
                 Cijena = x.Cijena,
                 PostotakAkcije = x.PostotakAkcije,
                 AkcijskaCijena = x.AkcijskaCijena ?? 0
-            }).ToListAsync();
+            }).ToListAsync(cancellationToken);
 
 
             return new IgriceKategorisiResponse

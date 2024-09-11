@@ -29,6 +29,7 @@ export class IgriceComponent implements OnInit{
   pocetnaCijena:number = 1;
   zavrsnaCijena:number = 100;
   zanr:any;
+  sort:any;
   constructor(public httpClient:HttpClient,private router:Router) {
   }
   ngOnInit(): void {
@@ -58,5 +59,23 @@ export class IgriceComponent implements OnInit{
   }
   uzmiZanr(lz: any) {
     this.zanr = lz.id;
+  }
+
+  test() {
+    let select = document.getElementById('sort') as HTMLSelectElement;
+    this.sort  = select?.value;
+
+  }
+  filter2(zanrid:any,pocetnacijena:any,zavrsnacijena:any,sortiranje:any){
+    this.zanr = zanrid
+    this.sort = sortiranje
+
+    console.log(this.sort);
+    let url = MojConfig.adresa_servera +
+      `/ByKategorija?ZanrID=${this.zanr}&PocetnaCijena=${this.pocetnaCijena}&KrajnjaCijena=${this.zavrsnaCijena}&Sortiranje=${this.sort}`
+
+    this.httpClient.get<ListaIgrica>(url).subscribe(x=>{
+      this.listaIgrica = x.igrice;
+    })
   }
 }

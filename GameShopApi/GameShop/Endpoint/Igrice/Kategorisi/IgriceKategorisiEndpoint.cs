@@ -31,6 +31,7 @@ namespace GameShop.Endpoint.Igrice.Kategorisi
                 AkcijskaCijena = x.AkcijskaCijena ?? 0
             }).ToListAsync();
 
+
             return new IgriceKategorisiResponse
             {
                 Igrice = igrice

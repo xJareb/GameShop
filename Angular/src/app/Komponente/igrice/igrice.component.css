@@ -83,3 +83,15 @@
   cursor: pointer;
   text-decoration: underline;
 }
+.price-rangne{
+  display: flex;
+}
+.lastPrice{
+  margin-left: 1%;
+}
+.price-rangne input{
+  border-radius: 10px;
+  border: 1px solid black;
+  text-align: center;
+  min-width: 100%;
+}

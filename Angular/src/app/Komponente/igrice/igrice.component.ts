@@ -39,7 +39,6 @@ export class IgriceComponent implements OnInit{
     let url = MojConfig.adresa_servera + `/Izlistaj`;
     this.httpClient.get<Zanr>(url).subscribe(x=>{
       this.listaZanrova = x.zanrovi;
-      console.log(this.listaZanrova);
     })
   }
 

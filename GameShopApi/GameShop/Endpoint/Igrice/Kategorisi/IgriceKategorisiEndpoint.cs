@@ -17,7 +17,7 @@ namespace GameShop.Endpoint.Igrice.Kategorisi
         [HttpGet("ByKategorija")]
         public override async Task<IgriceKategorisiResponse> Obradi([FromQuery]IgriceKategorisiRequest request, CancellationToken cancellationToken = default)
         {
-            var igrice = await _applicationDbContext.Igrice.Where(i => i.ZanrID == request.ZanrID || request.ZanrID == 0).Select(x => new IgriceKategorisiResponseIgrica()
+            var igrice = await _applicationDbContext.Igrice.Where(i => (i.ZanrID == request.ZanrID || request.ZanrID == 0) && (i.AkcijskaCijena > request.PocetnaCijena && i.AkcijskaCijena < request.KrajnjaCijena)).Select(x => new IgriceKategorisiResponseIgrica()
             {
                 Id = x.Id,
                 Naziv = x.Naziv,

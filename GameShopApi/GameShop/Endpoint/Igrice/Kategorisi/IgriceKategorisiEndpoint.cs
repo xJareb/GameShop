@@ -18,7 +18,7 @@ namespace GameShop.Endpoint.Igrice.Kategorisi
         public override async Task<IgriceKategorisiResponse> Obradi([FromQuery]IgriceKategorisiRequest request, CancellationToken cancellationToken = default)
         {
             var upit = _applicationDbContext.Igrice.Where
-                (i => (i.ZanrID == request.ZanrID || request.ZanrID == 0) && (i.AkcijskaCijena > request.PocetnaCijena && i.AkcijskaCijena < request.KrajnjaCijena));
+                (i => (i.ZanrID == request.ZanrID || request.ZanrID == 0) && (i.AkcijskaCijena > request.PocetnaCijena && i.AkcijskaCijena < request.KrajnjaCijena) && (request.NazivIgrice == null || i.Naziv.ToLower().StartsWith(request.NazivIgrice.ToLower())));
 
             if (request.Sortiranje == "desc")
             {

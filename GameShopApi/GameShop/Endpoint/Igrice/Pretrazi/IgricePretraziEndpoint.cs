@@ -17,7 +17,7 @@ namespace GameShop.Endpoint.Igrice.Pretrazi
         [HttpGet("Pretrazi")]
         public override async Task<IgricePretraziResponse> Obradi([FromQuery]IgricePretraziRequest request, CancellationToken cancellationToken = default)
         {
-            var igrice = await _applicationDbContext.Igrice.Where(i=>request.IgricaID == i.Id || request.IgricaID == 0).Select(x => new IgricePretraziResponseIgrice()
+            var igrice = await _applicationDbContext.Igrice.Where(i=>(request.IgricaID == i.Id || request.IgricaID == 0)).Select(x => new IgricePretraziResponseIgrice()
             {
                 Id = x.Id,
                 Naziv = x.Naziv,

@@ -1,0 +1,67 @@
+.nav{
+  background-color: red;
+  display: flex;
+  justify-content: space-between;
+}
+.logo img{
+  width: 70px;
+  height: 50px;
+
+}
+.searchbar, .logo,.user{
+  margin-top: 1%;
+}
+
+.searchbar input{
+  padding: 2%;
+  width: 60vh;
+  border-radius: 10px;
+  border: none;
+}
+.results{
+  position: absolute;
+  margin-top: 1%;
+  min-width: 29%;
+}
+.games{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  cursor: pointer;
+}
+.left{
+  display: flex;
+}
+.left img{
+  width: 8vh;
+  height: 8vh;
+  border-radius: 10px;
+  margin-left: 1%;
+  margin-top: 2%;
+}
+.title{
+  margin-left: 3%;
+  min-width: 40%;
+}
+.right{
+  margin-right: 1%;
+}
+.right p{
+  margin: 0;
+  padding: 0;
+}
+.original-price p{
+  text-decoration: line-through;
+  font-size: 24px;
+}
+.final-price p{
+  font-size: 18px;
+  text-align: center;
+}
+.discount p{
+  color: red;
+  border: 1px solid red;
+  padding: 1%;
+  text-align: center;
+}

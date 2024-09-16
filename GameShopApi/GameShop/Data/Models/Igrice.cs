@@ -18,5 +18,6 @@ namespace GameShop.Data.Models
         public float Cijena { get; set; }
         public float PostotakAkcije { get; set; }
         public float? AkcijskaCijena {  get; set; }
+        public bool Izdvojeno { get; set; } = false;
     }
 }

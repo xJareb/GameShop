@@ -8,6 +8,7 @@
     {
         public int Id { get; set; }
         public string Naziv { get; set; }
+        public int ZanrID { get; set; }
         public string Zanr { get; set; }
         public DateTime DatumIzlaska { get; set; }
         public string Slika { get; set; }

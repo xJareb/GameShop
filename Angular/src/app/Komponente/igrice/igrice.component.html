@@ -33,7 +33,18 @@
     </div>
   </div>
   <div class="game-grid">
+    <div class="game-add" (click)="prikazDodaj = true">
+      <p class="icon">&#43;</p>
+      <div class="title">
+        <p>Dodaj novu igricu</p>
+      </div>
+    </div>
       <div class="game-item" *ngFor="let li of listaIgrica">
+        <div class="game-control">
+          <button (click)="pripremiPodatke(li);prikazUredi = true">Uredi</button>
+          <button (click)="obirisiIgricu(li)">Obrisi</button>
+          <button (click)="izdvojiIgricu(li)">Izdvoji</button>
+        </div>
         <img src="{{li.slika}}" alt="" (click)="idiUDetalje(li)">
         <div class="discount">-{{li.postotakAkcije}}%</div>
         <div class="details">
@@ -43,3 +54,20 @@
       </div>
   </div>
 </div>
+
+<app-uredi-igricu *ngIf="prikazUredi"
+                  (otvori)="this.otvaranjeUredi($event)"
+                  [igricaID]="odabranaIgrica!.igricaID"
+                  [naziv]="odabranaIgrica!.naziv"
+                  [zanrID]="odabranaIgrica!.zanrID"
+                  [datumIzlaska]="odabranaIgrica!.datumIzlaska"
+                  [slika]="odabranaIgrica!.slika"
+                  [izdavac]="odabranaIgrica!.izdavac"
+                  [opis]="odabranaIgrica!.opis"
+                  [cijena]="odabranaIgrica!.cijena"
+                  [postotakAkcije]="odabranaIgrica!.postotakAkcije"
+></app-uredi-igricu>
+
+<app-dodaj-igricu *ngIf="prikazDodaj"
+                  (otvori)="this.otvaranjeDodaj($event)"
+></app-dodaj-igricu>

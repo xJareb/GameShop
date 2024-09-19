@@ -1,0 +1,56 @@
+<div class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLiveLabel">Dodaj igricu</h1>
+        <button  class="btn-close" data-bs-dismiss="modal"  aria-label="Close" (click)="zatvori()"></button>
+      </div>
+      <div class="modal-body">
+
+        <div>
+          <label class="form-label"> Naziv: </label>
+          <input class="form-control" [(ngModel)]="naziv">
+        </div>
+
+        <div>
+          <label class="form-label"> Zanr: </label>
+          <select class="form-control" [(ngModel)]="zanrID">
+            <option *ngFor="let lz of listaZanrova" [value]="lz.id">{{lz.naziv}}</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="form-label"> Datum izlaska: </label>
+          <input class="form-control" type="date" [(ngModel)]="datumIzlaska">
+        </div>
+
+        <div>
+          <label class="form-label"> Slika: </label>
+          <input class="form-control" [(ngModel)]="slika">
+        </div>
+
+        <div>
+          <label class="form-label"> Izdavac: </label>
+          <input class="form-control" [(ngModel)]="izdavac">
+        </div>
+        <div>
+          <label class="form-label"> Opis: </label>
+          <input class="form-control" [(ngModel)]="opis">
+        </div>
+        <div>
+          <label class="form-label"> Cijena: </label>
+          <input class="form-control" type="number" [(ngModel)]="cijena">
+        </div>
+        <div>
+          <label class="form-label"> Postotak akcije: </label>
+          <input class="form-control" type="number" [(ngModel)]="postotakAkcije">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal" (click)="zatvori()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="dodajIgricu()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

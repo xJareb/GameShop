@@ -32,6 +32,7 @@ namespace GameShop.Endpoint.Igrice.Kategorisi
             {
                 Id = x.Id,
                 Naziv = x.Naziv,
+                ZanrID = x.ZanrID,
                 Zanr = x.Zanr.Naziv,
                 DatumIzlaska = x.DatumIzlaska,
                 Slika = x.Slika,

@@ -95,11 +95,33 @@
   text-align: center;
   min-width: 100%;
 }
-.price-rangne p{
-}
 .filter-grid{
   display: flex;
   justify-content: space-between;
   width: 80%;
   margin: auto;
+}
+.game-control{
+  position: absolute;
+  right: 0;
+}
+.game-control button{
+  border-radius: 10px;
+}
+.game-add{
+  width: 30%;
+  height: 30%;
+  margin: 1%;
+  border-radius: 10px;
+  border:1px solid black;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+.icon{
+  font-size: 5em;
+}
+.game-add:hover {
+  transform: scale(1.04);
+  transition: transform 0.3s ease;
+  cursor: pointer;
 }

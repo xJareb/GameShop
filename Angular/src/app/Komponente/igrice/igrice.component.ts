@@ -7,6 +7,9 @@ import {NgForOf, NgIf} from "@angular/common";
 import {Zanr} from "./zanr";
 import {FormsModule} from "@angular/forms";
 import {filter} from "rxjs";
+import {UrediIgricuComponent} from "./uredi-igricu/uredi-igricu.component";
+import {UrediIgricu} from "./uredi-igricu";
+import {DodajIgricuComponent} from "./dodaj-igricu/dodaj-igricu.component";
 
 @Component({
   selector: 'app-igrice',
@@ -16,12 +19,17 @@ import {filter} from "rxjs";
     HttpClientModule,
     NgForOf,
     NgIf,
-    FormsModule
+    FormsModule,
+    UrediIgricuComponent,
+    DodajIgricuComponent,
   ],
   templateUrl: './igrice.component.html',
   styleUrl: './igrice.component.css'
 })
 export class IgriceComponent implements OnInit{
+
+  public odabranaIgrica:UrediIgricu | null = null;
+  urediModal:boolean = false;
 
   listaIgrica:any;
   listaZanrova:any;
@@ -30,12 +38,15 @@ export class IgriceComponent implements OnInit{
   zavrsnaCijena:number = 100;
   zanr:any;
   sort:any;
+  prikazUredi:boolean = false;
+  prikazDodaj: boolean = false;
   constructor(public httpClient:HttpClient,private router:Router) {
   }
   ngOnInit(): void {
     this.filter(0,1,250);
     this.izlistajZanrove();
   }
+
   idiUDetalje(li: any) {
     let igricaID = li.id;
     this.router.navigate([`/detalji-igrice/${igricaID}`])
@@ -77,5 +88,48 @@ export class IgriceComponent implements OnInit{
     this.httpClient.get<ListaIgrica>(url).subscribe(x=>{
       this.listaIgrica = x.igrice;
     })
+  }
+
+    obirisiIgricu(li: any) {
+        let igricaID = li.id;
+        let url = MojConfig.adresa_servera + `/ObrisiIgricu?IgricaID=${igricaID}`;
+
+        this.httpClient.delete(url).subscribe(x=>{
+          alert('Uspješno obrisana igrica');
+          window.location.reload();
+        })
+    }
+
+  izdvojiIgricu(li: any) {
+      let igricaID = li.id;
+      let url = MojConfig.adresa_servera + `/IzdvojiIgricu?IgricaID=${igricaID}&Izdvojeno=true`;
+
+      this.httpClient.put(url,{}).subscribe(x=>{
+          alert('Uspješno izdvojena igrica');
+          window.location.reload();
+      })
+  }
+
+  pripremiPodatke(li: any) {
+    this.odabranaIgrica = {
+      igricaID: li.id,
+      naziv: li.naziv,
+      zanrID: li.zanrID,
+      datumIzlaska: li.datumIzlaska,
+      slika: li.slika,
+      izdavac: li.izdavac,
+      opis: li.opis,
+      cijena: li.cijena,
+      postotakAkcije: li.postotakAkcije
+    }
+    console.log(this.odabranaIgrica);
+  }
+  otvaranjeUredi($event : boolean)
+  {
+    this.prikazUredi = $event;
+  }
+  otvaranjeDodaj($event : boolean)
+  {
+    this.prikazDodaj = $event;
   }
 }

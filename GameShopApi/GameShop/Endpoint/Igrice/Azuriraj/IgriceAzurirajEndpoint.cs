@@ -1,4 +1,4 @@
-﻿using GameShop.Data;
+﻿ using GameShop.Data;
 using GameShop.Helper;
 using Microsoft.AspNetCore.Mvc;
 

@@ -5,11 +5,12 @@ import {MojConfig} from "../../moj-config";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {ListaIgrica} from "../igrice/lista-igrica";
 import {Router} from "@angular/router";
+import {SedmicnaPonudaComponent} from "../sedmicna-ponuda/sedmicna-ponuda.component";
 
 @Component({
   selector: 'app-pocetna',
   standalone: true,
-  imports: [NgbPopoverModule, NgIf, HttpClientModule, NgForOf],
+  imports: [NgbPopoverModule, NgIf, HttpClientModule, NgForOf, SedmicnaPonudaComponent],
   templateUrl: './pocetna.component.html',
   styleUrl: './pocetna.component.css',
   host: { class: 'd-block' },

@@ -1,0 +1,10 @@
+<div class="body">
+  <div class="game-item" *ngFor="let sp of sedmicnaPonuda">
+    <img src="{{sp.slika}}" alt="">
+    <div class="discount">-{{sp.postotakAkcije}}%</div>
+    <div class="details">
+      <p>{{sp.naziv}}</p>
+      <p class="price">${{sp.akcijskaCijena}}</p>
+    </div>
+  </div>
+</div>

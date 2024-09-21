@@ -1,0 +1,45 @@
+.body{
+  height: 35vh;
+  background-color: beige;
+  display: flex;
+  overflow-x: hidden;
+}
+.body:hover{
+  overflow-x: scroll;
+}
+.game-item{
+  border-radius: 10px;
+  position: relative;
+  margin: 1%;
+  min-width: 20%;
+}
+.game-item img{
+  width: 100%;
+  border-radius: 10px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  max-height: 25vh;
+  transition: transform 0.3s ease;
+}
+.discount{
+  width: 50px;
+  height: 25px;
+  background-color: orange;
+  position: absolute;
+  top: 0;
+  text-align: center;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 10px;
+  font-weight: bold;
+  transition: opacity 0.5s ease;
+}
+.details{
+  display: flex;
+  justify-content: space-between;
+  color: black;
+  margin-top: 1%;
+}
+.price{
+  font-weight: bold;
+}

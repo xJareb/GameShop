@@ -5,6 +5,7 @@ import {DetaljiIgriceComponent} from "./Komponente/detalji-igrice/detalji-igrice
 import {PocetnaComponent} from "./Komponente/pocetna/pocetna.component";
 
 export const routes: Routes = [
+  {path: '',redirectTo:'/pocetna',pathMatch:'full'},
   {path: 'registracija', component:RegistracijaComponent},
   {path: 'igrice', component:IgriceComponent},
   {path:'detalji-igrice/:id',component:DetaljiIgriceComponent},

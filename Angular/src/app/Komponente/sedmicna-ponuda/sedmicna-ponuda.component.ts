@@ -29,4 +29,14 @@ export class SedmicnaPonudaComponent implements OnInit{
         this.sedmicnaPonuda = x.igrice;
       })
     }
+
+  obirisIgricu(sp: any) {
+    let igricaID = sp.id;
+    let url = MojConfig.adresa_servera + `/IzdvojiIgricu?IgricaID=${igricaID}&Izdvojeno=false`;
+
+    this.httpClient.put(url,{}).subscribe(x=>{
+      alert('Uspješno uklonjena igrica iz sedmicne ponude');
+      window.location.reload();
+    })
+  }
 }

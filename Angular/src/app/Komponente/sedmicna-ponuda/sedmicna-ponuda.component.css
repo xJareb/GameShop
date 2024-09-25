@@ -43,3 +43,9 @@
 .price{
   font-weight: bold;
 }
+.remove{
+  position: absolute;
+  top: 1%;
+  right: 1%;
+  cursor: pointer;
+}

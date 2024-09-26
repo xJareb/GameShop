@@ -1,4 +1,5 @@
 using GameShop.Data;
+using GameShop.Helper.Services;
 using Microsoft.EntityFrameworkCore;
 
 var config = new ConfigurationBuilder()
@@ -16,6 +17,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddTransient<MyAuthService>();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

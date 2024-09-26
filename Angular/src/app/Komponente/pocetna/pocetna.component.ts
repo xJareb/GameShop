@@ -6,6 +6,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {ListaIgrica} from "../igrice/lista-igrica";
 import {Router, RouterLink} from "@angular/router";
 import {SedmicnaPonudaComponent} from "../sedmicna-ponuda/sedmicna-ponuda.component";
+import {withNoHttpTransferCache} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-pocetna',
@@ -42,11 +43,37 @@ export class PocetnaComponent implements OnInit{
 
   }
 
+  ime:any;
   ngOnInit(): void {
+    this.ime = window.localStorage.getItem("ime");
+
+    console.log(this.ime)
   }
 
   idiNaRutu(li: any) {
     let igricaID = li.id;
     this.router.navigate([`/detalji-igrice/${igricaID}`])
+  }
+
+  odjaviSe() {
+    let token = window.localStorage.getItem("my-auth-token")??"";
+    let korisnik = window.localStorage.getItem("korisnik")??"";
+    let ime = window.localStorage.getItem("ime");
+
+    window.localStorage.setItem("my-auth-token","");
+    window.localStorage.setItem("korisnik","");
+    window.localStorage.setItem("ime","Prijavi se")
+
+
+    let url = MojConfig.adresa_servera + `/Odjavi-se`;
+
+    this.httpClient.post(url,{},{
+      headers: {
+        "my-auth-token":token
+      }
+    }).subscribe(x=>{
+      alert('Uspješno odjavljen');
+      window.location.reload();
+    })
   }
 }

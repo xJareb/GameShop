@@ -44,6 +44,7 @@ export class PrijavaComponent {
           let token = x.autentifikacijaToken.vrijednost;
           window.localStorage.setItem('my-auth-token', token);
           window.localStorage.setItem('korisnik', JSON.stringify(x));
+          window.localStorage.setItem('ime', JSON.stringify(x.autentifikacijaToken.korisnickiNalog.korisnickoIme));
           alert('Uspješno logiran korisnik');
 
           this.route.navigate(["/"]);

@@ -10,6 +10,7 @@ namespace GameShop.Data
         public DbSet<Korisnik> Korisnik { get; set; }
         public DbSet<Zanr> Zanr { get; set; }
         public DbSet<Igrice> Igrice { get; set; }
+        public DbSet<AutentifikacijaToken> AutentifikacijaToken { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options) : base(options)

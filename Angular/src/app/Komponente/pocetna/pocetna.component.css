@@ -1,26 +1,37 @@
-.nav{
-  background-color: red;
-  display: flex;
-  justify-content: space-between;
-}
 .logo img{
-  width: 70px;
-  height: 50px;
-
-}
-.searchbar, .logo,.user{
+  width: 80px;
+  height: 70px;
   margin-top: 1%;
+  margin-left: 1%;
 }
-
+.user{
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  right: 5vh;
+  margin-top: 1.5vh;
+}
+.text p{
+  font-size: 25px;
+}
 .searchbar input{
   padding: 2%;
   width: 60vh;
   border-radius: 10px;
   border: none;
+  margin-top: 1vh;
 }
+.col{
+  background-color: aliceblue;
+}
+
+
 .results{
   margin-top: 1%;
   min-width: 29%;
+  position: absolute;
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 .games{
   display: flex;
@@ -64,4 +75,7 @@
   border: 1px solid red;
   padding: 1%;
   text-align: center;
+}
+#exampleModalLive{
+  background-color: black;
 }

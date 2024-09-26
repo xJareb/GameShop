@@ -1,0 +1,61 @@
+.container-dimensions{
+  width: 50%;
+  height: 100vh;
+}
+.fluid-container{
+  display: flex;
+}
+.bg-image{
+  background-image: url("https://images.alphacoders.com/210/210941.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.container-route{
+  display: flex;
+  margin-left: 10%;
+  margin-top: 15%;
+}
+.container-route p{
+  margin: 0.5%;
+  cursor: pointer;
+}
+.container-route p:hover{
+  text-decoration: underline;
+}
+form{
+  margin-top: 10%;
+}
+form h2{
+  margin-left: calc(20%);
+}
+.form-group input{
+  padding: 1%;
+  max-width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3%;
+  margin-top: 3%;
+}
+.login-button{
+  margin-left:auto;
+  margin-right: auto;
+  display: block;
+  width: 50%;
+  border-radius: 25px;
+  padding: 1%;
+  border: 0px;
+  background-color: #FF8C00;
+  color: white;
+}
+.account-option{
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: space-between;
+  margin-top: 1.2%;
+  width: 50%;
+}
+.account-option p{
+  cursor: pointer;
+}

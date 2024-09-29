@@ -7,10 +7,10 @@ namespace GameShop.Endpoint.Korisnik.Dodaj
 {
     [Tags("Korisnik")]
     [Route("Dodaj")]
-    public class KorisnikDodajResponse : MyBaseEndpoint<KorisnikDodajRequest, NoResponse>
+    public class KorisnikDodajEndpoint : MyBaseEndpoint<KorisnikDodajRequest, NoResponse>
     {
         private readonly ApplicationDbContext _applicationDbContext;
-        public KorisnikDodajResponse(ApplicationDbContext applicationDbContext)
+        public KorisnikDodajEndpoint(ApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
         }
@@ -40,7 +40,7 @@ namespace GameShop.Endpoint.Korisnik.Dodaj
 
             var korisnik = new Data.Models.Korisnik()
             {
-                Ime = request.KorisnickoIme,
+                Ime = request.Ime,
                 Prezime = request.Prezime,
                 KorisnickiNalogID = korisnickiNalog.Id
             };

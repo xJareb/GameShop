@@ -21,11 +21,15 @@ export class KorisnikComponent implements OnInit{
     constructor(public httpClient:HttpClient) {
     }
     ngOnInit(): void {
-        let id = 1;
+
+        let id = this.dohvatiKorisnika().autentifikacijaToken.korisnickiNalog.id;
         let url = MojConfig.adresa_servera + `/PregledLog?LogiraniKorisnikID=${id}`;
 
         this.httpClient.get<LogiraniKorisnik>(url).subscribe((x:LogiraniKorisnik)=>{
           this.podaciLogKorisnik = x.korisnik;
         })
+    }
+    dohvatiKorisnika(){
+      return JSON.parse(window.localStorage.getItem("korisnik")??"");
     }
 }

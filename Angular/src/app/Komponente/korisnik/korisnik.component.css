@@ -1,0 +1,103 @@
+.main{
+  width: 80%;
+  height: 75vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #5a5f63;
+}
+.left-side{
+  width: 30%;
+  height: 95%;
+  border-radius: 15px;
+  background-color: #829093;
+}
+.right-side{
+  width: 60%;
+  height: 95%;
+  border-radius: 15px;
+  background-color: #829093;
+}
+.photo img{
+  width: 15vh;
+  height: 15vh;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+  display: block;
+  border-radius: 50%;
+}
+.photo-button button{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2%;
+}
+.user-info{
+  margin-top: 5vh;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  color: #ffffff;
+}
+.order-num, .user-status{
+  display: flex;
+  justify-content: space-between;
+}
+.order-num p, .user-status p{
+  margin-left: 5%;
+  margin-right: 5%;
+  font-size: 18px;
+}
+.title{
+  text-align: center;
+  margin-top: 2%;
+  color: white;
+}
+
+.user-inputs{
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 5%;
+}
+.form-group{
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+.left-inputs,.right-inputs{
+  width: 40%;
+  color: white;
+}
+.text{
+  margin-left: 5%;
+  margin-top: 7%;
+}
+.text p{
+  font-size: 18px;
+  color: white;
+}
+.text hr{
+  max-width: 20%;
+  color: white;
+}
+.button{
+  margin-top: 2%;
+  margin-left: 7%;
+}
+.route{
+  display: flex;
+  margin-left: 20vh;
+  margin-top: 7vh;
+}
+.route p{
+  padding: 0.5%;
+}
+.single-route:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}

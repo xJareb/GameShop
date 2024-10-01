@@ -1,0 +1,64 @@
+<div class="route">
+  <p routerLink="" class="single-route">Početna</p>
+  <p>></p>
+  <p routerLink="/korisnik" class="single-route">Korisnik</p>
+</div>
+<div class="main">
+  <div class="left-side">
+    <div class="photo">
+      <img src="https://wallpapers.com/images/hd/cool-profile-picture-awled9dwo4qq2yv2.jpg" alt="" srcset="">
+    </div>
+    <div class="photo-button">
+      <button>Dodaj fotografiju</button>
+    </div>
+    <div class="user-info">
+      <hr>
+      <div class="order-num">
+        <p>Broj narudzbi:</p>
+        <p>20</p>
+      </div>
+      <hr>
+      <div class="user-status">
+        <p>Status: </p>
+        <p>Korisnik</p>
+      </div>
+      <hr>
+    </div>
+  </div>
+  <div class="right-side" *ngFor="let k of podaciLogKorisnik">
+    <div class="title">
+      <h2>Dobrodošli na vaš račun</h2>
+    </div>
+    <div class="text">
+      <p>Postavke računa</p>
+      <hr>
+    </div>
+    <div class="user-inputs">
+      <div class="left-inputs">
+        <div class="form-group">
+          <label for="ime">Ime</label>
+          <input type="text" class="form-control" id="ime" disabled [value]="k.ime">
+        </div>
+        <div class="form-group">
+          <label for="prezime">Prezime</label>
+          <input type="text" class="form-control" id="prezime" disabled [value]="k.prezime">
+        </div>
+        <div class="form-group">
+          <label for="korisnickoime">Korisnicko ime</label>
+          <input type="text" class="form-control" id="korisnickoime" disabled [value]="k.korisnickoIme">
+        </div>
+      </div>
+      <div class="right-inputs">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" disabled [value]="k.email">
+        </div>
+        <div class="form-group">
+          <label for="datumRodjenja">Datum rodjenja</label>
+          <input type="text" class="form-control" id="datumRodjenja" disabled [value]="k.datumRodjenja.substring(0,k.datumRodjenja.indexOf('T'))">
+        </div>
+      </div>
+    </div>
+    <button class="button">Izmjeni</button>
+  </div>
+</div>

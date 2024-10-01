@@ -4,6 +4,7 @@ import {IgriceComponent} from "./Komponente/igrice/igrice.component";
 import {DetaljiIgriceComponent} from "./Komponente/detalji-igrice/detalji-igrice.component";
 import {PocetnaComponent} from "./Komponente/pocetna/pocetna.component";
 import {PrijavaComponent} from "./Komponente/prijava/prijava.component";
+import {KorisnikComponent} from "./Komponente/korisnik/korisnik.component";
 
 export const routes: Routes = [
   {path: '',redirectTo:'/pocetna',pathMatch:'full'},
@@ -12,4 +13,5 @@ export const routes: Routes = [
   {path:'detalji-igrice/:id',component:DetaljiIgriceComponent},
   {path:'pocetna',component: PocetnaComponent},
   {path:'prijava', component:PrijavaComponent},
+  {path:'korisnik', component:KorisnikComponent},
 ];

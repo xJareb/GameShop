@@ -25,7 +25,8 @@ namespace GameShop.Endpoint.Korisnik.PregledLog
                 //KorisnickiNalog = x.KNalog,
                 KorisnickoIme = x.KNalog.KorisnickoIme,
                 Email = x.KNalog.Email,
-                DatumRodjenja = x.KNalog.DatumRodjenja
+                DatumRodjenja = x.KNalog.DatumRodjenja,
+                Slika = x.Slika 
             }).ToListAsync();
 
             return new KorisnikPregledLogResponse()

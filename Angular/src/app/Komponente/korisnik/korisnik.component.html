@@ -3,14 +3,15 @@
   <p>></p>
   <p routerLink="/korisnik" class="single-route">Korisnik</p>
 </div>
-<div class="main">
+<div class="main" *ngFor="let k of podaciLogKorisnik">
   <div class="left-side">
     <div class="photo">
-      <img src="https://wallpapers.com/images/hd/cool-profile-picture-awled9dwo4qq2yv2.jpg" alt="" srcset="">
+      <img [src]="'data:image/jpeg;base64,' + k.slika" alt="" srcset="">
     </div>
-    <div class="photo-button">
-      <button>Dodaj fotografiju</button>
-    </div>
+    <form (submit)="onSubmit()" enctype="multipart/form-data">
+      <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+      <button type="submit">Ažuriraj sliku</button>
+    </form>
     <div class="user-info">
       <hr>
       <div class="order-num">
@@ -25,7 +26,7 @@
       <hr>
     </div>
   </div>
-  <div class="right-side" *ngFor="let k of podaciLogKorisnik">
+  <div class="right-side" >
     <div class="title">
       <h2>Dobrodošli na vaš račun</h2>
     </div>
@@ -59,6 +60,12 @@
         </div>
       </div>
     </div>
-    <button class="button">Izmjeni</button>
+    <button class="button" (click)="pripremiPodatke(k);prikazUredi = true">Izmjeni</button>
   </div>
 </div>
+
+<app-uredi-korisnika *ngIf="prikazUredi"
+(otvori)="this.otvaranjeUredi($event)"
+[ime] = "pripremljeniPodaci!.ime"
+[prezime]="pripremljeniPodaci!.prezime"
+[email]="pripremljeniPodaci!.email"></app-uredi-korisnika>

@@ -1,0 +1,62 @@
+.main{
+  width: 80%;
+  height: 75vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #5a5f63;
+}
+.left-side{
+  width: 30%;
+  height: 95%;
+  border-radius: 15px;
+  background-color: #829093;
+}
+.photo img{
+  width: 15vh;
+  height: 15vh;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+  display: block;
+  border-radius: 50%;
+}
+.right-side{
+  width: 60%;
+  height: 95%;
+  border-radius: 15px;
+  background-color: #829093;
+  overflow-y: hidden;
+}
+.user-info{
+  margin-top: 2vh;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  color: #ffffff;
+}
+.username, .email{
+  display: flex;
+  justify-content: space-between;
+}
+.username p, .email p{
+  margin-left: 2%;
+  margin-right: 2%;
+}
+.customTable{
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3%;
+}
+.title{
+  margin-top: 4vh;
+}
+.right-side:hover{
+  overflow-y: scroll;
+}

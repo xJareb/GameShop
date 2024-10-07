@@ -12,6 +12,7 @@ namespace GameShop.Data.Models
         public DateTime DatumRodjenja {  get; set; }
         public bool isAdmin { get; set; }
         public bool isKorisnik { get; set; }
+        public bool isDeleted {  get; set; } = false;
 
     }
 }

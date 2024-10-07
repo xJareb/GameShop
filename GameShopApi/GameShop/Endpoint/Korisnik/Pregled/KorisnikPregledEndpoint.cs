@@ -17,7 +17,7 @@ namespace GameShop.Endpoint.Korisnik.Pregled
         [HttpGet("PregledSvih")]
         public override async Task<KorisnikPregledResponse> Obradi([FromQuery]NoRequest request, CancellationToken cancellationToken = default)
         {
-            var korisnici = await _applicationDbContext.Korisnik.Include(kn => kn.KNalog).Where(k => k.KNalog.isKorisnik == true).Select(x => new KorisnikPregledResponseKorisnik()
+            var korisnici = await _applicationDbContext.Korisnik.Include(kn => kn.KNalog).Where(k => k.KNalog.isKorisnik == true && k.KNalog.isDeleted == false).Select(x => new KorisnikPregledResponseKorisnik()
             {
                 ID = x.Id,
                 Ime = x.Ime,

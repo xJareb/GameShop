@@ -1,3 +1,15 @@
+.route{
+  display: flex;
+  margin-left: 20vh;
+  margin-top: 7vh;
+}
+.route p{
+  padding: 0.5%;
+}
+.single-route:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
 .main{
   width: 80%;
   height: 75vh;

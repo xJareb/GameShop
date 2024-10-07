@@ -38,4 +38,18 @@ export class AdminComponent implements OnInit{
         })
     }
 
+  obrisiKorisnika(lk: Korisnici) {
+    let id = lk.id;
+
+    let url = MojConfig.adresa_servera + `/ObrisiKorisnika?ID=${id}`;
+    this.httpClient.put(url,{}).subscribe({
+      next:(response)=> {
+        alert('Uspješno obrisan korisnik');
+        window.location.reload();
+      },
+      error:(error)=>{
+        alert('Došlo je do pogreške');
+      }
+      })
+  }
 }

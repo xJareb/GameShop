@@ -13,6 +13,7 @@ namespace GameShop.Data.Models
         public bool isAdmin { get; set; }
         public bool isKorisnik { get; set; }
         public bool isDeleted {  get; set; } = false;
+        public bool isBlackList { get; set; } = false;
 
     }
 }

@@ -21,7 +21,13 @@ namespace GameShop.Endpoint.Korisnik.Obrisi
             if(korisnik == null)
                 throw new Exception("Korisnik nije pronadjen za id: " + request.ID);
 
-            korisnik.KNalog.isDeleted = true;
+            if(request.isBlackList == false){
+                korisnik.KNalog.isDeleted = true;
+            }
+            else{
+                korisnik.KNalog.isBlackList = true;
+            }
+            
 
             _applicationDbContext.Update(korisnik);
             await _applicationDbContext.SaveChangesAsync();

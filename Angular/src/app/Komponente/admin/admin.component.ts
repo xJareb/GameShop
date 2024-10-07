@@ -41,7 +41,7 @@ export class AdminComponent implements OnInit{
   obrisiKorisnika(lk: Korisnici) {
     let id = lk.id;
 
-    let url = MojConfig.adresa_servera + `/ObrisiKorisnika?ID=${id}`;
+    let url = MojConfig.adresa_servera + `/ObrisiKorisnika?ID=${id}&isBlackList=false`;
     this.httpClient.put(url,{}).subscribe({
       next:(response)=> {
         alert('Uspješno obrisan korisnik');
@@ -51,5 +51,20 @@ export class AdminComponent implements OnInit{
         alert('Došlo je do pogreške');
       }
       })
+  }
+
+  crnaListaKorisnika(lk: Korisnici) {
+    let id = lk.id;
+    let url = MojConfig.adresa_servera + `/ObrisiKorisnika?ID=${id}&isBlackList=true`;
+
+    this.httpClient.put(url,{}).subscribe({
+      next:(response)=>{
+        alert('Uspješno blacklistan korisnik');
+        window.location.reload();
+      },
+      error:(error)=>{
+        alert('Došlo je do pogreske');
+      }
+    })
   }
 }

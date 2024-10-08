@@ -5,9 +5,10 @@ import {FormsModule} from "@angular/forms";
 import {CommonModule, NgForOf, NgIf} from "@angular/common";
 import {Korisnik, LogiraniKorisnik} from "./logirani-korisnik";
 import {DetaljiIgrice} from "../detalji-igrice/detalji-igrice";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {UrediKorisnikaComponent} from "./uredi-korisnika/uredi-korisnika.component";
 import {AzurirajKorisnika} from "./azuriraj-korisnika";
+import {MyAuthServiceService} from "../../Servis/my-auth-service.service";
 
 @Component({
   selector: 'app-korisnik',
@@ -24,28 +25,27 @@ export class KorisnikComponent implements OnInit{
 
     public selectedFile:File |null = null;
 
-    constructor(public httpClient:HttpClient) {
+    constructor(public httpClient:HttpClient,public authService:MyAuthServiceService,public router:Router) {
     }
     ngOnInit(): void {
+        if(!this.authService.jelKorisnik()){
+          this.router.navigate(["/"]);
+        }
+        else{
+          let id = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnickiNalog.id;
+          let url = MojConfig.adresa_servera + `/PregledLog?LogiraniKorisnikID=${id}`;
 
-        let id = this.dohvatiKorisnika().autentifikacijaToken.korisnickiNalog.id;
-        let url = MojConfig.adresa_servera + `/PregledLog?LogiraniKorisnikID=${id}`;
-
-        this.httpClient.get<LogiraniKorisnik>(url).subscribe((x:LogiraniKorisnik)=>{
-          this.podaciLogKorisnik = x.korisnik;
-        })
+          this.httpClient.get<LogiraniKorisnik>(url).subscribe((x:LogiraniKorisnik)=>{
+            this.podaciLogKorisnik = x.korisnik;
+          })
+        }
     }
-    dohvatiKorisnika(){
-      return JSON.parse(window.localStorage.getItem("korisnik")??"");
-    }
-
   pripremiPodatke(k: Korisnik) {
       this.pripremljeniPodaci = {
         ime: k.ime,
         prezime: k.prezime,
         email: k.email
       }
-      //console.log(this.pripremljeniPodaci);
   }
   otvaranjeUredi($event : boolean)
   {

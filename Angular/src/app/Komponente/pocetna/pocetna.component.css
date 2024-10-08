@@ -24,8 +24,6 @@
 .col{
   background-color: aliceblue;
 }
-
-
 .results{
   margin-top: 1%;
   min-width: 29%;
@@ -39,7 +37,6 @@
   margin-top: 1%;
   margin-bottom: 1%;
   cursor: pointer;
-
 }
 .left{
   display: flex;
@@ -78,4 +75,25 @@
 }
 #exampleModalLive{
   background-color: black;
+}
+.navigation p{
+  text-align: center;
+  margin:0;
+  padding: 1%;
+}
+.navigation{
+  display: flex;
+  justify-content: center;
+  background-color: aliceblue;
+}
+.navigation p:hover{
+  background-color: orange;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.odjava{
+  display: none;
+}
+.user:hover .odjava{
+  display: block;
 }

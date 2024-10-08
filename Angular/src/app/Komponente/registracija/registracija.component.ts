@@ -5,6 +5,7 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MojConfig} from "../../moj-config";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {MyAuthServiceService} from "../../Servis/my-auth-service.service";
 
 @Component({
   selector: 'app-registracija',
@@ -26,7 +27,7 @@ export class RegistracijaComponent implements OnInit {
 
   userForm: FormGroup;
 
-  constructor(public httpClient: HttpClient, private router: Router) {
+  constructor(public httpClient: HttpClient, private router: Router,public authService:MyAuthServiceService) {
     this.userForm = new FormGroup({
       ime: new FormControl("", [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])[A-Za-z]{4,}$/)]),
       prezime: new FormControl("", [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])[A-Za-z]{4,}$/)]),
@@ -38,6 +39,9 @@ export class RegistracijaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.authService.jelLogiran()){
+      this.router.navigate(['/']);
+    }
   }
 
   kreirajKorisnika() {

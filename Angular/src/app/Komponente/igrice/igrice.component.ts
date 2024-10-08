@@ -10,6 +10,7 @@ import {filter} from "rxjs";
 import {UrediIgricuComponent} from "./uredi-igricu/uredi-igricu.component";
 import {UrediIgricu} from "./uredi-igricu";
 import {DodajIgricuComponent} from "./dodaj-igricu/dodaj-igricu.component";
+import {MyAuthServiceService} from "../../Servis/my-auth-service.service";
 
 @Component({
   selector: 'app-igrice',
@@ -40,7 +41,7 @@ export class IgriceComponent implements OnInit{
   sort:any;
   prikazUredi:boolean = false;
   prikazDodaj: boolean = false;
-  constructor(public httpClient:HttpClient,private router:Router) {
+  constructor(public httpClient:HttpClient,private router:Router,public authService:MyAuthServiceService) {
   }
   ngOnInit(): void {
     this.filter(0,1,250);

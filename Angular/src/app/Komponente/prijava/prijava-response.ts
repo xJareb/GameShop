@@ -20,4 +20,6 @@ export interface KorisnickiNalog {
   datumRodjenja: string
   isAdmin: boolean
   isKorisnik: boolean
+  isDeleted:boolean
+  isBlackList:boolean
 }

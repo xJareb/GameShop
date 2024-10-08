@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace GameShop.Endpoint.Korisnik.Pregled
 {
     [Tags("Korisnik")]
-    public class KorisnikPregledEndpoint : MyBaseEndpoint<NoRequest, KorisnikPregledResponse>
+    public class KorisnikPregledEndpoint : MyBaseEndpoint<KorisnikPregledRequest, KorisnikPregledResponse>
     {
         private readonly ApplicationDbContext _applicationDbContext;
 
@@ -15,9 +15,9 @@ namespace GameShop.Endpoint.Korisnik.Pregled
             _applicationDbContext = applicationDbContext;
         }
         [HttpGet("PregledSvih")]
-        public override async Task<KorisnikPregledResponse> Obradi([FromQuery]NoRequest request, CancellationToken cancellationToken = default)
+        public override async Task<KorisnikPregledResponse> Obradi([FromQuery] KorisnikPregledRequest request, CancellationToken cancellationToken = default)
         {
-            var korisnici = await _applicationDbContext.Korisnik.Include(kn => kn.KNalog).Where(k => k.KNalog.isKorisnik == true && k.KNalog.isDeleted == false && k.KNalog.isBlackList == false).Select(x => new KorisnikPregledResponseKorisnik()
+            var korisnici = await _applicationDbContext.Korisnik.Include(kn => kn.KNalog).Where(k => k.KNalog.isKorisnik == true && k.KNalog.isDeleted == false && k.KNalog.isBlackList == request.isBlackList).Select(x => new KorisnikPregledResponseKorisnik()
             {
                 ID = x.Id,
                 Ime = x.Ime,

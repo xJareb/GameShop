@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="col">
-      <div class="user" routerLink="/prijava">
+      <div class="user" (click)="idiNaStranicu()">
         <div class="svg">
           <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
@@ -36,12 +36,16 @@
         <div class="text">
           <p>{{ime}}</p>
         </div>
-       <div class="odjava">
+       <div class="odjava" *ngIf="authService.jelLogiran()">
          <button (click)="odjaviSe()">Odjava</button>
        </div>
       </div>
     </div>
   </div>
+</div>
+<div class="navigation">
+  <p routerLink="/igrice">Igrice</p>
+  <p>Kontakt</p>
 </div>
 <app-sedmicna-ponuda></app-sedmicna-ponuda>
 

@@ -7,6 +7,8 @@ import {ListaIgrica} from "../igrice/lista-igrica";
 import {Router, RouterLink} from "@angular/router";
 import {SedmicnaPonudaComponent} from "../sedmicna-ponuda/sedmicna-ponuda.component";
 import {withNoHttpTransferCache} from "@angular/platform-browser";
+import {MyAuthServiceService} from "../../Servis/my-auth-service.service";
+import {routes} from "../../app.routes";
 
 @Component({
   selector: 'app-pocetna',
@@ -24,7 +26,7 @@ export class PocetnaComponent implements OnInit{
   listaIgrica:any;
   statusModal: boolean = false;
 
-  constructor(public httpClient:HttpClient,private router:Router) {
+  constructor(public httpClient:HttpClient,private router:Router, public authService:MyAuthServiceService) {
   }
   ucitajIgrice($event: Event) {
     // @ts-ignore
@@ -40,14 +42,10 @@ export class PocetnaComponent implements OnInit{
     else{
       this.statusModal = false;
     }
-
   }
-
   ime:any;
   ngOnInit(): void {
-    this.ime = window.localStorage.getItem("ime");
-
-    console.log(this.ime)
+    this.ime = this.authService.prikazImena();
   }
 
   idiNaRutu(li: any) {
@@ -60,9 +58,7 @@ export class PocetnaComponent implements OnInit{
     let korisnik = window.localStorage.getItem("korisnik")??"";
     let ime = window.localStorage.getItem("ime");
 
-    window.localStorage.setItem("my-auth-token","");
     window.localStorage.setItem("korisnik","");
-    window.localStorage.setItem("ime","Prijavi se")
 
 
     let url = MojConfig.adresa_servera + `/Odjavi-se`;
@@ -75,5 +71,16 @@ export class PocetnaComponent implements OnInit{
       alert('Uspješno odjavljen');
       window.location.reload();
     })
+  }
+  idiNaStranicu() {
+    if(!this.authService.jelLogiran()){
+      this.router.navigate(["/prijava"])
+    }
+    if(this.authService.jelLogiran() && this.authService.jelAdmin()){
+      this.router.navigate(["/admin"])
+    }
+    if(this.authService.jelLogiran() && this.authService.jelKorisnik()){
+      this.router.navigate(["/korisnik"])
+    }
   }
 }

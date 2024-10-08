@@ -33,14 +33,14 @@
     </div>
   </div>
   <div class="game-grid">
-    <div class="game-add" (click)="prikazDodaj = true">
+    <div class="game-add" (click)="prikazDodaj = true" *ngIf="authService.jelAdmin()">
       <p class="icon">&#43;</p>
       <div class="title">
         <p>Dodaj novu igricu</p>
       </div>
     </div>
       <div class="game-item" *ngFor="let li of listaIgrica">
-        <div class="game-control">
+        <div class="game-control" *ngIf="authService.jelAdmin()">
           <button (click)="pripremiPodatke(li);prikazUredi = true">Uredi</button>
           <button (click)="obirisiIgricu(li)">Obrisi</button>
           <button (click)="izdvojiIgricu(li)">Izdvoji</button>

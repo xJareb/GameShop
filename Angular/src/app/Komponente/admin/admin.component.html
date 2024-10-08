@@ -4,27 +4,27 @@
   <p routerLink="/admin" class="single-route">Admin</p>
 </div>
 <div class="main">
-  <div class="left-side">
+  <div class="left-side" *ngFor="let ap of adminPodaci">
     <div class="photo">
-      <img>
+      <img [src]="'data:image/jpeg;base64,' + ap.slika" alt="" srcset="">
     </div>
-    <form enctype="multipart/form-data">
-      <input type="file" accept="image/*" />
+    <form (submit)="onSubmit()" enctype="multipart/form-data">
+      <input type="file" (change)="onFileSelected($event)" accept="image/*" />
       <button type="submit">Ažuriraj sliku</button>
     </form>
     <div class="user-info">
       <div class="user">
-        <h3 style="text-align: center">Admir Jareb</h3>
+        <h3 style="text-align: center">{{ap.ime}} {{ap.prezime}}</h3>
       </div>
       <hr>
       <div class="username">
         <p>Korisničko ime:</p>
-        <p>NESTO</p>
+        <p>{{ap.korisnickoIme}}</p>
       </div>
       <hr>
       <div class="email">
         <p>Email:</p>
-        <p>nesto.nesto#gmail.com</p>
+        <p>{{ap.email}}</p>
       </div>
       <hr>
     </div>
@@ -33,7 +33,7 @@
     <div class="title">
       <h2 style="text-align: center">Lista korisnika</h2>
     </div>
-    <table class="table customTable" >
+    <table class="table customTable">
       <thead>
       <tr>
         <th scope="col">ID</th>
@@ -66,27 +66,15 @@
         <th scope="col">Prezime</th>
         <th scope="col">Korisnicko ime</th>
         <th scope="col">Email</th>
-        <th scope="col">Akcija</th>
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>twitter</td>
+      <tr *ngFor="let cl of crnaLista">
+        <th scope="row">{{cl.id}}</th>
+        <td>{{cl.ime}}</td>
+        <td>{{cl.prezime }}</td>
+        <td>{{cl.korisnickoIme}}</td>
+        <td>{{cl.email}}</td>
       </tr>
       </tbody>
     </table>

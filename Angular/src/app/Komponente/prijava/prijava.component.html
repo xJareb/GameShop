@@ -19,7 +19,7 @@
         <button type="submit" class="login-button" (click)="prijaviSe()">Prijavi se</button>
         <div class="account-option">
           <div class="account-reg">
-            <p>Nemate još nalog?</p>
+            <p routerLink="/registracija">Nemate još nalog?</p>
           </div>
           <div class="account-pass">
             <p>Zaboravili ste lozinku?</p>
@@ -31,3 +31,8 @@
   <div class="right-container container-dimensions bg-image">
   </div>
 </div>
+
+<app-upozorenje-modal *ngIf="prikazUpozorenje"
+  (otvori)="this.otvaranjeUpozorenja($event)"
+                      [naslov]="naslov"
+[sadrzaj]="sadrzaj"></app-upozorenje-modal>

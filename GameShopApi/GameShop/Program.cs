@@ -1,4 +1,5 @@
 using GameShop.Data;
+using GameShop.Helper;
 using GameShop.Helper.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<MyAuthService>();
+builder.Services.AddTransient<LozinkaHasher>();
 builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();

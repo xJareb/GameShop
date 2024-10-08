@@ -6,6 +6,7 @@ import {PocetnaComponent} from "./Komponente/pocetna/pocetna.component";
 import {PrijavaComponent} from "./Komponente/prijava/prijava.component";
 import {KorisnikComponent} from "./Komponente/korisnik/korisnik.component";
 import {AdminComponent} from "./Komponente/admin/admin.component";
+import {KontaktComponent} from "./Komponente/kontakt/kontakt.component";
 
 export const routes: Routes = [
   {path: '',redirectTo:'/pocetna',pathMatch:'full'},
@@ -16,4 +17,5 @@ export const routes: Routes = [
   {path:'prijava', component:PrijavaComponent},
   {path:'korisnik', component:KorisnikComponent},
   {path: 'admin',component:AdminComponent},
+  {path:'kontakt', component:KontaktComponent},
 ];

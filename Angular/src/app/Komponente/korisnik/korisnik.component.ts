@@ -32,7 +32,7 @@ export class KorisnikComponent implements OnInit{
           this.router.navigate(["/"]);
         }
         else{
-          let id = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnickiNalog.id;
+          let id = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
           let url = MojConfig.adresa_servera + `/PregledLog?LogiraniKorisnikID=${id}`;
 
           this.httpClient.get<LogiraniKorisnik>(url).subscribe((x:LogiraniKorisnik)=>{

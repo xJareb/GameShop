@@ -26,7 +26,7 @@ namespace GameShop.Endpoint.Korisnik.Azuriraj
             korisnik.Prezime = request.Prezime;
             korisnik.KNalog.Email = request.Email;
 
-            if(request.Lozinka == korisnik.KNalog.Lozinka)
+            if(LozinkaHasher.VerifikujLozinku(request.Lozinka,korisnik.KNalog.Lozinka))
             {
                 _applicationDbContext.Update(korisnik);
                 await _applicationDbContext.SaveChangesAsync();

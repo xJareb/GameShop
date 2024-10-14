@@ -6,10 +6,11 @@
 }
 .user{
   display: flex;
-  gap: 10px;
+  gap: 15px;
   position: absolute;
   right: 5vh;
   margin-top: 1.5vh;
+  cursor: pointer;
 }
 .text p{
   font-size: 25px;

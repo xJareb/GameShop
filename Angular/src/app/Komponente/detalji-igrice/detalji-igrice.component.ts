@@ -4,6 +4,7 @@ import {MojConfig} from "../../moj-config";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {DetaljiIgrice} from "./detalji-igrice";
 import {NgForOf} from "@angular/common";
+import {MyAuthServiceService} from "../../Servis/my-auth-service.service";
 
 @Component({
   selector: 'app-detalji-igrice',
@@ -17,7 +18,7 @@ export class DetaljiIgriceComponent implements OnInit{
   igricaID:any;
   detaljiIgrice:any;
 
-  constructor(public activatedRoute:ActivatedRoute,public httpClient:HttpClient) {
+  constructor(public activatedRoute:ActivatedRoute,public httpClient:HttpClient, public authService:MyAuthServiceService) {
   }
   ngOnInit(): void {
     this.igricaID = this.activatedRoute.snapshot.params["id"];
@@ -29,4 +30,22 @@ export class DetaljiIgriceComponent implements OnInit{
 
   }
 
+  dodajUKorpu(di: any) {
+
+    //TODO :: preformulisati endpoint
+    let igricaID = di.id;
+    let korisnikID = this.authService.dohvatiAutorzacijskiToken().autentifikacijaToken.korisnikID;
+
+    let url = MojConfig.adresa_servera + `/DodajUKorpu`;
+
+    let requestBody={
+      "korisnikID": korisnikID,
+      "igricaID": igricaID,
+      "kolicina": 1
+    }
+
+    this.httpClient.post(url,requestBody).subscribe(x=>{
+      alert('Uspješno dodano u korpu');
+    })
+  }
 }

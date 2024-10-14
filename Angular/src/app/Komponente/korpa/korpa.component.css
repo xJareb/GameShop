@@ -116,7 +116,7 @@
   margin-left: auto;
   margin-right: auto;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .game-price-quantity{
   display: flex;
@@ -145,4 +145,7 @@
 }
 .left:hover{
   overflow-y: scroll;
+}
+.game-title{
+  min-width: 30%;
 }

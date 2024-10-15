@@ -1,22 +1,22 @@
 <div class="cart-body">
   <div class="left">
-    <form>
+    <form [formGroup]="userPayment">
       <div class="form-group">
         <label for="brojKartice">Broj kartice</label>
-        <input type="text" class="form-control" id="brojKartice" placeholder="•••• •••• •••• ••••">
+        <input type="text" class="form-control" id="brojKartice" formControlName="brojKartice" placeholder="•••• •••• •••• ••••" (input)="restrikcijaUnosaSlova($event)" [ngStyle]="postaviStil('brojKartice')" maxlength="16">
       </div>
       <div class="form-group">
         <label for="imeprezime">Ime i prezime</label>
-        <input type="text" class="form-control" id="imeprezime" placeholder="Ime Prezime">
+        <input type="text" class="form-control" id="imeprezime" formControlName="imePrezime" placeholder="Ime Prezime" (input)="restrikcijaUnosaBrojeva($event)" [ngStyle]="postaviStil('imePrezime')">
       </div>
       <div class="split-inputs">
         <div class="form-group">
           <label for="datumIsteka">Datum isteka</label>
-          <input type="date" class="form-control" id="datumIsteka">
+          <input type="date" class="form-control" id="datumIsteka" formControlName="datumIsteka" [ngStyle]="postaviStil('datumIsteka')">
         </div>
         <div class="form-group">
           <label for="sigurnosniBroj">Sigurnosni broj</label>
-          <input type="text" class="form-control" id="sigurnosniBroj" placeholder="CVC">
+          <input type="text" class="form-control" id="sigurnosniBroj" placeholder="CVC" formControlName="sigurnosniBroj" [ngStyle]="postaviStil('sigurnosniBroj')">
         </div>
       </div>
       <div class="form-check">
@@ -32,7 +32,8 @@
       <p>Ukupno:</p>
       <span>${{ukupno.toFixed(2)}}</span>
     </div>
-    <button class="pay-button">Plati</button>
+    <button class="pay-button" (click)="placanje()">Plati</button>
     <p class="rules">Klikom na "Plati" potvrđujem da sam pročitao i prihvatio uvjete i pravila privatnosti.</p>
   </div>
 </div>
+j

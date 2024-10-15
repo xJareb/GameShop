@@ -7,6 +7,7 @@ import {MyAuthServiceService} from "../../Servis/my-auth-service.service";
 import {IzlistajKorpu, Korpa} from "./Izlistaj-korpu";
 import {FormsModule} from "@angular/forms";
 import {AzurirajKolicinu} from "./azuriraj-kolicinu";
+import {KorpaPlacanjeComponent} from "./korpa-placanje/korpa-placanje.component";
 
 @Component({
   selector: 'app-korpa',
@@ -16,7 +17,8 @@ import {AzurirajKolicinu} from "./azuriraj-kolicinu";
     NgIf,
     HttpClientModule,
     NgForOf,
-    FormsModule
+    FormsModule,
+    KorpaPlacanjeComponent
   ],
   templateUrl: './korpa.component.html',
   styleUrl: './korpa.component.css'
@@ -29,6 +31,8 @@ export class KorpaComponent implements OnInit{
     public ukupnaPravaCijena:number = 0;
     public razlikaCijena:number = 0;
     public kolicinaRequest:AzurirajKolicinu | null = null;
+    public prelazNaPlacanje:boolean = false;
+    public prikazUredi: boolean = false;
 
     constructor(public httpClient:HttpClient, public authService:MyAuthServiceService) {
 
@@ -79,5 +83,9 @@ export class KorpaComponent implements OnInit{
     this.httpClient.put(url,this.kolicinaRequest).subscribe((x) => {
       this.ucitajKorpu();
     })
+  }
+  otvaranjePlati($event : boolean)
+  {
+    this.prikazUredi = $event;
   }
 }

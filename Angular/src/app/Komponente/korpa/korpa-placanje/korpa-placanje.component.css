@@ -1,0 +1,81 @@
+.cart-body{
+  width: 80%;
+  height: 60vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.left{
+  width: 55%;
+  min-height: 75%;
+  max-height: 75%;
+  border-radius: 15px;
+  background-color: #829093;
+  overflow-y: hidden;
+}
+.right{
+  width: 35%;
+  height: 55%;
+  border-radius: 15px;
+  background-color: #829093;
+}
+form{
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2vh;
+  position: relative;
+}
+.split-inputs{
+  display: flex;
+  justify-content: space-between;
+}
+.split-inputs .form-group{
+  width: 48%;
+}
+.form-group label{
+  padding-top: 0.5%;
+  padding-bottom: 0.5%;
+}
+.form-group input{
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
+}
+.form-check{
+  margin-top: 1.5%;
+}
+.total{
+  font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5vh;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.pay-button{
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 65%;
+  margin-top: 2%;
+  padding:2%;
+}
+.rules{
+  margin-top: 2%;
+  text-align: center;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.back{
+  position: absolute;
+  right: 2px;
+  cursor: pointer;
+}

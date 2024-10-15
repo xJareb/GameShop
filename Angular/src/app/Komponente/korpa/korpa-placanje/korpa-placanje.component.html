@@ -1,0 +1,38 @@
+<div class="cart-body">
+  <div class="left">
+    <form>
+      <div class="form-group">
+        <label for="brojKartice">Broj kartice</label>
+        <input type="text" class="form-control" id="brojKartice" placeholder="•••• •••• •••• ••••">
+      </div>
+      <div class="form-group">
+        <label for="imeprezime">Ime i prezime</label>
+        <input type="text" class="form-control" id="imeprezime" placeholder="Ime Prezime">
+      </div>
+      <div class="split-inputs">
+        <div class="form-group">
+          <label for="datumIsteka">Datum isteka</label>
+          <input type="date" class="form-control" id="datumIsteka">
+        </div>
+        <div class="form-group">
+          <label for="sigurnosniBroj">Sigurnosni broj</label>
+          <input type="text" class="form-control" id="sigurnosniBroj" placeholder="CVC">
+        </div>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Zapamti karticu</label>
+      </div>
+      <p class="back" (click)="zatvori()">Natrag</p>
+    </form>
+
+  </div>
+  <div class="right">
+    <div class="total">
+      <p>Ukupno:</p>
+      <span>${{ukupno.toFixed(2)}}</span>
+    </div>
+    <button class="pay-button">Plati</button>
+    <p class="rules">Klikom na "Plati" potvrđujem da sam pročitao i prihvatio uvjete i pravila privatnosti.</p>
+  </div>
+</div>

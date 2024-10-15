@@ -25,7 +25,7 @@
   <p>></p>
   <p routerLink="/korpa" class="single-route">Korpa</p>
 </div>
-<div class="cart-body">
+<div class="cart-body" *ngIf="!prikazUredi">
     <div class="left">
       <div class="default-position" *ngIf="pocetnoStanje">
         <div class="image">
@@ -87,7 +87,12 @@
             <p>Ukupno:</p>
             <span>${{ukupnaAkcijskaCijena.toFixed(2)}}</span>
           </div>
-          <button [disabled]="pocetnoStanje">Idi na placanje ></button>
+          <button  (click)="prikazUredi = true">Idi na placanje ></button>
         </div>
       </div>
 </div>
+
+<app-korpa-placanje
+  *ngIf="prikazUredi"
+  (otvori)="this.otvaranjePlati($event)"
+  [ukupno]="ukupnaAkcijskaCijena"></app-korpa-placanje>

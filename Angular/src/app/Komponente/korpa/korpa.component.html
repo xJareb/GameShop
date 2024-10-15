@@ -63,7 +63,7 @@
                 <p>${{lk.akcijskaCijena}}</p>
               </div>
                 <div class="quantity">
-                  <select>
+                  <select (change)="azurirajKolicinu(lk, $event)">
                     <option *ngFor="let num of [1, 2, 3, 4, 5]" [value]="num" [selected]="num == lk.kolicina">
                       {{ num }}
                     </option>

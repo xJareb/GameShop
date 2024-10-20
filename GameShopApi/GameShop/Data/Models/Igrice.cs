@@ -19,5 +19,6 @@ namespace GameShop.Data.Models
         public float PostotakAkcije { get; set; }
         public float? AkcijskaCijena {  get; set; }
         public bool Izdvojeno { get; set; } = false;
+        public List<Kupovine> Kupovine { get; set; } = new List<Kupovine>();
     }
 }

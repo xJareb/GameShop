@@ -3,7 +3,7 @@
     <form [formGroup]="userPayment">
       <div class="form-group">
         <label for="brojKartice">Broj kartice</label>
-        <input type="text" class="form-control" id="brojKartice" formControlName="brojKartice" placeholder="•••• •••• •••• ••••" (input)="restrikcijaUnosaSlova($event)" [ngStyle]="postaviStil('brojKartice')" maxlength="16">
+        <input type="text" class="form-control" id="brojKartice" formControlName="brojKartice" placeholder="•••• •••• •••• ••••" (input)="restrikcijaUnosaSlova($event)" [ngStyle]="postaviStil('brojKartice')" maxlength="16" [(ngModel)]="ngBrojKartice">
       </div>
       <div class="form-group">
         <label for="imeprezime">Ime i prezime</label>
@@ -12,7 +12,7 @@
       <div class="split-inputs">
         <div class="form-group">
           <label for="datumIsteka">Datum isteka</label>
-          <input type="date" class="form-control" id="datumIsteka" formControlName="datumIsteka" [ngStyle]="postaviStil('datumIsteka')">
+          <input type="date" class="form-control" id="datumIsteka" formControlName="datumIsteka" [ngStyle]="postaviStil('datumIsteka')" [(ngModel)]="ngDatumIsteka">
         </div>
         <div class="form-group">
           <label for="sigurnosniBroj">Sigurnosni broj</label>

@@ -1,7 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgForOf, NgIf, NgStyle} from "@angular/common";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {RouterLink} from "@angular/router";
+import {Route, Router, RouterLink} from "@angular/router";
+import {MojConfig} from "../../../moj-config";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {MyAuthServiceService} from "../../../Servis/my-auth-service.service";
+import {KreditnaKarticaRequest} from "./kreditna-kartica-request";
+import {KupovinaRequest} from "./kupovina-request";
 
 @Component({
   selector: 'app-korpa-placanje',
@@ -11,7 +16,8 @@ import {RouterLink} from "@angular/router";
     NgIf,
     ReactiveFormsModule,
     RouterLink,
-    NgStyle
+    NgStyle,
+    HttpClientModule
   ],
   templateUrl: './korpa-placanje.component.html',
   styleUrl: './korpa-placanje.component.css'
@@ -22,9 +28,14 @@ export class KorpaPlacanjeComponent implements OnInit{
     @Output() otvori = new EventEmitter<boolean>();
     private prikaz: boolean = true;
 
+    public kreditnaKartica :KreditnaKarticaRequest | null = null;
+    public korisnikKupovina: KupovinaRequest | null = null;
+    ngBrojKartice:any;
+    ngDatumIsteka:any;
+
     userPayment : FormGroup;
 
-    constructor() {
+    constructor(public httpClient:HttpClient,public authService:MyAuthServiceService,public route:Router) {
       this.userPayment = new FormGroup({
         brojKartice: new FormControl("",[Validators.required,Validators.pattern(/^\d{16}$/)]),
         imePrezime: new FormControl("",[Validators.required,Validators.pattern(/^[A-Z][a-z]+ [A-Z][a-z]+$/)]),
@@ -62,12 +73,9 @@ export class KorpaPlacanjeComponent implements OnInit{
     if(validnaForma){
       if(this.cekiranoPamcenje()){
         // TODO :: pozvati endpoint za spremanje kartice u bazu (sifrirano)
-        alert('Placanje sa spremanjem')
-      }else{
-        // TODO :: sadrzaj korpe spremiti u tabelu za transakcije
-        alert('Placanje')
+        this.sacuvajKreditnuKarticu()
       }
-
+      this.napraviKupnju();
     }
   }
   restrikcijaUnosaSlova(event:Event){
@@ -78,5 +86,39 @@ export class KorpaPlacanjeComponent implements OnInit{
     const unos = event.target as HTMLInputElement;
     unos.value = unos.value.replace(/[^a-zA-Z ]/g, '')
   }
+  napraviKupnju(){
+      let url = MojConfig.adresa_servera + `/DodajKupovinu`;
+      let korisnikID = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
 
+      this.korisnikKupovina = {
+        korisnikID:korisnikID
+      }
+
+      this.httpClient.post(url,this.korisnikKupovina).subscribe(x=>{
+        this.obrisiOpsegKorpe();
+        this.route.navigate(['/']);
+      })
+  }
+  sacuvajKreditnuKarticu(){
+      let url = MojConfig.adresa_servera + `/DodajKarticu`;
+      let korisnikID = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
+
+      this.kreditnaKartica = {
+        brojKartice: this.ngBrojKartice,
+        datumIsteka: this.ngDatumIsteka,
+        korisnikID: korisnikID
+      }
+
+      this.httpClient.post(url,this.kreditnaKartica).subscribe(x=>{
+        alert('Sacuvana kartica');
+      })
+  }
+  obrisiOpsegKorpe(){
+      let korisnikID = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
+      let url = MojConfig.adresa_servera + `/ObrisiKorpuKorisnika?KorisnikID=${korisnikID}`;
+
+      this.httpClient.delete(url).subscribe(x=>{
+
+      })
+  }
 }

@@ -12,6 +12,7 @@ namespace GameShop.Data
         public DbSet<AutentifikacijaToken> AutentifikacijaToken { get; set; }
         public DbSet<Korpa> Korpa { get; set; }
         public DbSet<Kartica> Kartica { get; set; }
+        public DbSet<Kupovine> Kupovine { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options) : base(options)

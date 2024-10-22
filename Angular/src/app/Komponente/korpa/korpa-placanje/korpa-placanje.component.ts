@@ -72,7 +72,6 @@ export class KorpaPlacanjeComponent implements OnInit{
     const validnaForma = this.userPayment.valid;
     if(validnaForma){
       if(this.cekiranoPamcenje()){
-        // TODO :: pozvati endpoint za spremanje kartice u bazu (sifrirano)
         this.sacuvajKreditnuKarticu()
       }
       this.napraviKupnju();

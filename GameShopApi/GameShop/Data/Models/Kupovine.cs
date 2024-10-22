@@ -14,3 +14,4 @@ namespace GameShop.Data.Models
         public Korisnik Korisnik { get; set; }
     }
 }
+

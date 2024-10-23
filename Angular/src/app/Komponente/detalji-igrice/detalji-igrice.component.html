@@ -29,6 +29,7 @@
     </div>
     <div class="add-to-cart">
       <button (click)="dodajUKorpu(di)">Dodaj u korpu</button>
+      <button (click)="pripremiPodatke(di);prikazFormeZaRecenziju = true">Ostavi recenziju</button>
     </div>
   </div>
   <div class="game-price">
@@ -37,3 +38,6 @@
     <p class="final-price">${{di.akcijskaCijena}}</p>
   </div>
 </div>
+<app-recenzija *ngIf="prikazFormeZaRecenziju"
+(otvori)="otvaranjeFormeZaRecenziju($event)"
+[igricaID]="igricaID"></app-recenzija>

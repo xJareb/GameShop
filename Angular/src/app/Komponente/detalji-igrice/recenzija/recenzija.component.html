@@ -1,0 +1,28 @@
+<div id="exampleModalCenter" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="padding-right: 15px; display: block;">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Ostavi recenziju</h5>
+        <button  class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="zatvori()"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+
+            <ngb-rating [(rate)]="rating" />
+            <hr />
+            <pre>Ocjena: <b>{{ rating }}</b></pre>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Sadržaj:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="zatvori()">Odustani</button>
+        <button type="button" class="btn btn-primary" (click)="ostaviRecenziju()">Nastavi</button>
+      </div>
+    </div>
+  </div>
+</div>

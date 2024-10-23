@@ -22,7 +22,7 @@ namespace GameShop.Endpoint.Kupovina.Pretrazi
             {
                 ID = x.Id,
                 DatumKupovine = x.DatumKupovine,
-                KorisnikID = x.KorisnikID,
+                Korisnik = x.Korisnik.KNalog.KorisnickoIme,
                 Igrice = x.Igrice.Select(i=>new KupljeneIgrice
                 {
                     ID = i.Id,

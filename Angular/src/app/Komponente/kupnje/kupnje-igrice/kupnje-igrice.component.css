@@ -1,0 +1,20 @@
+#exampleModalCenter{
+  background-color: rgba(0, 0, 0, 0.75);
+}
+.igrice{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  align-items: center;
+}
+.image img{
+  min-width: 100px;
+  max-width: 100px;
+  min-height: 70px;
+  max-height: 70px;
+  border-radius: 7px;
+}
+.price p{
+  font-size: 22px;
+}

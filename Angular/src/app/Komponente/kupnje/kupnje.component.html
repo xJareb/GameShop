@@ -1,0 +1,34 @@
+<div class="route">
+  <p routerLink="" class="single-route">Početna</p>
+  <p>></p>
+  <p routerLink="/kupnje" class="single-route">Kupovine</p>
+</div>
+<div class="body">
+  <div class="title">
+    <h3>Lista kupovina</h3>
+  </div>
+  <table class="table customTable" style="text-align: center">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Datum kupovine</th>
+      <th scope="col">Vrijeme</th>
+      <th scope="col">Korisnik</th>
+      <th scope="col">Igrice</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let k of kupovineResponse">
+      <th scope="row">{{k.id}}</th>
+      <td>{{k.datumKupovine.substring(0,k.datumKupovine.indexOf('T'))}}</td>
+      <td>{{k.datumKupovine.substring(k.datumKupovine.indexOf('T') + 1,k.datumKupovine.indexOf('.'))}}</td>
+      <td>{{k.korisnik}}</td>
+      <td><button (click)="pripremiPodatke(k);prikazPregledaj = true">Pregledaj</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-kupnje-igrice *ngIf="prikazPregledaj"
+(otvori)="this.otvaranjePregled($event)"
+[listaIgrica]="listaIgrica"></app-kupnje-igrice>

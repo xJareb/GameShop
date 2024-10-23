@@ -1,0 +1,23 @@
+<div id="exampleModalCenter" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="padding-right: 15px; display: block;">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Pregled igrica</h5>
+        <button  class="btn-close" data-bs-dismiss="modal"  aria-label="Close" (click)="zatvori()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="igrice" *ngFor="let i of listaIgrica">
+          <div class="image">
+            <img src="{{i.slika}}" alt="">
+          </div>
+          <div class="title">
+            <h3>{{i.naziv}}</h3>
+          </div>
+          <div class="price">
+            <p>${{i.akcijskaCijena}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

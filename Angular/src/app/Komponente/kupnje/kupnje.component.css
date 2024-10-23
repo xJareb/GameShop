@@ -1,0 +1,33 @@
+.route{
+  display: flex;
+  margin-left: 20vh;
+  margin-top: 5vh;
+}
+.route p{
+  padding: 0.5%;
+}
+.single-route:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+.body{
+  width: 80%;
+  height: 60vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+  background-color: gray;
+}
+.customTable{
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.title{
+  text-align: center;
+  margin-top:2%;
+  margin-bottom: 2%;
+  color: white;
+}

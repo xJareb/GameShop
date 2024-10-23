@@ -8,6 +8,7 @@ import {KorisnikComponent} from "./Komponente/korisnik/korisnik.component";
 import {AdminComponent} from "./Komponente/admin/admin.component";
 import {KontaktComponent} from "./Komponente/kontakt/kontakt.component";
 import {KorpaComponent} from "./Komponente/korpa/korpa.component";
+import {KupnjeComponent} from "./Komponente/kupnje/kupnje.component";
 
 export const routes: Routes = [
   {path: '',redirectTo:'/pocetna',pathMatch:'full'},
@@ -20,4 +21,5 @@ export const routes: Routes = [
   {path: 'admin',component:AdminComponent},
   {path:'kontakt', component:KontaktComponent},
   {path:'korpa', component:KorpaComponent},
+  {path:'kupnje', component:KupnjeComponent},
 ];

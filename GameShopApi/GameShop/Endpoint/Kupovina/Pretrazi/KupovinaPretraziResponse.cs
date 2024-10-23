@@ -10,7 +10,7 @@ namespace GameShop.Endpoint.Kupovina.Pretrazi
     {
         public int ID { get; set; }
         public DateTime DatumKupovine { get; set; }
-        public int KorisnikID { get; set; }
+        public string Korisnik { get; set; }
         public List<KupljeneIgrice> Igrice { get; set; }
     }
     public class KupljeneIgrice

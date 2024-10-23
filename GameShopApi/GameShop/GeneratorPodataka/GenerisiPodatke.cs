@@ -53,9 +53,9 @@ namespace GameShop.GeneratorPodataka
 
 
 
-            _applicationDbContext.AddRange(zanrovi);
+           _applicationDbContext.AddRange(zanrovi);
            _applicationDbContext.AddRange(igrice);
-            _applicationDbContext.SaveChanges();
+           _applicationDbContext.SaveChanges();
 
             return Count();
         }

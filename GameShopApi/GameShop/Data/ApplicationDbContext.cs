@@ -13,6 +13,7 @@ namespace GameShop.Data
         public DbSet<Korpa> Korpa { get; set; }
         public DbSet<Kartica> Kartica { get; set; }
         public DbSet<Kupovine> Kupovine { get; set; }
+        public DbSet<Recenzije> Recenzije { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options) : base(options)

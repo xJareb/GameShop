@@ -2,15 +2,18 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {MojConfig} from "../../moj-config";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {DetaljiIgrice} from "./detalji-igrice";
+import {DetaljiIgrice} from "../../Servis/DetaljiIgriceService/detalji-igrice";
 import {NgForOf, NgIf} from "@angular/common";
-import {MyAuthServiceService} from "../../Servis/my-auth-service.service";
+import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
 import {RecenzijaComponent} from "./recenzija/recenzija.component";
+import {NgbRatingModule} from "@ng-bootstrap/ng-bootstrap";
+import {KupovineResponse} from "../kupnje/kupovine-response";
+import {Recenzije, RecenzijeResponse} from "../../Servis/RecenzijeService/recenzije-response";
 
 @Component({
   selector: 'app-detalji-igrice',
   standalone: true,
-  imports: [HttpClientModule, NgForOf, RouterLink, RecenzijaComponent, NgIf],
+  imports: [HttpClientModule, NgForOf, RouterLink, RecenzijaComponent, NgIf, NgbRatingModule],
   templateUrl: './detalji-igrice.component.html',
   styleUrl: './detalji-igrice.component.css'
 })
@@ -18,6 +21,8 @@ export class DetaljiIgriceComponent implements OnInit{
 
   igricaID:any;
   detaljiIgrice:any;
+
+  public listaRecenzija:Recenzije[] = [];
 
 
   public prikazFormeZaRecenziju:boolean = false;
@@ -31,7 +36,7 @@ export class DetaljiIgriceComponent implements OnInit{
     this.httpClient.get<DetaljiIgrice>(url).subscribe(x=>{
       this.detaljiIgrice = x.igrice;
     })
-
+    this.ucitajRecenzije();
   }
 
   dodajUKorpu(di: any) {
@@ -59,5 +64,13 @@ export class DetaljiIgriceComponent implements OnInit{
 
   pripremiPodatke(di: any) {
     this.igricaID = di.id;
+  }
+  ucitajRecenzije(){
+    let url = MojConfig.adresa_servera + `/PrikaziRecenzije?IgricaID=${this.igricaID}`;
+
+    this.httpClient.get<RecenzijeResponse>(url).subscribe(x=>{
+      this.listaRecenzija = x.recenzije
+      console.log(this.listaRecenzija);
+    })
   }
 }

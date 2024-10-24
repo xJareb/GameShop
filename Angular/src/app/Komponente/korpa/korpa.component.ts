@@ -3,7 +3,7 @@ import {RouterLink} from "@angular/router";
 import {NgForOf, NgIf} from "@angular/common";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MojConfig} from "../../moj-config";
-import {MyAuthServiceService} from "../../Servis/my-auth-service.service";
+import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
 import {IzlistajKorpu, Korpa} from "./Izlistaj-korpu";
 import {FormsModule} from "@angular/forms";
 import {AzurirajKolicinu} from "./azuriraj-kolicinu";

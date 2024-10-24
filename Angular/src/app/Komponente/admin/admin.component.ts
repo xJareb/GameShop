@@ -7,7 +7,7 @@ import {Korisnik, LogiraniKorisnik} from "../korisnik/logirani-korisnik";
 import {Korisnici, ListaKorisnika} from "./lista-korisnika";
 import {NgForOf, NgIf} from "@angular/common";
 import {Admin, LogiraniAdmin} from "./logirani-admin";
-import {MyAuthServiceService} from "../../Servis/my-auth-service.service";
+import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
 
 @Component({
   selector: 'app-admin',

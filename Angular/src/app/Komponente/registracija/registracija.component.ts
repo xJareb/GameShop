@@ -5,7 +5,8 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MojConfig} from "../../moj-config";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {MyAuthServiceService} from "../../Servis/my-auth-service.service";
+import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
+import {RegistracijaRequest} from "../../Servis/RegistracijaService/registracija-request";
 
 @Component({
   selector: 'app-registracija',
@@ -24,6 +25,8 @@ import {MyAuthServiceService} from "../../Servis/my-auth-service.service";
   host: { class: 'd-block' }
 })
 export class RegistracijaComponent implements OnInit {
+
+  public noviKorisnik:RegistracijaRequest | null = null;
 
   userForm: FormGroup;
 
@@ -46,7 +49,7 @@ export class RegistracijaComponent implements OnInit {
 
   kreirajKorisnika() {
     let url = MojConfig.adresa_servera + `/Dodaj`;
-    let requestBody = {
+    this.noviKorisnik = {
       "ime": this.userForm.controls['ime'].value,
       "prezime": this.userForm.controls['prezime'].value,
       "korisnickoIme": this.userForm.controls['korisnickoIme'].value,
@@ -57,9 +60,11 @@ export class RegistracijaComponent implements OnInit {
 
     const validnaForma = this.userForm.valid;
     if(validnaForma){
-      this.httpClient.post(url,requestBody).subscribe(x=>{
+      this.httpClient.post(url,this.noviKorisnik).subscribe(x=>{
         this.router.navigate(["/"]);
       })
+    }else{
+      alert('Provjerite ispravnost polja');
     }
   }
 

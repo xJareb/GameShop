@@ -1,38 +1,32 @@
-.game-panel{
+.game-panel, .game-grid{
   width: 90%;
-  min-height: 100vh;
-  margin: auto;
 }
-.route{
-  display: flex;
+.game-panel{
+  min-height: 100vh;
 }
 .route p{
   margin: 0.5%;
-  cursor: pointer;
 }
-.container-route p:hover{
+.container-route p:hover, .category-filter p:hover{
   text-decoration: underline;
 }
 .game-grid{
-  width: 90%;
   height: 80vh;
-  margin: auto;
   justify-content: center;
 }
 .game-grid{
-  display: flex;
   flex-wrap: wrap;
-  margin: auto;
+}
+.game-item, .game-add{
+  width: 30%;
 }
 .game-item{
-  border-radius: 10px;
-  width: 30%;
   position: relative;
   margin: 1%;
 }
 .game-item img{
   width: 100%;
-  border-radius: 10px;
+  border-radius: inherit;
   background-repeat: no-repeat;
   background-size: cover;
   max-height: 25vh;
@@ -41,85 +35,85 @@
 .discount{
   width: 50px;
   height: 25px;
-  background-color: orange;
+  background-color: darkorange;
   position: absolute;
   top: 0;
-  text-align: center;
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 8px;
-  border-top-left-radius: 10px;
+  border-radius: 10px 12px 8px 0;
   font-weight: bold;
   transition: opacity 0.5s ease;
-
+}
+.title{
+  margin-bottom: 2%;
 }
 .details{
-  display: flex;
-  justify-content: space-between;
-  color: black;
   margin-top: 1%;
 }
 .price{
   font-weight: bold;
-}
-.game-item img:hover{
-  transform: scale(1.04);
-  transition: transform 0.3s ease;
-  cursor: pointer;
 }
 .game-item img:hover ~ .discount{
   opacity: 0;
   transition: opacity 0.5s ease;
 }
 .category-filter{
-  display: flex;
-  justify-content: space-between;
-  width: 80%;
-  margin: auto;
   padding: 0.5%;
-}
-.category-filter p:hover{
-  cursor: pointer;
-  text-decoration: underline;
-}
-.price-rangne{
-  display: flex;
 }
 .lastPrice{
   margin-left: 1%;
 }
 .price-rangne input{
-  border-radius: 10px;
-  border: 1px solid black;
-  text-align: center;
   min-width: 100%;
 }
 .filter-grid{
-  display: flex;
-  justify-content: space-between;
-  width: 80%;
-  margin: auto;
+  align-items: center;
 }
 .game-control{
   position: absolute;
-  right: 0;
-}
-.game-control button{
-  border-radius: 10px;
+  right: 5px;
 }
 .game-add{
-  width: 30%;
   height: 30%;
   margin: 1%;
-  border-radius: 10px;
-  border:1px solid black;
-  text-align: center;
+  border:1px solid white;
   transition: transform 0.3s ease;
+}
+.inputs{
+  padding: 0.5vh;
+  background-color: #242424;
+  border: 2px solid #3D3D3D;
 }
 .icon{
   font-size: 5em;
 }
-.game-add:hover {
+.color-white{
+  color: white;
+}
+.flex-div{
+  display: flex;
+}
+.center-div{
+  margin-left: auto;
+  margin-right: auto;
+}
+.content-between{
+  justify-content: space-between;
+}
+.center-text{
+  text-align: center;
+}
+.cursor-pointer:hover{
+  cursor: pointer;
+}
+.margin-auto{
+  margin: auto;
+}
+.transition:hover{
   transform: scale(1.04);
   transition: transform 0.3s ease;
-  cursor: pointer;
+}
+.border-10{
+  border-radius: 10px;
+}
+.w-80{
+  width: 80%;
 }

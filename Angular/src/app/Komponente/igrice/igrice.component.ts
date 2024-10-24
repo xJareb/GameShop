@@ -2,15 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {Router, RouterLink} from "@angular/router";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MojConfig} from "../../moj-config";
-import {Igrice, ListaIgrica} from "./lista-igrica";
-import {NgForOf, NgIf} from "@angular/common";
-import {Zanr} from "./zanr";
+import {Igrice, ListaIgrica} from "../../Servis/IgriceService/lista-igrica";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
+import {Zanr} from "../../Servis/ZanrService/zanr";
 import {FormsModule} from "@angular/forms";
 import {filter} from "rxjs";
 import {UrediIgricuComponent} from "./uredi-igricu/uredi-igricu.component";
-import {UrediIgricu} from "./uredi-igricu";
+import {UrediIgricu} from "../../Servis/IgriceService/uredi-igricu";
 import {DodajIgricuComponent} from "./dodaj-igricu/dodaj-igricu.component";
-import {MyAuthServiceService} from "../../Servis/my-auth-service.service";
+import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
 
 @Component({
   selector: 'app-igrice',
@@ -23,6 +23,7 @@ import {MyAuthServiceService} from "../../Servis/my-auth-service.service";
     FormsModule,
     UrediIgricuComponent,
     DodajIgricuComponent,
+    NgClass,
   ],
   templateUrl: './igrice.component.html',
   styleUrl: './igrice.component.css'

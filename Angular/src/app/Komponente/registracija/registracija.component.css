@@ -2,17 +2,11 @@
   width: 50%;
   height: 100vh;
 }
-.fluid-container{
-  display: flex;
-}
 .bg-image{
   background-image: url("https://images.alphacoders.com/210/210941.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-}
-.container-route{
-  display: flex;
 }
 .container-route p{
   margin: 0.5%;
@@ -22,7 +16,6 @@
   text-decoration: underline;
 }
 .form-inputs{
-  display: flex;
   width: 100%;
   align-items: center;
   justify-content: center;
@@ -35,23 +28,26 @@
   padding: 5%;
   margin-top: 5%;
   margin-bottom: 5%;
+  background-color: #242424;
+  border: 2px solid #3D3D3D;
 }
-.reg-button{
-  margin-left:auto;
-  margin-right: auto;
-  display: block;
-  width: 50%;
-  border-radius: 25px;
-  padding: 1%;
-  border: 0px;
-  background-color: #FF8C00;
+.form-group input::placeholder{
   color: white;
 }
-.reg-button:hover{
-  background-color: #E67A00;
+.form-group input:hover{
+  border: 2px solid orangered;
 }
-form{
+.reg-button{
+  display: block;
+  width: 50%;
+  border-radius: 6px;
+  padding: 1.5%;
+  border: 0px;
+  background: linear-gradient(to right, orangered, orange);
+}
 
+.reg-button:hover{
+  background: linear-gradient(to right, orangered, darkorange);
 }
 form h2{
   margin-left: calc(20%);
@@ -62,4 +58,14 @@ form h2{
 }
 form{
   margin-top: 10%;
+}
+.color-white{
+  color: white;
+}
+.flex-div{
+  display: flex;
+}
+.center-div{
+  margin-left:auto;
+  margin-right: auto;
 }

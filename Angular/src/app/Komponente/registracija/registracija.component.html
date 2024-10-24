@@ -1,41 +1,41 @@
-<div class="fluid-container">
+<div class="fluid-container flex-div">
   <div class="left-container container-dimensions">
-    <div class="container-route">
+    <div class="container-route flex-div color-white">
       <p routerLink="">Početna</p>
       <p>></p>
       <p routerLink="/registracija">Registracija</p>
     </div>
     <div class="registracija-forma">
         <form [formGroup]="userForm">
-          <h2>Registruj se</h2>
-          <div class="form-inputs">
+          <h2 class="color-white">Registruj se</h2>
+          <div class="form-inputs flex-div">
             <div class="left-side">
               <div class="form-group">
-                <input type="text" class="form-control"  placeholder="Ime" formControlName="ime" [ngbTooltip]="tipContentIme" placement="top" [ngStyle]="postaviStil('ime')">
+                <input type="text" class="form-control color-white"  placeholder="Ime" formControlName="ime" [ngbTooltip]="tipContentIme" placement="top" [ngStyle]="postaviStil('ime')">
                 <ng-template #tipContentIme>Vaše ime mora imati najmanje 4 znakova, uključujući veliko početno slovo.</ng-template>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Prezime" formControlName="prezime" [ngbTooltip]="tipContentPrezime" placement="bottom" [ngStyle]="postaviStil('prezime')">
+                <input type="text" class="form-control color-white" placeholder="Prezime" formControlName="prezime" [ngbTooltip]="tipContentPrezime" placement="bottom" [ngStyle]="postaviStil('prezime')">
                 <ng-template #tipContentPrezime>Vaše ime mora imati najmanje 4 znakova, uključujući veliko početno slovo.</ng-template>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Korisničko ime" formControlName="korisnickoIme" [ngStyle]="postaviStil('korisnickoIme')">
+                <input type="text" class="form-control color-white" placeholder="Korisničko ime" formControlName="korisnickoIme" [ngStyle]="postaviStil('korisnickoIme')">
               </div>
             </div>
             <div class="right-side">
               <div class="form-group">
-                <input type="email" class="form-control" placeholder="Email" formControlName="email" [ngStyle]="postaviStil('email')">
+                <input type="email" class="form-control color-white" placeholder="Email" formControlName="email" [ngStyle]="postaviStil('email')">
               </div>
               <div class="form-group">
-                <input type="date" class="form-control" formControlName="datumRodjenja" [ngStyle]="postaviStil('datumRodjenja')">
+                <input type="date" class="form-control color-white" formControlName="datumRodjenja" [ngStyle]="postaviStil('datumRodjenja')">
               </div>
               <div class="form-group">
-                <input type="password" class="form-control" placeholder="Lozinka" [ngbTooltip]="tipContent" placement="right-bottom" formControlName="lozinka" [ngStyle]="postaviStil('lozinka')">
+                <input type="password" class="form-control color-white" placeholder="Lozinka" [ngbTooltip]="tipContent" placement="right-bottom" formControlName="lozinka" [ngStyle]="postaviStil('lozinka')">
                 <ng-template #tipContent>Vaša lozinka mora imati najmanje 7 znakova, uključujući mala i velika slova te brojeve.</ng-template>
               </div>
             </div>
           </div>
-          <button type="button" class="reg-button" (click)="kreirajKorisnika()">Registruj se</button>
+          <button type="button" class="reg-button color-white center-div" (click)="kreirajKorisnika()">Registruj se</button>
         </form>
     </div>
   </div>

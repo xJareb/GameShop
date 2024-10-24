@@ -4,7 +4,7 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {Route, Router, RouterLink} from "@angular/router";
 import {MojConfig} from "../../../moj-config";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {MyAuthServiceService} from "../../../Servis/my-auth-service.service";
+import {MyAuthServiceService} from "../../../Servis/AuthService/my-auth-service.service";
 import {KreditnaKarticaRequest} from "./kreditna-kartica-request";
 import {KupovinaRequest} from "./kupovina-request";
 

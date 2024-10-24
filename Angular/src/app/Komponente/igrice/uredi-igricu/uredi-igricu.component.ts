@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {DetaljiIgrice} from "../../detalji-igrice/detalji-igrice";
+import {DetaljiIgrice} from "../../../Servis/DetaljiIgriceService/detalji-igrice";
 import { FormsModule } from '@angular/forms';
 import {MojConfig} from "../../../moj-config";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {Zanr} from "../zanr";
+import {Zanr} from "../../../Servis/ZanrService/zanr";
 import {NgForOf} from "@angular/common";
-import {UrediIgricu} from "../uredi-igricu";
+import {UrediIgricu} from "../../../Servis/IgriceService/uredi-igricu";
 
 
 @Component({

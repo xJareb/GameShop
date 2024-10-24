@@ -3,8 +3,8 @@ import {NgbRatingModule} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import {HttpClient} from "@angular/common/http";
-import {MyAuthServiceService} from "../../../Servis/my-auth-service.service";
-import {RecenzijaRequest} from "./recenzija-request";
+import {MyAuthServiceService} from "../../../Servis/AuthService/my-auth-service.service";
+import {RecenzijaRequest} from "../../../Servis/RecenzijeService/recenzija-request";
 import {MojConfig} from "../../../moj-config";
 
 @Component({

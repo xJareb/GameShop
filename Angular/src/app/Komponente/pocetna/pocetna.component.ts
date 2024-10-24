@@ -3,11 +3,11 @@ import {NgbPopoverModule} from "@ng-bootstrap/ng-bootstrap";
 import {NgForOf, NgIf} from "@angular/common";
 import {MojConfig} from "../../moj-config";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {ListaIgrica} from "../igrice/lista-igrica";
+import {ListaIgrica} from "../../Servis/IgriceService/lista-igrica";
 import {Router, RouterLink} from "@angular/router";
 import {SedmicnaPonudaComponent} from "../sedmicna-ponuda/sedmicna-ponuda.component";
 import {withNoHttpTransferCache} from "@angular/platform-browser";
-import {MyAuthServiceService} from "../../Servis/my-auth-service.service";
+import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
 import {routes} from "../../app.routes";
 
 @Component({

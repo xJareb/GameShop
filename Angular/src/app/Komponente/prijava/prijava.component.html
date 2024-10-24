@@ -1,23 +1,23 @@
-<div class="fluid-container">
+<div class="fluid-container flex-div">
   <div class="left-container container-dimensions">
-    <div class="container-route">
+    <div class="container-route flex-div">
       <p routerLink="">Početna</p>
       <p>></p>
       <p routerLink="/prijava">Prijava</p>
     </div>
     <div class="login-forma">
       <form>
-        <h2>Prijavi se</h2>
+        <h2 class="color-white">Prijavi se</h2>
         <div class="form-inputs">
           <div class="form-group">
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Korisnicko ime" [(ngModel)]="korisnickoIme" [ngModelOptions]="{standalone: true}">
+            <input type="text" class="form-control color-white center-div" id="exampleInputEmail1" placeholder="Korisnicko ime" [(ngModel)]="korisnickoIme" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="form-group">
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Lozinka" [(ngModel)]="lozinka" [ngModelOptions]="{standalone: true}">
+            <input type="password" class="form-control color-white center-div" id="exampleInputPassword1" placeholder="Lozinka" [(ngModel)]="lozinka" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
-        <button type="submit" class="login-button" (click)="prijaviSe()">Prijavi se</button>
-        <div class="account-option">
+        <button type="submit" class="login-button color-white center-div" (click)="prijaviSe()">Prijavi se</button>
+        <div class="account-option color-white flex-div center-div">
           <div class="account-reg">
             <p routerLink="/registracija">Nemate još nalog?</p>
           </div>
@@ -32,7 +32,3 @@
   </div>
 </div>
 
-<app-upozorenje-modal *ngIf="prikazUpozorenje"
-  (otvori)="this.otvaranjeUpozorenja($event)"
-                      [naslov]="naslov"
-[sadrzaj]="sadrzaj"></app-upozorenje-modal>

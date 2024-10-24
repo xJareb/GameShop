@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {AutentifikacijaToken, PrijavaResponse} from "../Komponente/prijava/prijava-response";
+import {AutentifikacijaToken, PrijavaResponse} from "../PrijavaService/prijava-response";
 
 @Injectable({
   providedIn: 'root'

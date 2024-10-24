@@ -3,8 +3,8 @@ import {FormsModule} from "@angular/forms";
 import {NgForOf} from "@angular/common";
 import {MojConfig} from "../../../moj-config";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {Zanr} from "../zanr";
-import {DodajIgricu} from "../dodaj-igricu";
+import {Zanr} from "../../../Servis/ZanrService/zanr";
+import {DodajIgricu} from "../../../Servis/IgriceService/dodaj-igricu";
 
 @Component({
   selector: 'app-dodaj-igricu',

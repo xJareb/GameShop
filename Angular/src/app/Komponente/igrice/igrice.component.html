@@ -1,55 +1,55 @@
-<div class="game-panel">
-  <div class="route">
-    <p routerLink="/">Početna</p>
+<div class="game-panel margin-auto">
+  <div class="route flex-div color-white">
+    <p routerLink="/" class="cursor-pointer">Početna</p>
     <p>></p>
-    <p routerLink="/igrice">Igrice</p>
+    <p routerLink="/igrice" class="cursor-pointer">Igrice</p>
   </div>
-  <div class="title">
+  <div class="title color-white">
     <h2 style="text-align: center">Igrice</h2>
   </div>
-  <div class="category-filter" >
+  <div class="category-filter color-white flex-div content-between cursor-pointer margin-auto w-80">
     <p (click)="zanr=0;filter2(0,pocetnaCijena,zavrsnaCijena,sort)">Sve</p>
     <div class="category" *ngFor="let lz of listaZanrova">
       <p (click)="uzmiZanr(lz);filter2(zanr,pocetnaCijena,zavrsnaCijena,sort)">{{lz.naziv}}</p>
     </div>
   </div>
-  <div class="filter-grid">
-    <div class="price-rangne">
+  <div class="filter-grid color-white flex-div content-between margin-auto w-80">
+    <div class="price-rangne flex-div">
       <div class="firstPrice">
-        <p>Min</p>
-        <input type="number" id="pocetna" (change)="filter2(zanr,pocetnaCijena,zavrsnaCijena,sort)" [value]="pocetnaCijena" [(ngModel)]="pocetnaCijena" min="1" [max]="zavrsnaCijena">
+        <p class="center-text">Min</p>
+        <input type="number" id="pocetna" class="center-text inputs color-white border-10" (change)="filter2(zanr,pocetnaCijena,zavrsnaCijena,sort)" [value]="pocetnaCijena" [(ngModel)]="pocetnaCijena" min="1" [max]="zavrsnaCijena">
       </div>
       <div class="lastPrice">
-        <p>Max</p>
-        <input type="number" id="zavrsna" (change)="filter2(zanr,pocetnaCijena,zavrsnaCijena,sort)" [value]="zavrsnaCijena" [(ngModel)]="zavrsnaCijena" [min]="pocetnaCijena + 1" max="250">
+        <p class="center-text">Max</p>
+        <input type="number" id="zavrsna" class="center-text inputs color-white border-10" (change)="filter2(zanr,pocetnaCijena,zavrsnaCijena,sort)" [value]="zavrsnaCijena" [(ngModel)]="zavrsnaCijena" [min]="pocetnaCijena + 1" max="250">
       </div>
     </div>
     <div class="sorting">
-      <select id="sort" (change)="test();filter2(zanr,pocetnaCijena,zavrsnaCijena,sort)">
+      <select id="sort" class="color-white inputs" (change)="test();filter2(zanr,pocetnaCijena,zavrsnaCijena,sort)">
         <option selected>Relevantno</option>
         <option value="asc" >Naziv: A - Z</option>
         <option value="desc">Naziv: Z - A</option>
       </select>
     </div>
   </div>
-  <div class="game-grid">
-    <div class="game-add" (click)="prikazDodaj = true" *ngIf="authService.jelAdmin()">
+  <div class="game-grid flex-div margin-auto color-white ">
+    <div class="game-add center-text cursor-pointer transition border-10" (click)="prikazDodaj = true" *ngIf="authService.jelAdmin()">
       <p class="icon">&#43;</p>
       <div class="title">
         <p>Dodaj novu igricu</p>
       </div>
     </div>
-      <div class="game-item" *ngFor="let li of listaIgrica">
+      <div class="game-item border-10" *ngFor="let li of listaIgrica">
         <div class="game-control" *ngIf="authService.jelAdmin()">
-          <button (click)="pripremiPodatke(li);prikazUredi = true">Uredi</button>
-          <button (click)="obirisiIgricu(li)">Obrisi</button>
-          <button (click)="izdvojiIgricu(li)">Izdvoji</button>
+          <button (click)="pripremiPodatke(li);prikazUredi = true" class="border-10">Uredi</button>
+          <button (click)="obirisiIgricu(li)" class="border-10">Obrisi</button>
+          <button (click)="izdvojiIgricu(li)" class="border-10">Izdvoji</button>
         </div>
-        <img src="{{li.slika}}" alt="" (click)="idiUDetalje(li)">
-        <div class="discount">-{{li.postotakAkcije}}%</div>
-        <div class="details">
+        <img src="{{li.slika}}" alt="" (click)="idiUDetalje(li)" class="cursor-pointer transition">
+        <div class="discount center-text">-{{li.postotakAkcije}}%</div>
+        <div class="details color-white flex-div content-between">
           <p>{{li.naziv}}</p>
-          <p class="price">${{li.akcijskaCijena}}</p>
+          <p class="price color-white">${{li.akcijskaCijena}}</p>
         </div>
       </div>
   </div>

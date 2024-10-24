@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MojConfig} from "../../moj-config";
-import {Zanr} from "../igrice/zanr";
+import {Zanr} from "../../Servis/ZanrService/zanr";
 import {Kupovine, KupovineResponse} from "./kupovine-response";
 import {NgForOf, NgIf} from "@angular/common";
 import {KupnjeIgriceComponent} from "./kupnje-igrice/kupnje-igrice.component";

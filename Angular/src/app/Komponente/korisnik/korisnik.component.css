@@ -5,94 +5,71 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 15px;
-  display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: #5a5f63;
 }
 .left-side{
   width: 30%;
   height: 95%;
-  border-radius: 15px;
   background-color: #829093;
+}
+.left-side form{
+  display: none;
+}
+.photo:hover form{
+  display: block;
 }
 .right-side{
   width: 60%;
   height: 95%;
-  border-radius: 15px;
   background-color: #829093;
 }
 .photo img{
   width: 15vh;
   height: 15vh;
-  margin-left: auto;
-  margin-right: auto;
   margin-top: 5%;
   display: block;
   border-radius: 50%;
 }
-.photo-button button{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 2%;
-}
 .user-info{
   margin-top: 5vh;
   width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  color: #ffffff;
-}
-.order-num, .user-status{
-  display: flex;
-  justify-content: space-between;
 }
 .order-num p, .user-status p{
-  margin-left: 5%;
-  margin-right: 5%;
+  margin: 0 5%;
   font-size: 18px;
 }
 .title{
   text-align: center;
   margin-top: 2%;
-  color: white;
 }
-
 .user-inputs{
-  display: flex;
   justify-content: space-evenly;
   margin-top: 5%;
 }
 .form-group{
-  margin-top: 2%;
-  margin-bottom: 2%;
+  margin: 2% 0;
+}
+.form-group input:hover{
+  border: 2px solid orangered;
 }
 .left-inputs,.right-inputs{
   width: 40%;
-  color: white;
 }
 .text{
-  margin-left: 5%;
-  margin-top: 7%;
+  margin:4% 0 0 5%;
 }
 .text p{
   font-size: 18px;
-  color: white;
 }
 .text hr{
   max-width: 20%;
-  color: white;
 }
-.button{
-  margin-top: 2%;
-  margin-left: 7%;
+.form-group label{
+  margin:0.5vh;
 }
 .route{
-  display: flex;
-  margin-left: 20vh;
-  margin-top: 7vh;
+  margin: 7vh 0 0 20vh;
 }
 .route p{
   padding: 0.5%;
@@ -100,4 +77,43 @@
 .single-route:hover{
   cursor: pointer;
   text-decoration: underline;
+}
+.color-white{
+  color: white;
+}
+.flex-div{
+  display: flex;
+}
+.center-div{
+  margin-left:auto;
+  margin-right: auto;
+}
+.border-15{
+  border-radius: 15px;
+}
+.content-between{
+  justify-content: space-between;
+}
+.border-color{
+  border: 1px solid gray;
+}
+.primary-background{
+  background-color: #323232;
+}
+.background{
+  background-color: #242424;
+}
+.border-color{
+  border: 2px solid #3D3D3D;
+}
+.button-manage{
+  margin: 2% 0 0 7%;
+  background: linear-gradient(to right, orangered, orange);
+  border: none;
+  border-radius: 7px;
+  width: 10%;
+  padding: 0.3vh
+}
+.button-manage:hover{
+  background: linear-gradient(to right, orangered, darkorange);
 }

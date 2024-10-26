@@ -1,5 +1,9 @@
-.navigation, .game-image img{
+.navigation{
   width: 100%;
+}
+.first-step,.second-step, .third-step{
+  width: 20%;
+  height: 80px;
 }
 .body{
   gap: 20px;
@@ -9,16 +13,7 @@
   padding: 2%;
   min-width: 50px;
   border-radius: 25px;
-}
-.text, .symbol{
-  font-size: 1.5rem;
-}
-.text{
-  padding: 1%;
-}
-.first-step,.second-step, .third-step{
-  width: 20%;
-  height: 80px;
+  text-align: center;
 }
 .route{
   margin:5vh 0 0 20vh;
@@ -38,87 +33,62 @@
   left: 50%;
   transform: translate(-50%, -50%);
   justify-content: space-around;
+  align-items: center;
 }
 .left{
   width: 55%;
   min-height: 75%;
   max-height: 75%;
-  background-color: #829093;
   overflow-y: hidden;
-}
-.left::-webkit-scrollbar{
-  width: 0px;
 }
 .right{
   width: 35%;
   height: 55%;
 }
-.default-position, .body h2 {
-  text-align: center;
+form{
+  width: 80%;
+  margin-top: 2vh;
+  position: relative;
 }
-.default-position{
-  margin-top: 5%;
+.split-inputs .form-group{
+  width: 48%;
 }
-.content{
-  max-width: 70%;
+.form-group label{
+  padding: 0.5% 0;
 }
-.image, .title, .content, .button{
-  margin:1% 0;
+.form-group input{
+  margin:0.5% 0;
 }
-.subtotal-info{
-  width: 65%;
-  display: block;
-  margin-top: 8%;
+.form-group input:hover{
+  border: 2px solid darkorange;
 }
-.official-price, .discount, .subtotal{
-  font-size: 18px;
+.form-group input::placeholder{
+  color: white;
 }
-.subtotal{
+.form-check{
+  margin-top: 1.5%;
+}
+.total{
   font-weight: bold;
   font-size: 20px;
-}
-.subtotal-info button{
-  display: block;
-  width: 80%;
-  height: 5vh;
-}
-.subtotal-info button:disabled{
-  color: black;
-}
-.game{
-  margin-top: 2%;
+  margin-top: 5vh;
   width: 85%;
 }
-.game-price-quantity{
-  gap: 10px;
+.pay-button{
+  display: block;
+  width: 65%;
+  margin-top: 1.5%;
+  padding:2%;
 }
-.quantity{
-  margin-top: -2vh;
-}
-.game-image{
-  width: 120px;
-  height: 100px;
-}
-.game-image img{
-  height: 90%;
-  margin-top: 3%;
-  border-radius: 10px;
-}
-.title p{
+.rules{
   margin-top: 2%;
-  font-size: 1.1rem;
+  text-align: center;
+  max-width: 80%;
 }
-.trash svg{
+.back{
+  position: absolute;
+  right: 2px;
   cursor: pointer;
-}
-.left:hover{
-  overflow-y: scroll;
-}
-.game-title{
-  min-width: 30%;
-}
-.image svg path{
-  fill: white;
 }
 .color-white {
   color: white;
@@ -149,12 +119,10 @@
   background: linear-gradient(to right, orangered, orange);
   border: none;
   border-radius: 7px;
-  padding: 0.5vh;
-  width: 15%;
+
 }
 .button-manage:hover{
   background: linear-gradient(to right, orangered, darkorange);
-  cursor: pointer;
 }
 .content-center{
   justify-content: center;

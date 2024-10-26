@@ -1,66 +1,66 @@
-<div class="route">
+<div class="route color-white flex-div">
   <p routerLink="" class="single-route">Početna</p>
   <p>></p>
   <p routerLink="/korisnik" class="single-route">Korisnik</p>
 </div>
-<div class="main" *ngFor="let k of podaciLogKorisnik">
-  <div class="left-side">
+<div class="main flex-div border-15 background border-color" *ngFor="let k of podaciLogKorisnik">
+  <div class="left-side border-15 primary-background border-color">
     <div class="photo">
-      <img [src]="'data:image/jpeg;base64,' + k.slika" alt="" srcset="">
+      <img [src]="'data:image/jpeg;base64,' + k.slika" alt="" srcset="" class="center-div">
+      <form (submit)="onSubmit()" enctype="multipart/form-data" class="">
+        <input type="file" (change)="onFileSelected($event)" accept="image/*" class="color-white"/>
+        <button type="submit" >Ažuriraj sliku</button>
+      </form>
     </div>
-    <form (submit)="onSubmit()" enctype="multipart/form-data">
-      <input type="file" (change)="onFileSelected($event)" accept="image/*" />
-      <button type="submit">Ažuriraj sliku</button>
-    </form>
-    <div class="user-info">
+    <div class="user-info center-div color-white">
       <hr>
-      <div class="order-num">
+      <div class="order-num flex-div content-between">
         <p>Broj narudzbi:</p>
         <p>20</p>
       </div>
       <hr>
-      <div class="user-status">
+      <div class="user-status flex-div content-between">
         <p>Status: </p>
         <p>Korisnik</p>
       </div>
       <hr>
     </div>
   </div>
-  <div class="right-side" >
-    <div class="title">
+  <div class="right-side border-15 primary-background">
+    <div class="title color-white">
       <h2>Dobrodošli na vaš račun</h2>
     </div>
-    <div class="text">
+    <div class="text color-white">
       <p>Postavke računa</p>
       <hr>
     </div>
-    <div class="user-inputs">
+    <div class="user-inputs flex-div color-white ">
       <div class="left-inputs">
         <div class="form-group">
           <label for="ime">Ime</label>
-          <input type="text" class="form-control" id="ime" disabled [value]="k.ime">
+          <input type="text" class="form-control color-white background border-color" id="ime" disabled [value]="k.ime">
         </div>
         <div class="form-group">
           <label for="prezime">Prezime</label>
-          <input type="text" class="form-control" id="prezime" disabled [value]="k.prezime">
+          <input type="text" class="form-control color-white background border-color" id="prezime" disabled [value]="k.prezime">
         </div>
-        <div class="form-group">
+        <div class="form-group ">
           <label for="korisnickoime">Korisnicko ime</label>
-          <input type="text" class="form-control" id="korisnickoime" disabled [value]="k.korisnickoIme">
+          <input type="text" class="form-control color-white background border-color" id="korisnickoime" disabled [value]="k.korisnickoIme">
         </div>
       </div>
       <div class="right-inputs">
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" disabled [value]="k.email">
+          <input type="email" class="form-control color-white background border-color" id="email" disabled [value]="k.email">
         </div>
         <div class="form-group">
           <label for="datumRodjenja">Datum rodjenja</label>
-          <input type="text" class="form-control" id="datumRodjenja" disabled [value]="k.datumRodjenja.substring(0,k.datumRodjenja.indexOf('T'))">
+          <input type="text" class="form-control color-white background border-color" id="datumRodjenja" disabled [value]="k.datumRodjenja.substring(0,k.datumRodjenja.indexOf('T'))">
         </div>
       </div>
     </div>
-    <button class="button" (click)="pripremiPodatke(k);prikazUredi = true">Izmjeni</button>
+    <button class="color-white button-manage" (click)="pripremiPodatke(k);prikazUredi = true">Izmjeni</button>
   </div>
 </div>
 

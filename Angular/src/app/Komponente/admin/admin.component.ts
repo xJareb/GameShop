@@ -3,10 +3,10 @@ import {Router, RouterLink} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MojConfig} from "../../moj-config";
-import {Korisnik, LogiraniKorisnik} from "../korisnik/logirani-korisnik";
-import {Korisnici, ListaKorisnika} from "./lista-korisnika";
+import {Korisnik, LogiraniKorisnik} from "../../Servis/KorisnikService/logirani-korisnik";
+import {Korisnici, ListaKorisnika} from "../../Servis/AdminService/lista-korisnika";
 import {NgForOf, NgIf} from "@angular/common";
-import {Admin, LogiraniAdmin} from "./logirani-admin";
+import {Admin, LogiraniAdmin} from "../../Servis/AdminService/logirani-admin";
 import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
 
 @Component({

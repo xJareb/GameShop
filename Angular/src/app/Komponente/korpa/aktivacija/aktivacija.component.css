@@ -1,0 +1,69 @@
+.flex-div{
+  display: flex;
+}
+.navigation{
+  width: 100%;
+}
+.content-center{
+  justify-content: center;
+}
+.first-step,.second-step, .third-step{
+  width: 20%;
+  height: 80px;
+}
+.body{
+  gap: 20px;
+  margin-top: 5%;
+}
+.body h2{
+  padding: 2%;
+  min-width: 50px;
+  border-radius: 25px;
+}
+.align-center{
+  align-items: center;
+}
+.default-border{
+  border: 2px solid black;
+}
+.border-step{
+  border: 2px solid darkorange;
+}
+.color-white {
+  color: white;
+}
+.notification{
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.center-text{
+  text-align: center;
+}
+.center-div{
+  margin-left:auto;
+  margin-right: auto;
+}
+.notification p{
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
+  max-width: 50%;
+}
+.button-manage{
+  background: linear-gradient(to right, orangered, orange);
+  border: none;
+  border-radius: 7px;
+  padding: 1vh;
+  width: 20%;
+  display: block;
+}
+.button-manage:hover{
+  background: linear-gradient(to right, orangered, darkorange);
+}
+.text, .symbol{
+  font-size: 1.5rem;
+}
+.text{
+  padding: 1%;
+}

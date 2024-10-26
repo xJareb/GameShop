@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {NoviAzuriraniKorisnik} from "../novi-azurirani-korisnik";
+import {NoviAzuriraniKorisnik} from "../../../Servis/KorisnikService/novi-azurirani-korisnik";
 import {MojConfig} from "../../../moj-config";
 
 @Component({

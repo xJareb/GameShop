@@ -9,6 +9,8 @@ import {AdminComponent} from "./Komponente/admin/admin.component";
 import {KontaktComponent} from "./Komponente/kontakt/kontakt.component";
 import {KorpaComponent} from "./Komponente/korpa/korpa.component";
 import {KupnjeComponent} from "./Komponente/kupnje/kupnje.component";
+import {PlacanjeComponent} from "./Komponente/korpa/placanje/placanje.component";
+import {AktivacijaComponent} from "./Komponente/korpa/aktivacija/aktivacija.component";
 
 export const routes: Routes = [
   {path: '',redirectTo:'/pocetna',pathMatch:'full'},
@@ -22,4 +24,6 @@ export const routes: Routes = [
   {path:'kontakt', component:KontaktComponent},
   {path:'korpa', component:KorpaComponent},
   {path:'kupnje', component:KupnjeComponent},
+  {path:'placanje', component:PlacanjeComponent},
+  {path:'aktivacija', component: AktivacijaComponent}
 ];

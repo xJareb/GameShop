@@ -4,10 +4,9 @@ import {NgForOf, NgIf} from "@angular/common";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MojConfig} from "../../moj-config";
 import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
-import {IzlistajKorpu, Korpa} from "./Izlistaj-korpu";
+import {IzlistajKorpu, Korpa} from "../../Servis/KorpaService/Izlistaj-korpu";
 import {FormsModule} from "@angular/forms";
-import {AzurirajKolicinu} from "./azuriraj-kolicinu";
-import {KorpaPlacanjeComponent} from "./korpa-placanje/korpa-placanje.component";
+import {AzurirajKolicinu} from "../../Servis/KorpaService/azuriraj-kolicinu";
 
 @Component({
   selector: 'app-korpa',
@@ -18,7 +17,6 @@ import {KorpaPlacanjeComponent} from "./korpa-placanje/korpa-placanje.component"
     HttpClientModule,
     NgForOf,
     FormsModule,
-    KorpaPlacanjeComponent
   ],
   templateUrl: './korpa.component.html',
   styleUrl: './korpa.component.css'
@@ -33,6 +31,7 @@ export class KorpaComponent implements OnInit{
     public kolicinaRequest:AzurirajKolicinu | null = null;
     public prelazNaPlacanje:boolean = false;
     public prikazUredi: boolean = false;
+
 
     constructor(public httpClient:HttpClient, public authService:MyAuthServiceService) {
 
@@ -69,7 +68,6 @@ export class KorpaComponent implements OnInit{
       this.ucitajKorpu();
     })
   }
-
   azurirajKolicinu(lk: Korpa, $event: Event) {
     let zapisID = lk.id;
     let kolicina = ($event.target as HTMLSelectElement).value;
@@ -84,8 +82,8 @@ export class KorpaComponent implements OnInit{
       this.ucitajKorpu();
     })
   }
-  otvaranjePlati($event : boolean)
-  {
-    this.prikazUredi = $event;
+
+  pripremiCijenu() {
+    window.localStorage.setItem("cijena",this.ukupnaAkcijskaCijena.toString())
   }
 }

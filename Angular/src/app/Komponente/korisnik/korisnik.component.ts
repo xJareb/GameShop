@@ -3,11 +3,11 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MojConfig} from "../../moj-config";
 import {FormsModule} from "@angular/forms";
 import {CommonModule, NgForOf, NgIf} from "@angular/common";
-import {Korisnik, LogiraniKorisnik} from "./logirani-korisnik";
+import {Korisnik, LogiraniKorisnik} from "../../Servis/KorisnikService/logirani-korisnik";
 import {DetaljiIgrice} from "../../Servis/DetaljiIgriceService/detalji-igrice";
 import {Router, RouterLink} from "@angular/router";
 import {UrediKorisnikaComponent} from "./uredi-korisnika/uredi-korisnika.component";
-import {AzurirajKorisnika} from "./azuriraj-korisnika";
+import {AzurirajKorisnika} from "../../Servis/KorisnikService/azuriraj-korisnika";
 import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
 
 @Component({

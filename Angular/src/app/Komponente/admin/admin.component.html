@@ -1,39 +1,38 @@
-<div class="route">
+<div class="route color-white flex-div">
   <p routerLink="" class="single-route">Početna</p>
   <p>></p>
   <p routerLink="/admin" class="single-route">Admin</p>
 </div>
-<div class="main">
-  <div class="left-side" *ngFor="let ap of adminPodaci">
+<div class="main flex-div background border-color border-15">
+  <div class="left-side primary-background border-color" *ngFor="let ap of adminPodaci">
     <div class="photo">
-      <img [src]="'data:image/jpeg;base64,' + ap.slika" alt="" srcset="">
-    </div>
-    <form (submit)="onSubmit()" enctype="multipart/form-data">
-      <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+      <img [src]="'data:image/jpeg;base64,' + ap.slika" alt="" srcset="" class="center-div"><form (submit)="onSubmit()" enctype="multipart/form-data">
+      <input type="file" (change)="onFileSelected($event)" accept="image/*" class="color-white"/>
       <button type="submit">Ažuriraj sliku</button>
     </form>
-    <div class="user-info">
+    </div>
+    <div class="user-info center-div">
       <div class="user">
         <h3 style="text-align: center">{{ap.ime}} {{ap.prezime}}</h3>
       </div>
       <hr>
-      <div class="username">
+      <div class="username flex-div">
         <p>Korisničko ime:</p>
         <p>{{ap.korisnickoIme}}</p>
       </div>
       <hr>
-      <div class="email">
+      <div class="email flex-div">
         <p>Email:</p>
         <p>{{ap.email}}</p>
       </div>
       <hr>
     </div>
   </div>
-  <div class="right-side">
-    <div class="title">
+  <div class="right-side primary-background border-color border-15">
+    <div class="title color-white">
       <h2 style="text-align: center">Lista korisnika</h2>
     </div>
-    <table class="table customTable">
+    <table class="table customTable center-div">
       <thead>
       <tr>
         <th scope="col">ID</th>
@@ -55,10 +54,10 @@
       </tr>
       </tbody>
     </table>
-    <div class="title">
+    <div class="title color-white">
       <h2 style="text-align: center">Crna lista korisnika</h2>
     </div>
-    <table class="table customTable">
+    <table class="table customTable center-div">
       <thead>
       <tr>
         <th scope="col">ID</th>

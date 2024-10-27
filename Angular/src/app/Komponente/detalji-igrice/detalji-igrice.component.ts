@@ -7,7 +7,7 @@ import {NgForOf, NgIf} from "@angular/common";
 import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
 import {RecenzijaComponent} from "./recenzija/recenzija.component";
 import {NgbRatingModule} from "@ng-bootstrap/ng-bootstrap";
-import {KupovineResponse} from "../kupnje/kupovine-response";
+import {KupovineResponse} from "../../Servis/KupovineService/kupovine-response";
 import {Recenzije, RecenzijeResponse} from "../../Servis/RecenzijeService/recenzije-response";
 
 @Component({

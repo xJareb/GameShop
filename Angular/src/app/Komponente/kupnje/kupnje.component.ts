@@ -3,7 +3,7 @@ import {RouterLink} from "@angular/router";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MojConfig} from "../../moj-config";
 import {Zanr} from "../../Servis/ZanrService/zanr";
-import {Kupovine, KupovineResponse} from "./kupovine-response";
+import {Kupovine, KupovineResponse} from "../../Servis/KupovineService/kupovine-response";
 import {NgForOf, NgIf} from "@angular/common";
 import {KupnjeIgriceComponent} from "./kupnje-igrice/kupnje-igrice.component";
 

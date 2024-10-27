@@ -20,7 +20,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<MyAuthService>();
 builder.Services.AddTransient<LozinkaHasher>();
+builder.Services.AddTransient<EmailSender>();
 builder.Services.AddHttpContextAccessor();
+
 
 var app = builder.Build();
 

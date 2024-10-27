@@ -1,5 +1,6 @@
 ﻿using GameShop.Data;
 using GameShop.Helper;
+using GameShop.Helper.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,18 +10,22 @@ namespace GameShop.Endpoint.Kupovina.Dodaj
     public class KupovinaDodajEndpoint : MyBaseEndpoint<KupovinaDodajRequest, NoResponse>
     {
         private readonly ApplicationDbContext _applicationDbContext;
-        public KupovinaDodajEndpoint(ApplicationDbContext applicationDbContext)
+        private readonly EmailSender _emailSender;
+        public KupovinaDodajEndpoint(ApplicationDbContext applicationDbContext, EmailSender emailSender)
         {
             _applicationDbContext = applicationDbContext;
+            _emailSender = emailSender;
         }
 
         [HttpPost("DodajKupovinu")]
         public override async Task<NoResponse> Obradi([FromBody]KupovinaDodajRequest request, CancellationToken cancellationToken = default)
         {
-            var korisnik = _applicationDbContext.Korisnik.Where(k=>k.Id == request.KorisnikID).FirstOrDefault();
+            var korisnik = _applicationDbContext.Korisnik.Include(kn=>kn.KNalog).Where(k=>k.Id == request.KorisnikID).FirstOrDefault();
+            
             if (korisnik == null)
                 throw new Exception("Korisnik nije pronađen");
             var korpaLista = await _applicationDbContext.Korpa.Include(i=>i.Igrica).Where(k=>request.KorisnikID == k.KorisnikID).ToListAsync();
+            var emailKorisnik = korisnik.KNalog.Email;
             if (!korpaLista.Any())
                 throw new Exception("Igrice ne postoje u korpi");
             var igrice = korpaLista.Select(k=>k.Igrica).ToList();
@@ -31,8 +36,11 @@ namespace GameShop.Endpoint.Kupovina.Dodaj
                 Igrice = igrice
             };
 
+            List<Data.Models.Igrice> igriceKorisnika = novaKupovina.Igrice;
             _applicationDbContext.Kupovine.Add(novaKupovina);
             await _applicationDbContext.SaveChangesAsync();
+
+            _emailSender.Posalji(emailKorisnik,igriceKorisnika);
 
             return new NoResponse();
         }

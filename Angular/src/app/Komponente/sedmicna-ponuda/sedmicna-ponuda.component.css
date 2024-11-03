@@ -1,49 +1,65 @@
-.body{
+.body {
   height: 35vh;
-  background-color: beige;
   display: flex;
+  justify-content: center;
   overflow-x: hidden;
+  transition: overflow-x 0.3s ease;
 }
-.body:hover{
+
+.body:hover {
   overflow-x: scroll;
 }
-.game-item{
-  border-radius: 10px;
+.body::-webkit-scrollbar{
+  width: 0px;
+}
+.game-item img:hover{
+  transform: scale(1.04);
+  transition: transform 0.3s ease;
+}
+.game-item img:hover ~ .discount{
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.game-item {
   position: relative;
   margin: 1%;
   min-width: 20%;
-}
-.game-item img{
-  width: 100%;
   border-radius: 10px;
-  background-repeat: no-repeat;
-  background-size: cover;
+}
+
+.game-item img {
+  width: 100%;
   max-height: 25vh;
+  border-radius: 10px;
+  background-size: cover;
   transition: transform 0.3s ease;
 }
-.discount{
+
+.discount {
   width: 50px;
   height: 25px;
-  background-color: orange;
+  background-color: darkorange;
+  color: white;
   position: absolute;
   top: 0;
   text-align: center;
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 8px;
-  border-top-left-radius: 10px;
   font-weight: bold;
+  border-radius: 10px 12px 8px 10px;
   transition: opacity 0.5s ease;
 }
-.details{
+
+.details {
   display: flex;
   justify-content: space-between;
-  color: black;
   margin-top: 1%;
+  color: white;
 }
-.price{
+
+.price {
   font-weight: bold;
 }
-.remove{
+
+.remove {
   position: absolute;
   top: 1%;
   right: 1%;

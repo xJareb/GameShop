@@ -1,14 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {MojConfig} from "../../moj-config";
 import {HttpClient} from "@angular/common/http";
-import {SedmicnaPonuda} from "./sedmicna-ponuda";
+import {SedmicnaPonuda} from "../../Servis/SedmicnaPonudaService/sedmicna-ponuda";
+import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sedmicna-ponuda',
   standalone: true,
   imports: [
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   templateUrl: './sedmicna-ponuda.component.html',
   styleUrl: './sedmicna-ponuda.component.css'
@@ -20,7 +23,7 @@ export class SedmicnaPonudaComponent implements OnInit{
     ngOnInit(): void {
       this.izlistajPonudu();
     }
-    constructor(public httpClient:HttpClient) {
+    constructor(public httpClient:HttpClient, public authService:MyAuthServiceService, private router:Router) {
     }
     izlistajPonudu(){
       let url = MojConfig.adresa_servera + `/IzdvojeneIgrice`;
@@ -38,5 +41,10 @@ export class SedmicnaPonudaComponent implements OnInit{
       alert('Uspješno uklonjena igrica iz sedmicne ponude');
       window.location.reload();
     })
+  }
+
+  idiUdetalje(sp: any) {
+    let igricaID = sp.id;
+    this.router.navigate([`/detalji-igrice/${igricaID}`])
   }
 }

@@ -10,5 +10,6 @@
         public int Ocjena { get; set; }
         public byte[]? Slika { get; set; }
         public string KorisnickoIme { get; set; }
+        public string Igrica {  get; set; }
     }
 }

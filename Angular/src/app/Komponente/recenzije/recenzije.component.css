@@ -1,0 +1,51 @@
+.card {
+  margin-top: 2%;
+  border-radius: 8px;
+  transition: border 0.3s ease;
+}
+.card:hover {
+  border: 2px solid darkorange;
+}
+.background {
+  background-color: #242424;
+}
+.primary-background {
+  background-color: #323232;
+}
+.border-color {
+  border: 2px solid #3D3D3D;
+}
+.card-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: block;
+  margin: 5% auto 0;
+}
+.rating, .card-text, .card-title {
+  text-align: center;
+  color: white;
+}
+.rating {
+  color: yellow;
+}
+.card-title {
+  margin-top: 2%;
+}
+.card-text {
+  margin-top: 5px;
+}
+.recenzije-div {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+}
+.recenzije-div::-webkit-scrollbar {
+  width: 0;
+}
+h4{
+  color: white;
+  margin: 1% 0 1% 3%;
+}

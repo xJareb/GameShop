@@ -1,8 +1,9 @@
 .logo img{
   width: 80px;
   height: 70px;
-  margin-top: 1%;
+  margin-top: 1.5%;
   margin-left: 1%;
+  border-radius: 50%;
 }
 .user{
   display: flex;
@@ -19,11 +20,20 @@
   padding: 2%;
   width: 60vh;
   border-radius: 10px;
-  border: none;
   margin-top: 1vh;
+  border:none;
 }
-.col{
-  background-color: aliceblue;
+.col, .navigation{
+  background-color: #101010;
+}
+.cart svg path, .svg svg {
+  transition: fill 0.3s;
+}
+.cart:hover svg path, .svg:hover svg{
+  fill: darkorange;
+}
+.navigation, .text p{
+  color: white;
 }
 .results{
   margin-top: 1%;
@@ -85,7 +95,6 @@
 .navigation{
   display: flex;
   justify-content: center;
-  background-color: aliceblue;
 }
 .navigation p:hover{
   background-color: orange;

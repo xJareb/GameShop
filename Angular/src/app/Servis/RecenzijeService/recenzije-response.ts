@@ -7,4 +7,5 @@ export interface Recenzije {
   ocjena: number
   slika: any
   korisnickoIme: string
+  igrica: string
 }

@@ -9,11 +9,13 @@ import {SedmicnaPonudaComponent} from "../sedmicna-ponuda/sedmicna-ponuda.compon
 import {withNoHttpTransferCache} from "@angular/platform-browser";
 import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
 import {routes} from "../../app.routes";
+import {RecenzijaComponent} from "../detalji-igrice/recenzija/recenzija.component";
+import {RecenzijeComponent} from "../recenzije/recenzije.component";
 
 @Component({
   selector: 'app-pocetna',
   standalone: true,
-  imports: [NgbPopoverModule, NgIf, HttpClientModule, NgForOf, SedmicnaPonudaComponent, RouterLink],
+  imports: [NgbPopoverModule, NgIf, HttpClientModule, NgForOf, SedmicnaPonudaComponent, RouterLink, RecenzijaComponent, RecenzijeComponent],
   templateUrl: './pocetna.component.html',
   styleUrl: './pocetna.component.css',
   host: { class: 'd-block' },

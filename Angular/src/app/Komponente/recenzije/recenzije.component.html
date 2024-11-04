@@ -1,0 +1,13 @@
+<h4>Recenzije ></h4>
+<div class="recenzije-div">
+  <div class="card background border-color" style="width: 18rem" *ngFor="let lr of listaRecenzija.slice().reverse()">
+    <img [src]="'data:image/jpeg;base64,' + lr.slika" class="card-img-top card-image">
+    <div class="card-body">
+      <div class="rating">
+        <ngb-rating [(rate)]="lr.ocjena" [readonly]="true"/>
+      </div>
+      <h5 class="card-title" style="text-align: center">{{lr.igrica}}</h5>
+      <p class="card-text">{{lr.sadrzaj}}</p>
+    </div>
+  </div>
+</div>

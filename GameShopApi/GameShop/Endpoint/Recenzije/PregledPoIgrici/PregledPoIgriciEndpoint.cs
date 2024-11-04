@@ -17,12 +17,13 @@ namespace GameShop.Endpoint.Recenzije.PregledPoIgrici
         [HttpGet("PrikaziRecenzije")]
         public override async Task<PregledPoIgriciResponse> Obradi([FromQuery]PregledPoIgriciRequest request, CancellationToken cancellationToken = default)
         {
-            var recenzije = await _applicationDbContext.Recenzije.Where(r => request.IgricaID == r.IgricaID).Select(x => new PregledPoIgriciResponsePregled()
+            var recenzije = await _applicationDbContext.Recenzije.Where(r => request.IgricaID == r.IgricaID || request.IgricaID == 0).Select(x => new PregledPoIgriciResponsePregled()
             {
                 Sadrzaj = x.Sadrzaj,
                 Ocjena = x.Ocjena,
                 Slika = x.Korisnik.Slika,
-                KorisnickoIme = x.Korisnik.KNalog.KorisnickoIme
+                KorisnickoIme = x.Korisnik.KNalog.KorisnickoIme,
+                Igrica = x.Igrice.Naziv
             }).ToListAsync();
 
             return new PregledPoIgriciResponse

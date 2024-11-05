@@ -11,11 +11,13 @@ import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.ser
 import {routes} from "../../app.routes";
 import {RecenzijaComponent} from "../detalji-igrice/recenzija/recenzija.component";
 import {RecenzijeComponent} from "../recenzije/recenzije.component";
+import {IzdvojenaIgricaComponent} from "../izdvojena-igrica/izdvojena-igrica.component";
+import {KontaktPodnozjeComponent} from "../kontakt-podnozje/kontakt-podnozje.component";
 
 @Component({
   selector: 'app-pocetna',
   standalone: true,
-  imports: [NgbPopoverModule, NgIf, HttpClientModule, NgForOf, SedmicnaPonudaComponent, RouterLink, RecenzijaComponent, RecenzijeComponent],
+  imports: [NgbPopoverModule, NgIf, HttpClientModule, NgForOf, SedmicnaPonudaComponent, RouterLink, RecenzijaComponent, RecenzijeComponent, IzdvojenaIgricaComponent, KontaktPodnozjeComponent],
   templateUrl: './pocetna.component.html',
   styleUrl: './pocetna.component.css',
   host: { class: 'd-block' },

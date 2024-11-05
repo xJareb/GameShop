@@ -38,8 +38,7 @@ export class SedmicnaPonudaComponent implements OnInit{
     let url = MojConfig.adresa_servera + `/IzdvojiIgricu?IgricaID=${igricaID}&Izdvojeno=false`;
 
     this.httpClient.put(url,{}).subscribe(x=>{
-      alert('Uspješno uklonjena igrica iz sedmicne ponude');
-      window.location.reload();
+      this.izlistajPonudu();
     })
   }
 

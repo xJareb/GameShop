@@ -1,0 +1,52 @@
+/* Osnovni stil za footer */
+.footer {
+  background-color: #101010;
+  color: #fff;
+  padding: 20px 0;
+  font-family: Arial, sans-serif;
+  margin-top: 5%;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 2% auto;
+  padding: 0 15px;
+}
+
+.footer-section {
+  width: 30%;
+}
+
+.footer-section h3 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.footer-section p {
+  margin: 5px 0;
+}
+
+.social-link {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  margin: 5px 0;
+  transition: color 0.3s;
+}
+
+.social-link:hover {
+  color: #f0a500;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 10px;
+  font-size: 0.9em;
+  border-top: 1px solid #444;
+}
+
+.footer-bottom p {
+  margin: 0;
+}

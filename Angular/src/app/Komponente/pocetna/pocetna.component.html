@@ -42,7 +42,7 @@
             <p>{{ime}}</p>
           </div>
           <div class="odjava" *ngIf="authService.jelLogiran()" (click)="idiNaStranicu()">
-            <button (click)="odjaviSe()">Odjava</button>
+            <button (click)="odjaviSe()" class="button-manage">Odjava</button>
           </div>
         </div>
     </div>
@@ -54,4 +54,6 @@
   <p routerLink="/kupnje" *ngIf="authService.jelAdmin()">Kupovine</p>
 </div>
 <app-sedmicna-ponuda></app-sedmicna-ponuda>
+<app-izdvojena-igrica></app-izdvojena-igrica>
 <app-recenzije></app-recenzije>
+<app-kontakt-podnozje></app-kontakt-podnozje>

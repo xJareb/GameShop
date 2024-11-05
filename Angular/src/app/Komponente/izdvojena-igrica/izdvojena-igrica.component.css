@@ -1,0 +1,49 @@
+.body{
+  position: relative;
+}
+.body img{
+  width:100%;
+  height:70vh;
+  background-size: cover;
+  object-fit: cover;
+}
+.details{
+  position: absolute;
+  color: white;
+  bottom: 13%;
+  left:13%;
+}
+.informations h1{
+  position: absolute;
+  bottom: 20%;
+  left: 13%;
+  color: white;
+}
+.section{
+  position: absolute;
+  top: 25%;
+  right: 10%;
+}
+option{
+  text-align: center;
+}
+select{
+  padding: 2%;
+  border: 2px solid #3D3D3D;
+  background-color: #242424;
+  color: white;
+  border-radius: 15px;
+}
+.details{
+  display: flex;
+  align-items: center;
+  gap: 10%;
+}
+.discount{
+  width: 80px;
+  height: 25px;
+  background-color: darkorange;
+  border-radius: 10px 12px 8px 0;
+  font-weight: bold;
+  text-align: center;
+}

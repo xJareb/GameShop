@@ -32,7 +32,7 @@
 .cart:hover svg path, .svg:hover svg{
   fill: darkorange;
 }
-.navigation, .text p{
+.navigation, .text p, .button-manage{
   color: white;
 }
 .results{
@@ -106,4 +106,13 @@
 }
 .user:hover .odjava{
   display: block;
+}
+.button-manage{
+  background: linear-gradient(to right, orangered, orange);
+  border: none;
+  border-radius: 7px;
+}
+.button-manage:hover{
+  background: linear-gradient(to right, orangered, darkorange);
+  cursor: pointer;
 }

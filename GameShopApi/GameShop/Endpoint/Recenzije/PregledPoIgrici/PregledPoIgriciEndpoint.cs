@@ -19,10 +19,12 @@ namespace GameShop.Endpoint.Recenzije.PregledPoIgrici
         {
             var recenzije = await _applicationDbContext.Recenzije.Where(r => request.IgricaID == r.IgricaID || request.IgricaID == 0).Select(x => new PregledPoIgriciResponsePregled()
             {
+                KorisnikID = x.KorisnikID,
                 Sadrzaj = x.Sadrzaj,
                 Ocjena = x.Ocjena,
                 Slika = x.Korisnik.Slika,
                 KorisnickoIme = x.Korisnik.KNalog.KorisnickoIme,
+                IgricaID = x.IgricaID,
                 Igrica = x.Igrice.Naziv
             }).ToListAsync();
 

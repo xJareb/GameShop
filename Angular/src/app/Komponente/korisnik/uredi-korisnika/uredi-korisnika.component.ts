@@ -52,7 +52,6 @@ export class UrediKorisnikaComponent implements OnInit{
           email: this.email,
           lozinka: this.lozinka
         };
-        console.log(this.azuriraniKorisnik);
 
         let url = MojConfig.adresa_servera + `/AzurirajKorisnika`;
 
@@ -62,14 +61,12 @@ export class UrediKorisnikaComponent implements OnInit{
             next:(response) => {
               if(this.azuriraniKorisnik?.lozinka == this.ponovljenaLozinka)
               {
-                alert('Korisnik uspjesno azuriran');
                 this.zatvori();
                 window.location.reload();
               }
-
             },
             error:(err) =>{
-              alert('Neispravna lozinka')
+              this.postaviStil();
             }
           })
         }else{
@@ -85,5 +82,11 @@ export class UrediKorisnikaComponent implements OnInit{
   priprema() {
     this.nazivDugmeta = "Azuriraj";
     this.uslov = true;
+  }
+  postaviStil(){
+      let lozinkaInput = document.getElementById("password") as HTMLInputElement;
+      let potlozinkaInput = document.getElementById("compassword") as HTMLInputElement;
+      lozinkaInput.style.backgroundColor = 'red';
+      potlozinkaInput.style.backgroundColor = 'red';
   }
 }

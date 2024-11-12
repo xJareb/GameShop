@@ -1,6 +1,7 @@
 ﻿using GameShop.Data;
 using GameShop.Helper;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace GameShop.Endpoint.Korpa.AzurirajKolicinu
 {
@@ -18,7 +19,7 @@ namespace GameShop.Endpoint.Korpa.AzurirajKolicinu
         {
             var igrica = _applicationDbContext.Korpa.Where(i=>i.Id == request.Id).FirstOrDefault();
             if(igrica == null)
-                throw new Exception("Zapis ne postoji za id: " +  request.Id);
+                throw new Exception($"{HttpStatusCode.NotFound}");
 
             igrica.Kolicina = request.Kolicina;
             _applicationDbContext.Korpa.Update(igrica);

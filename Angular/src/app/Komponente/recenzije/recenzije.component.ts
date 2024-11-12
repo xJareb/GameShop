@@ -29,7 +29,6 @@ export class RecenzijeComponent implements OnInit{
 
     this.httpClient.get<RecenzijeResponse>(url).subscribe((x:RecenzijeResponse)=>{
       this.listaRecenzija = x.recenzije;
-      console.log(this.listaRecenzija);
     })
   }
 

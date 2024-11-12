@@ -1,6 +1,7 @@
 ﻿using GameShop.Data;
 using GameShop.Helper;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace GameShop.Endpoint.Recenzije.Dodaj
 {
@@ -18,7 +19,7 @@ namespace GameShop.Endpoint.Recenzije.Dodaj
         {
             var provjeraDuplikata = _applicationDbContext.Recenzije.Where(r => request.KorisnikID == r.KorisnikID && request.IgricaID == r.IgricaID).FirstOrDefault();
             if (provjeraDuplikata != null)
-                throw new Exception("Recenzija od strane korisnika " + request.KorisnikID + " za igricu " + request.IgricaID + " vec postoji");
+                throw new Exception($"{HttpStatusCode.Conflict}");
             var novaRecenzija = new Data.Models.Recenzije()
             {
                 Sadrzaj = request.Sadrzaj,

@@ -83,7 +83,6 @@ export class IgriceComponent implements OnInit{
     this.zanr = zanrid
     this.sort = sortiranje
 
-    console.log(this.sort);
     let url = MojConfig.adresa_servera +
       `/ByKategorija?ZanrID=${this.zanr}&PocetnaCijena=${this.pocetnaCijena}&KrajnjaCijena=${this.zavrsnaCijena}&Sortiranje=${this.sort}`
 
@@ -97,7 +96,6 @@ export class IgriceComponent implements OnInit{
         let url = MojConfig.adresa_servera + `/ObrisiIgricu?IgricaID=${igricaID}`;
 
         this.httpClient.delete(url).subscribe(x=>{
-          alert('Uspješno obrisana igrica');
           window.location.reload();
         })
     }
@@ -107,7 +105,6 @@ export class IgriceComponent implements OnInit{
       let url = MojConfig.adresa_servera + `/IzdvojiIgricu?IgricaID=${igricaID}&Izdvojeno=true`;
 
       this.httpClient.put(url,{}).subscribe(x=>{
-          alert('Uspješno izdvojena igrica');
           window.location.reload();
       })
   }
@@ -124,7 +121,6 @@ export class IgriceComponent implements OnInit{
       cijena: li.cijena,
       postotakAkcije: li.postotakAkcije
     }
-    console.log(this.odabranaIgrica);
   }
   otvaranjeUredi($event : boolean)
   {

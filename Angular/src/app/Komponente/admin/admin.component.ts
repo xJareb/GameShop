@@ -71,13 +71,8 @@ export class AdminComponent implements OnInit{
     let url = MojConfig.adresa_servera + `/ObrisiKorisnika?ID=${id}&isBlackList=false`;
     this.httpClient.put(url,{}).subscribe({
       next:(response)=> {
-        alert('Uspješno obrisan korisnik');
-        window.location.reload();
-      },
-      error:(error)=>{
-        alert('Došlo je do pogreške');
-      }
-      })
+        this.izlistajSveKorisnike();
+      }})
   }
 
   crnaListaKorisnika(lk: Korisnici) {
@@ -86,13 +81,9 @@ export class AdminComponent implements OnInit{
 
     this.httpClient.put(url,{}).subscribe({
       next:(response)=>{
-        alert('Uspješno blacklistan korisnik');
-        window.location.reload();
-      },
-      error:(error)=>{
-        alert('Došlo je do pogreske');
-      }
-    })
+        this.izlistajSveKorisnike();
+        this.izlistajCrnuListu();
+      }})
   }
 
   onSubmit() {
@@ -107,11 +98,7 @@ export class AdminComponent implements OnInit{
 
     this.httpClient.put(slikaUrl,formData).subscribe({
       next:(response) => {
-        alert('Uspjesan upload slike')
-        window.location.reload();
-      },
-      error: (error) => {
-        alert('error')
+        this.izlistajAdmina();
       }
     })
   }

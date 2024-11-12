@@ -5,7 +5,8 @@ export interface KupovineResponse {
 export interface Kupovine {
   id: number
   datumKupovine: string
-  korisnik: number
+  korisnikID: number
+  korisnik: string
   igrice: Igrice[]
 }
 

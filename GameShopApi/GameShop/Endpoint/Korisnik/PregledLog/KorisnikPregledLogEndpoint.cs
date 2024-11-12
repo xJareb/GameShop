@@ -17,6 +17,7 @@ namespace GameShop.Endpoint.Korisnik.PregledLog
         [HttpGet("PregledLog")]
         public override async Task<KorisnikPregledLogResponse> Obradi([FromQuery]KorisnikPregledLogRequest request, CancellationToken cancellationToken = default)
         {
+            var brojNarudzbi = _applicationDbContext.Kupovine.Where(k => k.KorisnikID == request.LogiraniKorisnikID).Count();
             var logiraniKorisnik = await _applicationDbContext.Korisnik.Include(k=>k.KNalog).Where(lk => lk.Id == request.LogiraniKorisnikID).Select(x => new KorisnikPregledLogResponseKorisnik()
             {
                 ID = x.Id,
@@ -26,9 +27,10 @@ namespace GameShop.Endpoint.Korisnik.PregledLog
                 KorisnickoIme = x.KNalog.KorisnickoIme,
                 Email = x.KNalog.Email,
                 DatumRodjenja = x.KNalog.DatumRodjenja,
-                Slika = x.Slika 
+                Slika = x.Slika,
+                BrojNarudzbi = brojNarudzbi,
+                GoogleSlika = x.GoogleSlika
             }).ToListAsync();
-
             return new KorisnikPregledLogResponse()
             {
                 Korisnik = logiraniKorisnik

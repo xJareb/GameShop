@@ -1,6 +1,7 @@
 ﻿using GameShop.Data;
 using GameShop.Helper;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace GameShop.Endpoint.Igrice.Obrisi
 {
@@ -19,7 +20,7 @@ namespace GameShop.Endpoint.Igrice.Obrisi
         {
             var igrica = _applicationDbContext.Igrice.Where(i => i.Id == request.IgricaID).FirstOrDefault();
             if(igrica == null)
-                throw new Exception("Igrica nije pronađena za id: " +  request.IgricaID);
+                throw new Exception($"{HttpStatusCode.NotFound}");
 
             _applicationDbContext.Remove(igrica);
             await _applicationDbContext.SaveChangesAsync();

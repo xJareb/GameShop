@@ -28,8 +28,8 @@
       <p>{{di.opis}}</p>
     </div>
     <div class="add-to-cart center-text">
-      <button (click)="dodajUKorpu(di)" class="color-white button-manage">Dodaj u korpu</button>
-      <button (click)="pripremiPodatke(di);prikazFormeZaRecenziju = true" class="color-white button-manage ">Ostavi recenziju</button>
+      <button (click)="authService.onemoguciKorpu();dodajUKorpu(di)" class="color-white button-manage">Dodaj u korpu</button>
+      <button (click)="pripremiPodatke(di);prikazFormeZaRecenziju = true" class="color-white button-manage" *ngIf="recenzijaProlaz">Ostavi recenziju</button>
     </div>
     <div class="par-review">
     <div class="review align-center flex-div border-10 border-color background" *ngFor="let r of listaRecenzija">

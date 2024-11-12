@@ -105,7 +105,6 @@ export class PlacanjeComponent implements OnInit{
     }
 
     this.httpClient.post(url,this.kreditnaKartica).subscribe(x=>{
-      alert('Sacuvana kartica');
     })
   }
   obrisiOpsegKorpe(){

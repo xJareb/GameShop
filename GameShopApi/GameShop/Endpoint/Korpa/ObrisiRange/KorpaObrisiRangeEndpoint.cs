@@ -2,6 +2,7 @@
 using GameShop.Helper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace GameShop.Endpoint.Korpa.ObrisiRange
 {
@@ -19,7 +20,7 @@ namespace GameShop.Endpoint.Korpa.ObrisiRange
             var listaKorpe = await _applicationDbContext.Korpa.Where(k => request.KorisnikID == k.KorisnikID).ToListAsync();
 
             if(!listaKorpe.Any())
-                throw new Exception("Prazna korpa za korisnika: " + request.KorisnikID);
+                throw new Exception($"{HttpStatusCode.NotFound}");
 
             _applicationDbContext.Korpa.RemoveRange(listaKorpe);
             await _applicationDbContext.SaveChangesAsync();

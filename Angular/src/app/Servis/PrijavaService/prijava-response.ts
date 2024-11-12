@@ -23,4 +23,5 @@ export interface KorisnickiNalog {
   isKorisnik: boolean
   isDeleted:boolean
   isBlackList:boolean
+  isGoogleProvider:boolean
 }

@@ -3,9 +3,12 @@ export interface RecenzijeResponse {
 }
 
 export interface Recenzije {
+  korisnikID: number
   sadrzaj: string
   ocjena: number
-  slika: any
+  slika: string
   korisnickoIme: string
+  igricaID: number
   igrica: string
 }
+

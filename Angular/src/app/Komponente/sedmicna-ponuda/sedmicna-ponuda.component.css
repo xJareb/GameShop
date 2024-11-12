@@ -1,17 +1,20 @@
 .body {
   height: 35vh;
   display: flex;
-  justify-content: center;
   overflow-x: hidden;
   transition: overflow-x 0.3s ease;
 }
-
 .body:hover {
   overflow-x: scroll;
 }
-.body::-webkit-scrollbar{
-  width: 0px;
+.body::-webkit-scrollbar {
+  height: 10px; /* Height of horizontal scrollbar */
 }
+.body::-webkit-scrollbar-thumb {
+   background-color: #242424;
+   border-radius: 10px;
+   border: 0.1px solid #f4f4f9;
+ }
 .game-item img:hover{
   transform: scale(1.04);
   transition: transform 0.3s ease;

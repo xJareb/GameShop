@@ -3,6 +3,7 @@ using GameShop.Helper;
 using GameShop.Helper.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace GameShop.Endpoint.Kupovina.Dodaj
 {
@@ -23,11 +24,11 @@ namespace GameShop.Endpoint.Kupovina.Dodaj
             var korisnik = _applicationDbContext.Korisnik.Include(kn=>kn.KNalog).Where(k=>k.Id == request.KorisnikID).FirstOrDefault();
             
             if (korisnik == null)
-                throw new Exception("Korisnik nije pronađen");
+                throw new Exception($"{HttpStatusCode.NotFound}");
             var korpaLista = await _applicationDbContext.Korpa.Include(i=>i.Igrica).Where(k=>request.KorisnikID == k.KorisnikID).ToListAsync();
             var emailKorisnik = korisnik.KNalog.Email;
             if (!korpaLista.Any())
-                throw new Exception("Igrice ne postoje u korpi");
+                throw new Exception($"{HttpStatusCode.NotFound}");
             var igrice = korpaLista.Select(k=>k.Igrica).ToList();
             var novaKupovina = new Data.Models.Kupovine
             {

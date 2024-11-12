@@ -2,6 +2,7 @@
 using GameShop.Helper;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using System.Net;
 
 namespace GameShop.Endpoint.Korisnik.Slika
 {
@@ -19,12 +20,12 @@ namespace GameShop.Endpoint.Korisnik.Slika
         {
             var logiraniKorisnik = _applicationDbContext.AutentifikacijaToken.FirstOrDefault();
             if (logiraniKorisnik == null)
-                throw new Exception("Korisnik nije logiran");
+                throw new Exception($"{HttpStatusCode.Unauthorized}");
             var logiraniKorisnikID = logiraniKorisnik.KorisnickiNalogID;
 
             var korisnik = _applicationDbContext.Korisnik.Where(k => k.Id == logiraniKorisnikID).FirstOrDefault();
             if (korisnik == null)
-                throw new Exception("Korisnik nije pronađen za id: " + logiraniKorisnikID);
+                throw new Exception($"{HttpStatusCode.NotFound}");
 
             if(request.Slika != null && request.Slika.Length > 0)
             {

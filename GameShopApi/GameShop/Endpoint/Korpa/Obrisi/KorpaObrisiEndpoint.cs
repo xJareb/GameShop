@@ -1,6 +1,7 @@
 ﻿using GameShop.Data;
 using GameShop.Helper;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace GameShop.Endpoint.Korpa.Obrisi
 {
@@ -17,7 +18,7 @@ namespace GameShop.Endpoint.Korpa.Obrisi
         {
             var igrica = _applicationDbContext.Korpa.Where(i=>i.Id == request.ID).FirstOrDefault();
             if(igrica == null)
-                throw new Exception("Ne postoji zapis za id: " + request.ID);
+                throw new Exception($"{HttpStatusCode.NotFound}");
 
             _applicationDbContext.Korpa.Remove(igrica);
             await _applicationDbContext.SaveChangesAsync();

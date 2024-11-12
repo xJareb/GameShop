@@ -22,6 +22,7 @@ export class KorisnikComponent implements OnInit{
     public podaciLogKorisnik:Korisnik [] = [];
     public pripremljeniPodaci:AzurirajKorisnika | null = null;
     public prikazUredi: boolean = false;
+    public praznaVrijednost: string = "";
 
     public selectedFile:File |null = null;
 
@@ -32,13 +33,16 @@ export class KorisnikComponent implements OnInit{
           this.router.navigate(["/"]);
         }
         else{
-          let id = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
-          let url = MojConfig.adresa_servera + `/PregledLog?LogiraniKorisnikID=${id}`;
-
-          this.httpClient.get<LogiraniKorisnik>(url).subscribe((x:LogiraniKorisnik)=>{
-            this.podaciLogKorisnik = x.korisnik;
-          })
+          this.ucitajLogiranogKorisnika();
         }
+    }
+    ucitajLogiranogKorisnika(){
+      let id = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
+      let url = MojConfig.adresa_servera + `/PregledLog?LogiraniKorisnikID=${id}`;
+
+      this.httpClient.get<LogiraniKorisnik>(url).subscribe((x:LogiraniKorisnik)=>{
+        this.podaciLogKorisnik = x.korisnik;
+      })
     }
   pripremiPodatke(k: Korisnik) {
       this.pripremljeniPodaci = {
@@ -64,11 +68,7 @@ export class KorisnikComponent implements OnInit{
 
     this.httpClient.put(slikaUrl,formData).subscribe({
       next:(response) => {
-        alert('Uspjesan upload slike')
-        window.location.reload();
-      },
-      error: (error) => {
-        alert('error')
+        this.ucitajLogiranogKorisnika();
       }
     })
   }
@@ -80,5 +80,4 @@ export class KorisnikComponent implements OnInit{
       this.selectedFile = file;
     }
   }
-
 }

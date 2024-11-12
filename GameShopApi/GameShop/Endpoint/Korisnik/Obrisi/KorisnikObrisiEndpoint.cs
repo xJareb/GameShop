@@ -2,6 +2,7 @@
 using GameShop.Helper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace GameShop.Endpoint.Korisnik.Obrisi
 {
@@ -19,7 +20,7 @@ namespace GameShop.Endpoint.Korisnik.Obrisi
         {
             var korisnik = _applicationDbContext.Korisnik.Include(kn=>kn.KNalog).Where(k=>k.Id == request.ID).FirstOrDefault();
             if(korisnik == null)
-                throw new Exception("Korisnik nije pronadjen za id: " + request.ID);
+                throw new Exception($"{HttpStatusCode.NotFound}");
 
             if(request.isBlackList == false){
                 korisnik.KNalog.isDeleted = true;

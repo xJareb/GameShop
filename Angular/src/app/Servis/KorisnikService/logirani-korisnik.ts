@@ -10,4 +10,6 @@ export interface Korisnik {
   email: string
   datumRodjenja: string
   slika:any
+  brojNarudzbi: number
+  googleSlika: string
 }

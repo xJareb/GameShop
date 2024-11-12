@@ -1,6 +1,7 @@
 ﻿using GameShop.Data;
 using GameShop.Helper;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace GameShop.Endpoint.Igrice.Izdvoji
 {
@@ -18,7 +19,7 @@ namespace GameShop.Endpoint.Igrice.Izdvoji
         {
             var igrica = _applicationDbContext.Igrice.Where(i=>i.Id == request.IgricaID).FirstOrDefault();
             if(igrica == null)
-                throw new Exception("Nije pronađena igrica za id: " +  request.IgricaID);
+                throw new Exception($"{HttpStatusCode.NotFound}");
 
             igrica.Izdvojeno = request.Izdvojeno;
 

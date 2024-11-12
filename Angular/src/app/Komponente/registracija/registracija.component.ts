@@ -63,8 +63,6 @@ export class RegistracijaComponent implements OnInit {
       this.httpClient.post(url,this.noviKorisnik).subscribe(x=>{
         this.router.navigate(["/"]);
       })
-    }else{
-      alert('Provjerite ispravnost polja');
     }
   }
 

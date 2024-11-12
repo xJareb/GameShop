@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {AutentifikacijaToken, PrijavaResponse} from "../PrijavaService/prijava-response";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MyAuthServiceService {
 
-  constructor() { }
+  constructor(public router:Router) { }
 
   dohvatiAutorzacijskiToken():any | null{
     let tokenString = window.localStorage.getItem("korisnik")??"";
@@ -16,6 +17,9 @@ export class MyAuthServiceService {
     catch (e){
       return null;
     }
+  }
+  korisnikID():number{
+    return this.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID ?? 0;
   }
   jelAdmin():boolean{
     return this.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnickiNalog.isAdmin ?? false;
@@ -28,5 +32,13 @@ export class MyAuthServiceService {
   }
   jelKorisnik():boolean{
     return this.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnickiNalog.isKorisnik ?? false;
+  }
+  jelGoogleProvider():boolean{
+    return this.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnickiNalog.isGoogleProvider ?? false;
+  }
+  onemoguciKorpu(){
+    if(!this.jelLogiran()){
+      this.router.navigate(["/prijava"]);
+    }
   }
 }

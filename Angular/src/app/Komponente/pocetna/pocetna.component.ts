@@ -14,6 +14,8 @@ import {RecenzijeComponent} from "../recenzije/recenzije.component";
 import {IzdvojenaIgricaComponent} from "../izdvojena-igrica/izdvojena-igrica.component";
 import {KontaktPodnozjeComponent} from "../kontakt-podnozje/kontakt-podnozje.component";
 
+declare const google: any;
+
 @Component({
   selector: 'app-pocetna',
   standalone: true,
@@ -72,7 +74,7 @@ export class PocetnaComponent implements OnInit{
         "my-auth-token":token
       }
     }).subscribe(x=>{
-      alert('Uspješno odjavljen');
+      window.localStorage.removeItem("my-auth-token");
       window.location.reload();
     })
   }

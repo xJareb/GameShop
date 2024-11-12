@@ -2,6 +2,7 @@
 using GameShop.Data.Models;
 using GameShop.Helper;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace GameShop.Endpoint.Korisnik.Dodaj
 {
@@ -29,11 +30,11 @@ namespace GameShop.Endpoint.Korisnik.Dodaj
 
             var provjeraKorisnickogImena = _applicationDbContext.KorisnickiNalog.Where(kn => kn.KorisnickoIme == request.KorisnickoIme).FirstOrDefault();
             if (provjeraKorisnickogImena != null)
-                throw new Exception("Korisničko ime već postoji");
+                throw new Exception($"{HttpStatusCode.Conflict}");
 
             var provjeraEmaila = _applicationDbContext.KorisnickiNalog.Where(e=>e.Email == request.Email).FirstOrDefault();
             if (provjeraEmaila != null)
-                throw new Exception("Email već postoji");
+                throw new Exception($"{HttpStatusCode.Conflict}");
 
             _applicationDbContext.KorisnickiNalog.Add(korisnickiNalog);
             await _applicationDbContext.SaveChangesAsync();

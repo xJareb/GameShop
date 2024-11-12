@@ -40,6 +40,7 @@ export class RecenzijaComponent {
     }
     this.httpClient.post(url,this.recenzijaRequest).subscribe(x=>{
       this.zatvori();
+      window.location.reload();
     })
   }
 

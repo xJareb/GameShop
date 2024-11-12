@@ -19,7 +19,7 @@ namespace GameShop.Endpoint.Auth.Odjava
         [HttpPost("Odjavi-se")]
         public override async Task<NoResponse> Obradi([FromBody] NoRequest request, CancellationToken cancellationToken)
         {
-            AutentifikacijaToken? autentifikacijaToken = _authService.GetAuthInfo().autentifikacijaToken;
+           AutentifikacijaToken? autentifikacijaToken = _authService.GetAuthInfo().autentifikacijaToken;
 
             if (autentifikacijaToken == null)
                 return new NoResponse();

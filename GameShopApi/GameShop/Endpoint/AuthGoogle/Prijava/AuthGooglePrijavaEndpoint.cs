@@ -5,27 +5,23 @@ using GameShop.Helper.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace GameShop.Endpoint.Auth.Prijava
+namespace GameShop.Endpoint.AuthGoogle.Prijava
 {
-    [Tags("Auth")]
-    public class AuthPrijavaEndpoint : MyBaseEndpoint<AuthPrijavaRequest, MyAuthInfo>
+    [Tags("GoogleAuth")]
+    public class AuthGooglePrijavaEndpoint : MyBaseEndpoint<AuthGooglePrijavaReuqest,MyAuthInfo>
     {
         private readonly ApplicationDbContext _applicationDbContext;
 
-        public AuthPrijavaEndpoint(ApplicationDbContext applicationDbContext)
+        public AuthGooglePrijavaEndpoint(ApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
         }
-        [HttpPost("Prijavi-se")]
-        public override async Task<MyAuthInfo> Obradi([FromBody]AuthPrijavaRequest request, CancellationToken cancellationToken = default)
+        [HttpPost("Prijavi-se-google")]
+        public override async Task<MyAuthInfo> Obradi([FromQuery]AuthGooglePrijavaReuqest request, CancellationToken cancellationToken = default)
         {
-            var logiraniKorisnik = await _applicationDbContext.Korisnik.Include(kn=>kn.KNalog)
+            var logiraniKorisnik = await _applicationDbContext.Korisnik.Include(kn => kn.KNalog)
                 .FirstOrDefaultAsync(k =>
-                    k.KNalog.KorisnickoIme == request.KorisnickoIme, cancellationToken);
-
-            if (!LozinkaHasher.VerifikujLozinku(request.Lozinka, logiraniKorisnik.KNalog.Lozinka)){
-                throw new Exception("Korisnik ne postoji");
-            }
+                    k.KNalog.Email == request.Email && k.KNalog.isGoogleProvider == true);
 
             if (logiraniKorisnik == null)
             {

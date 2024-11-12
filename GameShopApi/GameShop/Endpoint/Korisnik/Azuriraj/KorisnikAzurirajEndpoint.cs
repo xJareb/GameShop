@@ -2,6 +2,7 @@
 using GameShop.Helper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace GameShop.Endpoint.Korisnik.Azuriraj
 {
@@ -20,7 +21,7 @@ namespace GameShop.Endpoint.Korisnik.Azuriraj
         {
             var korisnik = _applicationDbContext.Korisnik.Include(kn => kn.KNalog).Where(k => k.Id == request.KorisnikID).FirstOrDefault();
             if (korisnik == null)
-                throw new Exception("Korisnik nije pronađen za id: " + request.KorisnikID);
+                throw new Exception($"{HttpStatusCode.NotFound}");
 
             korisnik.Ime = request.Ime;
             korisnik.Prezime = request.Prezime;

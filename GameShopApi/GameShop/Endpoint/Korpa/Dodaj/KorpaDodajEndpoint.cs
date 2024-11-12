@@ -2,6 +2,7 @@
 using GameShop.Data.Models;
 using GameShop.Helper;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace GameShop.Endpoint.Korpa.Dodaj
 {
@@ -27,7 +28,7 @@ namespace GameShop.Endpoint.Korpa.Dodaj
                 };
                 if(novaIgrica.Kolicina == 0)
                 {
-                    throw new Exception("Kolicina mora biti veca od 0");
+                    throw new Exception($"{HttpStatusCode.BadRequest}");
                 }
                 _applicationDbContext.Korpa.Add(novaIgrica);
                 

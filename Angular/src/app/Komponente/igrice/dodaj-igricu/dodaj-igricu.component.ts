@@ -5,6 +5,7 @@ import {MojConfig} from "../../../moj-config";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {Zanr} from "../../../Servis/ZanrService/zanr";
 import {DodajIgricu} from "../../../Servis/IgriceService/dodaj-igricu";
+import {MyAuthServiceService} from "../../../Servis/AuthService/my-auth-service.service";
 
 @Component({
   selector: 'app-dodaj-igricu',
@@ -37,7 +38,7 @@ export class DodajIgricuComponent implements OnInit{
     ngOnInit(): void {
       this.izlistajZanrove();
     }
-    constructor(public httpClient:HttpClient) {
+    constructor(public httpClient:HttpClient, public authservice:MyAuthServiceService) {
     }
 
     izlistajZanrove(){
@@ -63,7 +64,11 @@ export class DodajIgricuComponent implements OnInit{
     let url = MojConfig.adresa_servera + `/DodajIgricu`;
 
     if(!this.provjeriIspravnostObjekta(this.novaIgra)){
-      this.httpClient.post(url,this.novaIgra).subscribe(x=>{
+      this.httpClient.post(url,this.novaIgra,{
+        headers:{
+          "my-auth-token": this.authservice.vratiToken()
+        }
+      }).subscribe(x=>{
         alert('Dodana nova igra');
         window.location.reload();
       })

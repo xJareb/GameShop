@@ -15,6 +15,18 @@ namespace GameShop.Helper.Services
             _applicationDbContext = applicationDbContext;
             _httpContextAccessor = httpContextAccessor;
         }
+        public bool jelLogiran()
+        {
+            return GetAuthInfo().isLogiran;
+        }
+        public bool jelKorisnik()
+        {
+            return GetAuthInfo().korisnickiNalog?.isKorisnik ?? false;
+        }
+        public bool jelAdmin()
+        {
+            return GetAuthInfo().korisnickiNalog?.isAdmin ?? false;
+        }
         public MyAuthInfo GetKorisnik()
         {
             var autentifikacijaKorisnik = _applicationDbContext.AutentifikacijaToken.Include(x => x.korisnickiNalog).FirstOrDefault();

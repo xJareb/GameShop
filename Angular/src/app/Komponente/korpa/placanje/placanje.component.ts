@@ -88,7 +88,11 @@ export class PlacanjeComponent implements OnInit{
       korisnikID:korisnikID
     }
 
-   this.httpClient.post(url,this.korisnikKupovina).subscribe(x=>{
+   this.httpClient.post(url,this.korisnikKupovina,{
+     headers:{
+       "my-auth-token": this.authService.vratiToken()
+     }
+   }).subscribe(x=>{
       this.obrisiOpsegKorpe();
       this.route.navigate(['/aktivacija']);
       window.localStorage.setItem("cijena","");
@@ -104,14 +108,22 @@ export class PlacanjeComponent implements OnInit{
       korisnikID: korisnikID
     }
 
-    this.httpClient.post(url,this.kreditnaKartica).subscribe(x=>{
+    this.httpClient.post(url,this.kreditnaKartica,{
+      headers:{
+        "my-auth-token":this.authService.vratiToken()
+      }
+    }).subscribe(x=>{
     })
   }
   obrisiOpsegKorpe(){
     let korisnikID = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
     let url = MojConfig.adresa_servera + `/ObrisiKorpuKorisnika?KorisnikID=${korisnikID}`;
 
-    this.httpClient.delete(url).subscribe(x=>{
+    this.httpClient.delete(url,{
+      headers:{
+        "my-auth-token":this.authService.vratiToken()
+      }
+    }).subscribe(x=>{
 
     })
   }

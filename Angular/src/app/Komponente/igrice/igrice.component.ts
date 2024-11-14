@@ -95,7 +95,11 @@ export class IgriceComponent implements OnInit{
         let igricaID = li.id;
         let url = MojConfig.adresa_servera + `/ObrisiIgricu?IgricaID=${igricaID}`;
 
-        this.httpClient.delete(url).subscribe(x=>{
+        this.httpClient.delete(url,{
+          headers:{
+            "my-auth-token":this.authService.vratiToken()
+          }
+        }).subscribe(x=>{
           window.location.reload();
         })
     }
@@ -104,7 +108,11 @@ export class IgriceComponent implements OnInit{
       let igricaID = li.id;
       let url = MojConfig.adresa_servera + `/IzdvojiIgricu?IgricaID=${igricaID}&Izdvojeno=true`;
 
-      this.httpClient.put(url,{}).subscribe(x=>{
+      this.httpClient.put(url,{},{
+        headers:{
+          "my-auth-token": this.authService.vratiToken()
+        }
+      }).subscribe(x=>{
           window.location.reload();
       })
   }

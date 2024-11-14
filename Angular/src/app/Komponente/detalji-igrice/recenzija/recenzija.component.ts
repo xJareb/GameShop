@@ -36,12 +36,15 @@ export class RecenzijaComponent {
       ocjena:this.rating
     }
     if(this.recenzijaRequest.sadrzaj != ""){
-
-    }
-    this.httpClient.post(url,this.recenzijaRequest).subscribe(x=>{
+    this.httpClient.post(url,this.recenzijaRequest,{
+      headers:{
+        "my-auth-token":this.authService.vratiToken()
+      }
+    }).subscribe(x=>{
       this.zatvori();
       window.location.reload();
     })
+  }
   }
 
   zatvori() {

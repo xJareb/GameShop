@@ -12,15 +12,21 @@ namespace GameShop.Endpoint.Kupovina.Dodaj
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly EmailSender _emailSender;
-        public KupovinaDodajEndpoint(ApplicationDbContext applicationDbContext, EmailSender emailSender)
+        private readonly MyAuthService _myAuthService;
+        public KupovinaDodajEndpoint(ApplicationDbContext applicationDbContext, EmailSender emailSender, MyAuthService myAuthService)
         {
             _applicationDbContext = applicationDbContext;
             _emailSender = emailSender;
+            _myAuthService = myAuthService;
         }
 
         [HttpPost("DodajKupovinu")]
         public override async Task<NoResponse> Obradi([FromBody]KupovinaDodajRequest request, CancellationToken cancellationToken = default)
         {
+            if (!_myAuthService.jelLogiran())
+            {
+                throw new Exception($"{HttpStatusCode.Unauthorized}");
+            }
             var korisnik = _applicationDbContext.Korisnik.Include(kn=>kn.KNalog).Where(k=>k.Id == request.KorisnikID).FirstOrDefault();
             
             if (korisnik == null)

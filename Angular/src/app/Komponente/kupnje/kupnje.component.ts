@@ -6,6 +6,7 @@ import {Zanr} from "../../Servis/ZanrService/zanr";
 import {Kupovine, KupovineResponse} from "../../Servis/KupovineService/kupovine-response";
 import {NgForOf, NgIf} from "@angular/common";
 import {KupnjeIgriceComponent} from "./kupnje-igrice/kupnje-igrice.component";
+import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
 
 @Component({
   selector: 'app-kupnje',
@@ -25,14 +26,18 @@ export class KupnjeComponent implements OnInit{
     public kupovineResponse:Kupovine[] = [];
     public prikazPregledaj: boolean = false;
     public listaIgrica:any;
-    constructor(public httpClient:HttpClient) {
+    constructor(public httpClient:HttpClient,public authService:MyAuthServiceService) {
     }
     ngOnInit(): void {
         this.izlistajKupovine();
     }
     izlistajKupovine(){
       let url = MojConfig.adresa_servera + `/IzlistajKupovine`;
-      this.httpClient.get<KupovineResponse>(url).subscribe(x=>{
+      this.httpClient.get<KupovineResponse>(url,{
+        headers:{
+          "my-auth-token":this.authService.vratiToken()
+        }
+      }).subscribe(x=>{
         this.kupovineResponse = x.kupovine;
       })
     }

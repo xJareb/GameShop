@@ -6,6 +6,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {Zanr} from "../../../Servis/ZanrService/zanr";
 import {NgForOf} from "@angular/common";
 import {UrediIgricu} from "../../../Servis/IgriceService/uredi-igricu";
+import {MyAuthServiceService} from "../../../Servis/AuthService/my-auth-service.service";
 
 
 @Component({
@@ -35,13 +36,8 @@ export class UrediIgricuComponent implements OnInit{
   ngOnInit(): void {
     this.izlistajZanrove();
 
-    /*const privremeniDatum = this.datumIzlaska;
-    const noviDatum = new Date(privremeniDatum);
-    this.datumIzlaska = noviDatum;
-    */
-
   }
-  constructor(public httpClient:HttpClient) {
+  constructor(public httpClient:HttpClient, public authservice:MyAuthServiceService) {
   }
   izlistajZanrove(){
     let url = MojConfig.adresa_servera + `/Izlistaj`;
@@ -66,7 +62,11 @@ export class UrediIgricuComponent implements OnInit{
       postotakAkcije: this.postotakAkcije
     }
 
-    this.httpClient.put(url,this.odabranaIgrica).subscribe(x=>{
+    this.httpClient.put(url,this.odabranaIgrica,{
+      headers:{
+        "my-auth-token": this.authservice.vratiToken()
+      }
+    }).subscribe(x=>{
       this.zatvori();
       window.location.reload();
     })

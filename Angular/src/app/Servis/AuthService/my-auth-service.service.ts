@@ -36,6 +36,9 @@ export class MyAuthServiceService {
   jelGoogleProvider():boolean{
     return this.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnickiNalog.isGoogleProvider ?? false;
   }
+  vratiToken():string{
+    return this.dohvatiAutorzacijskiToken()?.autentifikacijaToken.vrijednost;
+  }
   onemoguciKorpu(){
     if(!this.jelLogiran()){
       this.router.navigate(["/prijava"]);

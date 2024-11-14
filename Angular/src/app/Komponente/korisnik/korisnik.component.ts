@@ -40,7 +40,11 @@ export class KorisnikComponent implements OnInit{
       let id = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
       let url = MojConfig.adresa_servera + `/PregledLog?LogiraniKorisnikID=${id}`;
 
-      this.httpClient.get<LogiraniKorisnik>(url).subscribe((x:LogiraniKorisnik)=>{
+      this.httpClient.get<LogiraniKorisnik>(url,{
+        headers:{
+          "my-auth-token": this.authService.vratiToken()
+        }
+      }).subscribe((x:LogiraniKorisnik)=>{
         this.podaciLogKorisnik = x.korisnik;
       })
     }

@@ -54,7 +54,11 @@ export class DetaljiIgriceComponent implements OnInit{
       "kolicina": 1
     }
 
-    this.httpClient.post(url,requestBody).subscribe(x=>{
+    this.httpClient.post(url,requestBody,{
+      headers:{
+        "my-auth-token":this.authService.vratiToken()
+      }
+    }).subscribe(x=>{
       this.route.navigate(['/igrice']);
     })
   }
@@ -79,7 +83,11 @@ export class DetaljiIgriceComponent implements OnInit{
   }
   provjeriDostupnostRecenzije(){
     let url = MojConfig.adresa_servera + `/IzlistajKupovine`;
-    this.httpClient.get<KupovineResponse>(url).subscribe(x=>{
+    this.httpClient.get<KupovineResponse>(url,{
+      headers:{
+        "my-auth-token":this.authService.vratiToken()
+      }
+    }).subscribe(x=>{
       this.kupovineResponse = x.kupovine;
       this.kupovineResponse.some(x=>{
         if(this.authService.korisnikID() == x.korisnikID){

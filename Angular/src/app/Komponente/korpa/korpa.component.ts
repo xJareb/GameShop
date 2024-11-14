@@ -43,7 +43,11 @@ export class KorpaComponent implements OnInit{
       let korisnikID = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
       let url = MojConfig.adresa_servera + `/PretraziKorpu?Id=${korisnikID}`;
 
-      this.httpClient.get<IzlistajKorpu>(url).subscribe((x:IzlistajKorpu) => {
+      this.httpClient.get<IzlistajKorpu>(url,{
+        headers:{
+          "my-auth-token": this.authService.vratiToken()
+        }
+      }).subscribe((x:IzlistajKorpu) => {
         this.listaKorpe = x.korpa;
         if(this.listaKorpe.length > 0){
           this.pocetnoStanje = false;

@@ -47,21 +47,33 @@ export class AdminComponent implements OnInit{
       let id = this.dohvatiKorisnika().autentifikacijaToken.korisnickiNalog.id;
       let url = MojConfig.adresa_servera + `/PretraziAdmina?ID=${id}`;
 
-      this.httpClient.get<LogiraniAdmin>(url).subscribe((x:LogiraniAdmin) => {
+      this.httpClient.get<LogiraniAdmin>(url,{
+        headers:{
+          "my-auth-token":this.authService.vratiToken()
+        }
+      }).subscribe((x:LogiraniAdmin) => {
         this.adminPodaci = x.admin;
       })
     }
     izlistajSveKorisnike(){
         let url = MojConfig.adresa_servera + `/PregledSvih?isBlackList=false`;
 
-        this.httpClient.get<ListaKorisnika>(url).subscribe((x:ListaKorisnika)=>{
+        this.httpClient.get<ListaKorisnika>(url,{
+          headers:{
+            "my-auth-token":this.authService.vratiToken()
+          }
+        }).subscribe((x:ListaKorisnika)=>{
               this.listaKorisnika = x.korisnici;
         })
     }
     izlistajCrnuListu(){
       let url = MojConfig.adresa_servera + `/PregledSvih?isBlackList=true`;
 
-      this.httpClient.get<ListaKorisnika>(url).subscribe((x:ListaKorisnika)=>{
+      this.httpClient.get<ListaKorisnika>(url,{
+        headers:{
+          "my-auth-token":this.authService.vratiToken()
+        }
+      }).subscribe((x:ListaKorisnika)=>{
         this.crnaLista = x.korisnici;
       })
     }
@@ -69,7 +81,11 @@ export class AdminComponent implements OnInit{
     let id = lk.id;
 
     let url = MojConfig.adresa_servera + `/ObrisiKorisnika?ID=${id}&isBlackList=false`;
-    this.httpClient.put(url,{}).subscribe({
+    this.httpClient.put(url,{},{
+      headers:{
+        "my-auth-token":this.authService.vratiToken()
+      }
+    }).subscribe({
       next:(response)=> {
         this.izlistajSveKorisnike();
       }})
@@ -79,7 +95,11 @@ export class AdminComponent implements OnInit{
     let id = lk.id;
     let url = MojConfig.adresa_servera + `/ObrisiKorisnika?ID=${id}&isBlackList=true`;
 
-    this.httpClient.put(url,{}).subscribe({
+    this.httpClient.put(url,{},{
+      headers:{
+        "my-auth-token":this.authService.vratiToken()
+      }
+    }).subscribe({
       next:(response)=>{
         this.izlistajSveKorisnike();
         this.izlistajCrnuListu();

@@ -64,8 +64,8 @@ export class PocetnaComponent implements OnInit{
     let korisnik = window.localStorage.getItem("korisnik")??"";
     let ime = window.localStorage.getItem("ime");
 
-    window.localStorage.setItem("korisnik","");
 
+    window.localStorage.setItem("korisnik","");
 
     let url = MojConfig.adresa_servera + `/Odjavi-se`;
 
@@ -74,8 +74,8 @@ export class PocetnaComponent implements OnInit{
         "my-auth-token":token
       }
     }).subscribe(x=>{
+
       window.localStorage.removeItem("my-auth-token");
-      window.location.reload();
     })
   }
   idiNaStranicu() {

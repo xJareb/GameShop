@@ -4,6 +4,7 @@ import {NgIf} from "@angular/common";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {NoviAzuriraniKorisnik} from "../../../Servis/KorisnikService/novi-azurirani-korisnik";
 import {MojConfig} from "../../../moj-config";
+import {MyAuthServiceService} from "../../../Servis/AuthService/my-auth-service.service";
 
 @Component({
   selector: 'app-uredi-korisnika',
@@ -33,7 +34,7 @@ export class UrediKorisnikaComponent implements OnInit{
     public nazivDugmeta:string = "Nastavi";
     public uslov:boolean = false;
 
-    constructor(public httpClient: HttpClient) {
+    constructor(public httpClient: HttpClient, public authService: MyAuthServiceService) {
     }
     ngOnInit(): void {
 
@@ -57,7 +58,11 @@ export class UrediKorisnikaComponent implements OnInit{
 
         if(this.azuriraniKorisnik.lozinka != "" && this.ponovljenaLozinka != "")
         {
-          this.httpClient.put(url,this.azuriraniKorisnik).subscribe({
+          this.httpClient.put(url,this.azuriraniKorisnik,{
+            headers:{
+              "my-auth-token":this.authService.vratiToken()
+            }
+          }).subscribe({
             next:(response) => {
               if(this.azuriraniKorisnik?.lozinka == this.ponovljenaLozinka)
               {

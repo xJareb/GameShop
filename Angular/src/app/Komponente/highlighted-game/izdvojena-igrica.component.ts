@@ -7,7 +7,7 @@ import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.ser
 import {AllGamesResponse, Game} from "../../Servis/IgriceService/all-games-response";
 
 @Component({
-  selector: 'app-izdvojena-igrica',
+  selector: 'app-highlighted-game',
   standalone: true,
   imports: [
     FormsModule, HttpClientModule, NgForOf, NgIf

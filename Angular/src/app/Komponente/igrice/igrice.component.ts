@@ -52,7 +52,7 @@ export class IgriceComponent implements OnInit{
 
   goToDetails(li: any) {
     let gameID = li.id;
-    this.router.navigate([`/detalji-igrice/${gameID}`])
+    this.router.navigate([`/game-details/${gameID}`])
   }
   listGenres(){
     let url = MojConfig.adresa_servera + `/GenresGet`;

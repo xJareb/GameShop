@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-kontakt-podnozje',
+  selector: 'app-contact-podnozje',
   standalone: true,
   imports: [],
   templateUrl: './kontakt-podnozje.component.html',

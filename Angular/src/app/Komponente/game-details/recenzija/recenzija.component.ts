@@ -26,11 +26,11 @@ export class RecenzijaComponent {
 
   leaveReview() {
     let content = document.getElementById('message-text') as HTMLInputElement;
-    let korisnikID = this.authService.handleAuthToken()?.autentifikacijaToken.korisnikID;
+    let userID = this.authService.handleAuthToken()?.authenticationToken.userID;
     let url = MojConfig.adresa_servera + `/ReviewAdd`
 
     this.reviewRequest = {
-      userID:korisnikID,
+      userID:userID,
       gameID:this.gameID,
       content:content.value,
       grade:this.rating

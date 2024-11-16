@@ -27,17 +27,17 @@ namespace GameShop.Endpoint.ShoppingCart.Add
             var checkDuplicates = _applicationDbContext.ShoppingCart.Where(pd => pd.UserID == request.UserID && pd.GameID == request.UserID).FirstOrDefault();
             if (checkDuplicates == null)
             {
-                var novaIgrica = new Data.Models.ShoppingCart()
+                var newGame = new Data.Models.ShoppingCart()
                 {
                     UserID = request.UserID,
                     GameID = request.GameID,
                     Quantity = request.Quantity
                 };
-                if (novaIgrica.Quantity == 0)
+                if (newGame.Quantity == 0)
                 {
                     throw new Exception($"{HttpStatusCode.BadRequest}");
                 }
-                _applicationDbContext.ShoppingCart.Add(novaIgrica);
+                _applicationDbContext.ShoppingCart.Add(newGame);
 
             }
             else

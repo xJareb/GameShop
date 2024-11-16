@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
   import {OfferResponse} from "../../Servis/SedmicnaPonudaService/offer-response";
 
 @Component({
-  selector: 'app-sedmicna-ponuda',
+  selector: 'app-special-offer',
   standalone: true,
   imports: [
     NgForOf,
@@ -47,6 +47,6 @@ export class SedmicnaPonudaComponent implements OnInit{
 
   goToDetails(sp: any) {
     let gameID = sp.id;
-    this.router.navigate([`/detalji-igrice/${gameID}`])
+    this.router.navigate([`/game-details/${gameID}`])
   }
 }

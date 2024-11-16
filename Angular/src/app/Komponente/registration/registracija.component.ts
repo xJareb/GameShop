@@ -9,7 +9,7 @@ import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.ser
 import {RegistrationRequest} from "../../Servis/RegistracijaService/registration-request";
 
 @Component({
-  selector: 'app-registracija',
+  selector: 'app-registration',
   standalone: true,
   imports: [
     NgOptimizedImage,

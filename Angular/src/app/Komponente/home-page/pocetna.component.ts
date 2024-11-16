@@ -4,21 +4,21 @@ import {NgForOf, NgIf} from "@angular/common";
 import {MojConfig} from "../../moj-config";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {Router, RouterLink} from "@angular/router";
-import {SedmicnaPonudaComponent} from "../sedmicna-ponuda/sedmicna-ponuda.component";
+import {SedmicnaPonudaComponent} from "../special-offer/sedmicna-ponuda.component";
 import {withNoHttpTransferCache} from "@angular/platform-browser";
 import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
 import {routes} from "../../app.routes";
-import {RecenzijaComponent} from "../detalji-igrice/recenzija/recenzija.component";
-import {RecenzijeComponent} from "../recenzije/recenzije.component";
-import {IzdvojenaIgricaComponent} from "../izdvojena-igrica/izdvojena-igrica.component";
-import {KontaktPodnozjeComponent} from "../kontakt-podnozje/kontakt-podnozje.component";
+import {RecenzijaComponent} from "../game-details/recenzija/recenzija.component";
+import {RecenzijeComponent} from "../reviews/recenzije.component";
+import {IzdvojenaIgricaComponent} from "../highlighted-game/izdvojena-igrica.component";
+import {KontaktPodnozjeComponent} from "../contact-footer/kontakt-podnozje.component";
 import {AllGamesResponse} from "../../Servis/IgriceService/all-games-response";
 import {GameCategoriesResponse} from "../../Servis/IgriceService/all-games-category-response";
 
 declare const google: any;
 
 @Component({
-  selector: 'app-pocetna',
+  selector: 'app-home-page',
   standalone: true,
   imports: [NgbPopoverModule, NgIf, HttpClientModule, NgForOf, SedmicnaPonudaComponent, RouterLink, RecenzijaComponent, RecenzijeComponent, IzdvojenaIgricaComponent, KontaktPodnozjeComponent],
   templateUrl: './pocetna.component.html',
@@ -56,7 +56,7 @@ export class PocetnaComponent implements OnInit{
 
   goToRoute(li: any) {
     let igricaID = li.id;
-    this.router.navigate([`/detalji-igrice/${igricaID}`])
+    this.router.navigate([`/game-details/${igricaID}`])
   }
 
   logout() {
@@ -80,7 +80,7 @@ export class PocetnaComponent implements OnInit{
   }
   goToPage() {
     if(!this.authService.isLogged()){
-      this.router.navigate(["/prijava"])
+      this.router.navigate(["/login"])
     }
     if(this.authService.isLogged() && this.authService.isAdmin()){
       this.router.navigate(["/admin"])

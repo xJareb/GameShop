@@ -57,7 +57,7 @@
         </div>
         <div class="form-group" *ngIf="!authService.isGoogleProvider()">
           <label for="datumRodjenja">Date of birth</label>
-          <input type="text" class="form-control  background " id="datumRodjenja" disabled [value]="k.dateBirth.substring(0,k.dateBirth.indexOf('T')) ?? emptyValue">
+          <input type="text" class="form-control  background " id="datumRodjenja" disabled [value]="k.dateBirth.substring(0,k.dateBirth.indexOf('T'))">
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ import {NgForOf} from "@angular/common";
 import {Review, ReviewResponse} from "../../Servis/RecenzijeService/reviews-response";
 
 @Component({
-  selector: 'app-recenzije',
+  selector: 'app-reviews',
   standalone: true,
   imports: [
     NgbRating, NgbRatingModule, HttpClientModule, NgForOf

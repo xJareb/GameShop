@@ -11,7 +11,7 @@ import {LoginResponse} from "../../Servis/PrijavaService/login-response";
 declare const google: any;
 
 @Component({
-  selector: 'app-prijava',
+  selector: 'app-login',
   standalone: true,
   imports: [
     ReactiveFormsModule,

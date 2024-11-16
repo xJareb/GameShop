@@ -3,9 +3,9 @@ import {FormsModule} from "@angular/forms";
 import {NgForOf} from "@angular/common";
 import {MojConfig} from "../../../moj-config";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {Zanr} from "../../../Servis/ZanrService/zanr";
-import {DodajIgricu} from "../../../Servis/IgriceService/dodaj-igricu";
 import {MyAuthServiceService} from "../../../Servis/AuthService/my-auth-service.service";
+import {GenreResponse} from "../../../Servis/ZanrService/genre-response";
+import {GameAddRequest} from "../../../Servis/IgriceService/game-add-request";
 
 @Component({
   selector: 'app-dodaj-igricu',
@@ -20,75 +20,71 @@ import {MyAuthServiceService} from "../../../Servis/AuthService/my-auth-service.
 })
 export class DodajIgricuComponent implements OnInit{
 
-    public listaZanrova:any;
-    public novaIgra:DodajIgricu | null  = null;
+    public listGenre:any;
+    public newGameRequest:GameAddRequest | null  = null;
 
-    public naziv: any;
-    public zanrID: number = 1;
-    public datumIzlaska:any;
-    public slika:any;
-    public izdavac:any;
-    public opis:any;
-    public cijena:any;
-    public postotakAkcije:any;
+    public name: any;
+    public genreID: number = 1;
+    public releaseDate:any;
+    public photo:any;
+    public publisher:any;
+    public description:any;
+    public price:any;
+    public percentageDiscount:any;
 
-    @Output() otvori = new EventEmitter<boolean>();
-    public prikaz:boolean = true;
+    @Output() open = new EventEmitter<boolean>();
+    public show:boolean = true;
 
     ngOnInit(): void {
-      this.izlistajZanrove();
+      this.listAllGenre();
     }
     constructor(public httpClient:HttpClient, public authservice:MyAuthServiceService) {
     }
 
-    izlistajZanrove(){
-      let url = MojConfig.adresa_servera + `/Izlistaj`;
+    listAllGenre(){
+      let url = MojConfig.adresa_servera + `/GenresGet`;
 
-      this.httpClient.get<Zanr>(url).subscribe(x=>{
-        this.listaZanrova = x.zanrovi;
+      this.httpClient.get<GenreResponse>(url).subscribe(x=>{
+        this.listGenre = x.genres;
       })
     }
 
-  dodajIgricu() {
-    this.novaIgra = {
-      naziv: this.naziv,
-      zanrID: this.zanrID,
-      datumIzlaska: this.datumIzlaska,
-      slika: this.slika,
-      izdavac: this.izdavac,
-      opis: this.opis,
-      cijena: this.cijena,
-      postotakAkcije: this.postotakAkcije,
+  addGame() {
+    this.newGameRequest = {
+      name: this.name,
+      genreID: this.genreID,
+      releaseDate: this.releaseDate,
+      photo: this.photo,
+      publisher: this.publisher,
+      description: this.description,
+      price: this.price,
+      percentageDiscount: this.percentageDiscount,
     }
 
-    let url = MojConfig.adresa_servera + `/DodajIgricu`;
+    let url = MojConfig.adresa_servera + `/GameAdd`;
 
-    if(!this.provjeriIspravnostObjekta(this.novaIgra)){
-      this.httpClient.post(url,this.novaIgra,{
+    if(!this.checkObject(this.newGameRequest)){
+      this.httpClient.post(url,this.newGameRequest,{
         headers:{
           "my-auth-token": this.authservice.vratiToken()
         }
       }).subscribe(x=>{
-        alert('Dodana nova igra');
         window.location.reload();
       })
     }else{
-      alert('Provjerite ispravnost svih polja');
     }
-
-
 
   }
 
-   provjeriIspravnostObjekta(obj: any): boolean {
+   checkObject(obj: any): boolean {
     return Object.values(obj).some(value =>
       value === null || value === undefined || value === ''
     );
   }
 
 
-  zatvori() {
-    this.prikaz = !this.prikaz;
-    this.otvori.emit(this.prikaz);
+  close() {
+    this.show = !this.show;
+    this.open.emit(this.show);
   }
 }

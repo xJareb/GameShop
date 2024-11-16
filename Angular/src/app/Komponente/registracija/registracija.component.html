@@ -1,44 +1,44 @@
-<div class="fluid-container flex-div">
-  <div class="left-container container-dimensions">
-    <div class="container-route flex-div color-white">
-      <p routerLink="">Početna</p>
+<div class="fluid-container ">
+  <div class="left-container ">
+    <div class="container-route">
+      <p routerLink="">Home</p>
       <p>></p>
-      <p routerLink="/registracija">Registracija</p>
+      <p routerLink="/registracija">Registration</p>
     </div>
-    <div class="registracija-forma">
+    <div class="registration-form">
         <form [formGroup]="userForm">
-          <h2 class="color-white">Registruj se</h2>
-          <div class="form-inputs flex-div">
+          <h2>Register</h2>
+          <div class="form-inputs">
             <div class="left-side">
               <div class="form-group">
-                <input type="text" class="form-control color-white"  placeholder="Ime" formControlName="ime" [ngbTooltip]="tipContentIme" placement="top" [ngStyle]="postaviStil('ime')">
-                <ng-template #tipContentIme>Vaše ime mora imati najmanje 4 znakova, uključujući veliko početno slovo.</ng-template>
+                <input type="text" class="form-control"  placeholder="Name" formControlName="ime" [ngbTooltip]="tipContentIme" placement="top" [ngStyle]="setStyle('ime')">
+                <ng-template #tipContentIme>Your name must be at least 4 characters long, including an uppercase letter.</ng-template>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control color-white" placeholder="Prezime" formControlName="prezime" [ngbTooltip]="tipContentPrezime" placement="bottom" [ngStyle]="postaviStil('prezime')">
-                <ng-template #tipContentPrezime>Vaše ime mora imati najmanje 4 znakova, uključujući veliko početno slovo.</ng-template>
+                <input type="text" class="form-control" placeholder="Surname" formControlName="prezime" [ngbTooltip]="tipContentPrezime" placement="bottom" [ngStyle]="setStyle('prezime')">
+                <ng-template #tipContentPrezime>Your last name must be at least 4 characters long, including a capital letter.</ng-template>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control color-white" placeholder="Korisničko ime" formControlName="korisnickoIme" [ngStyle]="postaviStil('korisnickoIme')">
+                <input type="text" class="form-control" placeholder="Username" formControlName="korisnickoIme" [ngStyle]="setStyle('korisnickoIme')">
               </div>
             </div>
             <div class="right-side">
               <div class="form-group">
-                <input type="email" class="form-control color-white" placeholder="Email" formControlName="email" [ngStyle]="postaviStil('email')">
+                <input type="email" class="form-control" placeholder="Email" formControlName="email" [ngStyle]="setStyle('email')">
               </div>
               <div class="form-group">
-                <input type="date" class="form-control color-white" formControlName="datumRodjenja" [ngStyle]="postaviStil('datumRodjenja')">
+                <input type="date" class="form-control" formControlName="datumRodjenja" [ngStyle]="setStyle('datumRodjenja')">
               </div>
               <div class="form-group">
-                <input type="password" class="form-control color-white" placeholder="Lozinka" [ngbTooltip]="tipContent" placement="right-bottom" formControlName="lozinka" [ngStyle]="postaviStil('lozinka')">
-                <ng-template #tipContent>Vaša lozinka mora imati najmanje 7 znakova, uključujući mala i velika slova te brojeve.</ng-template>
+                <input type="password" class="form-control" placeholder="Password" [ngbTooltip]="tipContent" placement="right-bottom" formControlName="lozinka" [ngStyle]="setStyle('lozinka')">
+                <ng-template #tipContent>Your password must be at least 7 characters long, including upper and lower case letters and numbers.</ng-template>
               </div>
             </div>
           </div>
-          <button type="button" class="reg-button color-white center-div" (click)="kreirajKorisnika()">Registruj se</button>
+          <button type="button" class="reg-button center-div" (click)="createUser()">Register</button>
         </form>
     </div>
   </div>
-  <div class="right-container container-dimensions bg-image">
+  <div class="right-container bg-image">
   </div>
 </div>

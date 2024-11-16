@@ -42,7 +42,6 @@
   width: 50px;
   height: 25px;
   background-color: darkorange;
-  color: white;
   position: absolute;
   top: 0;
   text-align: center;
@@ -55,7 +54,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 1%;
-  color: white;
+
 }
 
 .price {
@@ -70,5 +69,7 @@
 }
 h4{
   margin: 1% 0 1%  3%;
-  color: white;
+}
+.discount, .details, h4{
+  color:white;
 }

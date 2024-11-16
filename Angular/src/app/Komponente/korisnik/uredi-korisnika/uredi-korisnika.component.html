@@ -2,19 +2,19 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLiveLabel">Uredi korisnika</h5>
-        <button  class="btn-close" data-bs-dismiss="modal"  aria-label="Close" (click)="zatvori()"></button>
+        <h5 class="modal-title" id="exampleModalLiveLabel">Edit user</h5>
+        <button  class="btn-close" data-bs-dismiss="modal"  aria-label="Close" (click)="close()"></button>
       </div>
       <div class="modal-body">
-        <div class="first-inputs" *ngIf="!tranzicija">
+        <div class="first-inputs" *ngIf="!transition">
           <div>
-            <label class="form-label" > Ime: </label>
-            <input class="form-control" [(ngModel)]="ime">
+            <label class="form-label" > Name: </label>
+            <input class="form-control" [(ngModel)]="name">
           </div>
 
           <div>
-            <label class="form-label" > Prezime: </label>
-            <input class="form-control" [(ngModel)]="prezime">
+            <label class="form-label" > Surname: </label>
+            <input class="form-control" [(ngModel)]="surname">
           </div>
 
           <div>
@@ -23,21 +23,21 @@
           </div>
         </div>
 
-        <div class="second-inputs" *ngIf="tranzicija">
+        <div class="second-inputs" *ngIf="transition">
           <div>
-            <label class="form-label"  > Lozinka: </label>
-            <input type="password" class="form-control" id="password" [(ngModel)]="lozinka">
+            <label class="form-label"  > Password: </label>
+            <input type="password" class="form-control" id="password" [(ngModel)]="password">
           </div>
 
           <div>
-            <label class="form-label" > Potvrdite lozinka: </label>
-            <input type="password" class="form-control" id="compassword" [(ngModel)]="ponovljenaLozinka">
+            <label class="form-label" > Confirm password: </label>
+            <input type="password" class="form-control" id="compassword" [(ngModel)]="confirmedPassword">
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="zatvori()">Odustani</button>
-        <button type="button" class="btn btn-primary" (click)="azuriraj();tranzicija=true;priprema()">{{nazivDugmeta}}</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Back</button>
+        <button type="button" class="btn btn-primary" (click)="UpdateUser();transition=true;prepareToNextPage()">{{buttonText}}</button>
       </div>
     </div>
   </div>

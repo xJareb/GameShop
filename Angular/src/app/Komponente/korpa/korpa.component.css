@@ -43,7 +43,6 @@
   width: 55%;
   min-height: 75%;
   max-height: 75%;
-  background-color: #829093;
   overflow-y: hidden;
 }
 .left::-webkit-scrollbar{
@@ -95,6 +94,9 @@
 .quantity{
   margin-top: -2vh;
 }
+.quantity select{
+  background-color: #323232;
+}
 .game-image{
   width: 120px;
   height: 100px;
@@ -120,9 +122,6 @@
 .image svg path{
   fill: white;
 }
-.color-white {
-  color: white;
-}
 .default-border{
   border: 2px solid black;
 }
@@ -131,19 +130,6 @@
 }
 .flex-div{
   display: flex;
-}
-.center-div{
-  margin-left:auto;
-  margin-right: auto;
-}
-.primary-background{
-  background-color: #323232;
-}
-.background{
-  background-color: #242424;
-}
-.border-color{
-  border: 2px solid #3D3D3D;
 }
 .button-manage{
   background: linear-gradient(to right, orangered, orange);
@@ -159,12 +145,26 @@
 .content-center{
   justify-content: center;
 }
-.content-between{
-  justify-content: space-between;
+.navigation, .body, .route, .cart-body, .game, .game-price-quantity, .official-price, .discount, .subtotal{
+  display: flex;
 }
-.align-center{
+.first-step, .route, .left, .button-manage, .right, .subtotal-info info, .quantity select{
+  color: white;
+}
+.body, .cart-body, .game-price-quantity{
   align-items: center;
 }
-.border-15{
+.body, .content, .game, .subtotal-info, .subtotal-info button{
+  margin-left: auto;
+  margin-right: auto;
+}
+.cart-body, .left, .right{
   border-radius: 15px;
+}
+.left, .right{
+  border: 2px solid #3D3D3D;
+  background-color: #242424;
+}
+.game, .official-price, .discount, .subtotal{
+  justify-content: space-between;
 }

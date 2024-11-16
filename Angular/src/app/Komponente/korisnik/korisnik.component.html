@@ -1,72 +1,72 @@
-<div class="route color-white flex-div">
-  <p routerLink="" class="single-route">Početna</p>
+<div class="route ">
+  <p routerLink="" class="single-route">Home</p>
   <p>></p>
-  <p routerLink="/korisnik" class="single-route">Korisnik</p>
+  <p routerLink="/korisnik" class="single-route">User</p>
 </div>
-<div class="main flex-div border-15 background border-color" *ngFor="let k of podaciLogKorisnik">
-  <div class="left-side border-15 primary-background border-color">
+<div class="main background " *ngFor="let k of dataLoggedUser">
+  <div class="left-side ">
     <div class="photo">
-      <img *ngIf="!authService.jelGoogleProvider()" [src]="'data:image/jpeg;base64,' + k.slika" alt="" srcset="" class="center-div">
-      <img *ngIf="authService.jelGoogleProvider()" src="{{k.googleSlika}}" alt="" srcset="" class="center-div">
+      <img *ngIf="!authService.jelGoogleProvider()" [src]="'data:image/jpeg;base64,' + k.photoBytes" alt="" srcset="" >
+      <img *ngIf="authService.jelGoogleProvider()" src="{{k.googlePhoto}}" alt="" srcset="" >
       <form (submit)="onSubmit()" enctype="multipart/form-data" class="" *ngIf="!authService.jelGoogleProvider()">
-        <input type="file" (change)="onFileSelected($event)" accept="image/*" class="color-white"/>
-        <button type="submit" >Ažuriraj sliku</button>
+        <input type="file" (change)="onFileSelected($event)" accept="image/*"/>
+        <button type="submit" >Update photo</button>
       </form>
     </div>
-    <div class="user-info center-div color-white">
+    <div class="user-info ">
       <hr>
-      <div class="order-num flex-div content-between">
-        <p>Broj narudzbi:</p>
-        <p>{{k.brojNarudzbi}}</p>
+      <div class="order-num  ">
+        <p>Number of purchases:</p>
+        <p>{{k.numberOfPurchase}}</p>
       </div>
       <hr>
-      <div class="user-status flex-div content-between">
+      <div class="user-status ">
         <p>Status: </p>
-        <p>Korisnik</p>
+        <p>User</p>
       </div>
       <hr>
     </div>
   </div>
-  <div class="right-side border-15 primary-background">
-    <div class="title color-white">
-      <h2>Dobrodošli na vaš račun</h2>
+  <div class="right-side ">
+    <div class="title ">
+      <h2>Welcome to your account</h2>
     </div>
-    <div class="text color-white">
-      <p>Postavke računa</p>
+    <div class="text ">
+      <p>Account settings</p>
       <hr>
     </div>
-    <div class="user-inputs flex-div color-white ">
+    <div class="user-inputs   ">
       <div class="left-inputs">
         <div class="form-group">
-          <label for="ime">Ime</label>
-          <input type="text" class="form-control color-white background border-color" id="ime" disabled [value]="k.ime">
+          <label for="ime">Name</label>
+          <input type="text" class="form-control  background " id="ime" disabled [value]="k.name">
         </div>
         <div class="form-group" *ngIf="!authService.jelGoogleProvider()">
-          <label for="prezime">Prezime</label>
-          <input type="text" class="form-control color-white background border-color" id="prezime" disabled [value]="k.prezime">
+          <label for="prezime">Surname</label>
+          <input type="text" class="form-control  background " id="prezime" disabled [value]="k.surname">
         </div>
         <div class="form-group" *ngIf="!authService.jelGoogleProvider()">
-          <label for="korisnickoime">Korisnicko ime</label>
-          <input type="text" class="form-control color-white background border-color" id="korisnickoime" disabled [value]="k.korisnickoIme">
+          <label for="korisnickoime">Username</label>
+          <input type="text" class="form-control  background " id="korisnickoime" disabled [value]="k.username">
         </div>
       </div>
       <div class="right-inputs">
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" class="form-control color-white background border-color" id="email" disabled [value]="k.email">
+          <input type="email" class="form-control  background " id="email" disabled [value]="k.email">
         </div>
         <div class="form-group" *ngIf="!authService.jelGoogleProvider()">
-          <label for="datumRodjenja">Datum rodjenja</label>
-          <input type="text" class="form-control color-white background border-color" id="datumRodjenja" disabled [value]="k.datumRodjenja.substring(0,k.datumRodjenja.indexOf('T')) ?? praznaVrijednost">
+          <label for="datumRodjenja">Date of birth</label>
+          <input type="text" class="form-control  background " id="datumRodjenja" disabled [value]="k.dateBirth.substring(0,k.dateBirth.indexOf('T')) ?? emptyValue">
         </div>
       </div>
     </div>
-    <button class="color-white button-manage" (click)="pripremiPodatke(k);prikazUredi = true" [disabled]="authService.jelGoogleProvider()">Izmjeni</button>
+    <button class=" button-manage" (click)="prepareData(k);showDialogEdit = true" [disabled]="authService.jelGoogleProvider()">Change</button>
   </div>
 </div>
 
-<app-uredi-korisnika *ngIf="prikazUredi"
-(otvori)="this.otvaranjeUredi($event)"
-[ime] = "pripremljeniPodaci!.ime"
-[prezime]="pripremljeniPodaci!.prezime"
-[email]="pripremljeniPodaci!.email"></app-uredi-korisnika>
+<app-uredi-korisnika *ngIf="showDialogEdit"
+(open)="this.openEditDialog($event)"
+[name] = "preparedLoggedUserData!.name"
+[surname]="preparedLoggedUserData!.surname"
+[email]="preparedLoggedUserData!.email"></app-uredi-korisnika>

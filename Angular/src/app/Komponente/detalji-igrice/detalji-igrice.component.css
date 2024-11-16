@@ -59,6 +59,9 @@
 .info span{
   margin-left: 2%;
 }
+.info p{
+  font-weight: bold;
+}
 .par-review{
   min-height: 120px;
   max-height: 120px;
@@ -88,13 +91,6 @@
 .right{
   width: 70%;
 }
-
-.flex-div{
-  display: flex;
-}
-.color-white{
-  color: white;
-}
 .button-manage{
   background: linear-gradient(to right, orangered, orange);
   padding: 1%;
@@ -105,24 +101,27 @@
 .button-manage:hover{
   background: linear-gradient(to right, orangered, darkorange);
 }
-.center-text{
-  text-align: center;
+.route, .game-info, .game-info-more, .add-to-cart button, .game-price{
+  color: white;
 }
-.center-div{
-  margin: 0 auto;
+.route, .container, .info, .review{
+  display: flex;
 }
-.border-10{
-  border-radius: 10px;
-}
-.align-center{
-  align-items: center;
-}
-.font-bold{
-  font-weight: bold;
-}
-.border-color{
+.container, .review, .game-price{
   border: 2px solid #3D3D3D;
 }
-.background{
+.game-price, .right, .add-to-cart, .game-info-more h2, .bio, .left p{
+  text-align: center;
+}
+.container, .review{
+  align-items: center;
+}
+.container, .container img, .review, .game-price{
+  border-radius: 10px;
+}
+.review, .game-price{
   background-color: #323232;
+}
+.left img, .bio{
+  margin: 0 auto;
 }

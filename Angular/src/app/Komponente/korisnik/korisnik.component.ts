@@ -3,12 +3,11 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MojConfig} from "../../moj-config";
 import {FormsModule} from "@angular/forms";
 import {CommonModule, NgForOf, NgIf} from "@angular/common";
-import {Korisnik, LogiraniKorisnik} from "../../Servis/KorisnikService/logirani-korisnik";
-import {DetaljiIgrice} from "../../Servis/DetaljiIgriceService/detalji-igrice";
 import {Router, RouterLink} from "@angular/router";
 import {UrediKorisnikaComponent} from "./uredi-korisnika/uredi-korisnika.component";
-import {AzurirajKorisnika} from "../../Servis/KorisnikService/azuriraj-korisnika";
 import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
+import {LoggedUser, User} from "../../Servis/KorisnikService/logged-user";
+import {PrepareLoggedUser} from "../../Servis/KorisnikService/prepare-logged-user";
 
 @Component({
   selector: 'app-korisnik',
@@ -19,10 +18,10 @@ import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.ser
 })
 export class KorisnikComponent implements OnInit{
 
-    public podaciLogKorisnik:Korisnik [] = [];
-    public pripremljeniPodaci:AzurirajKorisnika | null = null;
-    public prikazUredi: boolean = false;
-    public praznaVrijednost: string = "";
+    public dataLoggedUser:User[] = [];
+    public preparedLoggedUserData:PrepareLoggedUser | null = null;
+    public showDialogEdit: boolean = false;
+    public emptyValue: string = "";
 
     public selectedFile:File |null = null;
 
@@ -33,46 +32,47 @@ export class KorisnikComponent implements OnInit{
           this.router.navigate(["/"]);
         }
         else{
-          this.ucitajLogiranogKorisnika();
+          this.listLoggedUser();
         }
     }
-    ucitajLogiranogKorisnika(){
+    listLoggedUser(){
       let id = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
-      let url = MojConfig.adresa_servera + `/PregledLog?LogiraniKorisnikID=${id}`;
+      let url = MojConfig.adresa_servera + `/GetLogged?LoggedUserID=${id}`;
 
-      this.httpClient.get<LogiraniKorisnik>(url,{
+      this.httpClient.get<LoggedUser>(url,{
         headers:{
           "my-auth-token": this.authService.vratiToken()
         }
-      }).subscribe((x:LogiraniKorisnik)=>{
-        this.podaciLogKorisnik = x.korisnik;
+      }).subscribe((x:LoggedUser)=>{
+        this.dataLoggedUser = x.user;
       })
     }
-  pripremiPodatke(k: Korisnik) {
-      this.pripremljeniPodaci = {
-        ime: k.ime,
-        prezime: k.prezime,
+  prepareData(k: User) {
+      this.preparedLoggedUserData = {
+        name: k.name,
+        surname: k.surname,
         email: k.email
       }
+
   }
-  otvaranjeUredi($event : boolean)
+  openEditDialog($event : boolean)
   {
-    this.prikazUredi = $event;
+    this.showDialogEdit = $event;
   }
 
   onSubmit() {
     if (!this.selectedFile) {
-      alert('Molimo odaberite fajl.');
+      alert('Please choose a file.');
       return;
     }
     const formData = new FormData();
-    formData.append("slika", this.selectedFile);
+    formData.append("photo", this.selectedFile);
 
-    let slikaUrl = MojConfig.adresa_servera + `/Slika`;
+    let photoUrl = MojConfig.adresa_servera + `/UserPhoto`;
 
-    this.httpClient.put(slikaUrl,formData).subscribe({
+    this.httpClient.put(photoUrl,formData).subscribe({
       next:(response) => {
-        this.ucitajLogiranogKorisnika();
+        this.listLoggedUser();
       }
     })
   }

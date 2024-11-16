@@ -85,35 +85,39 @@
 .icon{
   font-size: 5em;
 }
-.color-white{
-  color: white;
-}
-.flex-div{
-  display: flex;
-}
-.center-div{
-  margin-left: auto;
-  margin-right: auto;
-}
-.content-between{
-  justify-content: space-between;
-}
-.center-text{
-  text-align: center;
-}
-.cursor-pointer:hover{
-  cursor: pointer;
-}
-.margin-auto{
-  margin: auto;
-}
 .transition:hover{
   transform: scale(1.04);
   transition: transform 0.3s ease;
 }
-.border-10{
-  border-radius: 10px;
+.game-panel, .category-filter, .filter-grid, .game-grid{
+  margin: auto;
 }
-.w-80{
+.route, .filter-grid, .price-range, .game-grid, .details, .category-filter{
+  display: flex;
+}
+.route, .title, .category-filter, .filter-grid, .filter-grid input, .sorting select, .game-grid, .details, .price{
+  color: white;
+}
+.category-filter, .filter-grid, .details{
+  justify-content: space-between;
+}
+.category-filter, .filter-grid{
   width: 80%;
+}
+.category-filter, .route p, .game-add, .game-item img{
+  cursor:pointer;
+}
+.firstPrice p, .firstPrice input, .lastPrice input, .lastPrice p{
+  text-align: center;
+}
+.firstPrice input, .lastPrice input, .sorting select{
+  padding: 0.5vh;
+  background-color: #242424;
+  border: 2px solid #3D3D3D;
+}
+.firstPrice input, .lastPrice input, .game-add, .game-item, .game-control button{
+  border-radius: 10px
+}
+.game-add, .discount, .lastPrice p{
+  text-align: center;
 }

@@ -3,10 +3,9 @@ import {Router, RouterLink} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MojConfig} from "../../moj-config";
-import {Korisnik, LogiraniKorisnik} from "../../Servis/KorisnikService/logirani-korisnik";
-import {Korisnici, ListaKorisnika} from "../../Servis/AdminService/lista-korisnika";
+import {ListOfAllUsers, User} from "../../Servis/AdminService/list-of-all-users";
 import {NgForOf, NgIf} from "@angular/common";
-import {Admin, LogiraniAdmin} from "../../Servis/AdminService/logirani-admin";
+import {Admin, AdminData} from "../../Servis/AdminService/admin-data";
 import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
 
 @Component({
@@ -25,11 +24,11 @@ import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.ser
 })
 export class AdminComponent implements OnInit{
 
-    listaKorisnika:Korisnici[] = [];
-    crnaLista:Korisnici[] = [];
-    adminPodaci: Admin[] = [];
-
     public selectedFile:File |null = null;
+
+    listOfUsers:User[] = [];
+    blackList:User[] = [];
+    adminData: Admin[] = [];
 
     constructor(public httpClient:HttpClient,public authService:MyAuthServiceService,public router:Router) {
     }
@@ -37,63 +36,63 @@ export class AdminComponent implements OnInit{
       if(!this.authService.jelAdmin()){
         this.router.navigate(["/"])
       }else{
-        this.izlistajSveKorisnike();
-        this.izlistajCrnuListu();
-        this.izlistajAdmina();
+        this.listAllUsers();
+        this.listBlacklist();
+        this.listAdmin();
       }
 
     }
-    izlistajAdmina(){
-      let id = this.dohvatiKorisnika().autentifikacijaToken.korisnickiNalog.id;
-      let url = MojConfig.adresa_servera + `/PretraziAdmina?ID=${id}`;
+    listAdmin(){
+      let id = this.handleUser().autentifikacijaToken.korisnickiNalog.id;
+      let url = MojConfig.adresa_servera + `/GetAdmin?ID=${id}`;
 
-      this.httpClient.get<LogiraniAdmin>(url,{
+      this.httpClient.get<AdminData>(url,{
         headers:{
           "my-auth-token":this.authService.vratiToken()
         }
-      }).subscribe((x:LogiraniAdmin) => {
-        this.adminPodaci = x.admin;
+      }).subscribe((x:AdminData) => {
+        this.adminData = x.admin;
       })
     }
-    izlistajSveKorisnike(){
-        let url = MojConfig.adresa_servera + `/PregledSvih?isBlackList=false`;
+    listAllUsers(){
+        let url = MojConfig.adresa_servera + `/UsersGet?isBlackList=false`;
 
-        this.httpClient.get<ListaKorisnika>(url,{
+        this.httpClient.get<ListOfAllUsers>(url,{
           headers:{
             "my-auth-token":this.authService.vratiToken()
           }
-        }).subscribe((x:ListaKorisnika)=>{
-              this.listaKorisnika = x.korisnici;
+        }).subscribe((x:ListOfAllUsers)=>{
+              this.listOfUsers = x.users;
         })
     }
-    izlistajCrnuListu(){
-      let url = MojConfig.adresa_servera + `/PregledSvih?isBlackList=true`;
+    listBlacklist(){
+      let url = MojConfig.adresa_servera + `/UsersGet?isBlackList=true`;
 
-      this.httpClient.get<ListaKorisnika>(url,{
+      this.httpClient.get<ListOfAllUsers>(url,{
         headers:{
           "my-auth-token":this.authService.vratiToken()
         }
-      }).subscribe((x:ListaKorisnika)=>{
-        this.crnaLista = x.korisnici;
+      }).subscribe((x:ListOfAllUsers)=>{
+        this.blackList = x.users;
       })
     }
-  obrisiKorisnika(lk: Korisnici) {
+    deleteUser(lk: User) {
     let id = lk.id;
 
-    let url = MojConfig.adresa_servera + `/ObrisiKorisnika?ID=${id}&isBlackList=false`;
+    let url = MojConfig.adresa_servera + `/UserDelete?ID=${id}&isBlackList=false`;
     this.httpClient.put(url,{},{
       headers:{
         "my-auth-token":this.authService.vratiToken()
       }
     }).subscribe({
       next:(response)=> {
-        this.izlistajSveKorisnike();
+        this.listAllUsers();
       }})
   }
 
-  crnaListaKorisnika(lk: Korisnici) {
+    blacklistUser(lk: User) {
     let id = lk.id;
-    let url = MojConfig.adresa_servera + `/ObrisiKorisnika?ID=${id}&isBlackList=true`;
+    let url = MojConfig.adresa_servera + `/UserDelete?ID=${id}&isBlackList=true`;
 
     this.httpClient.put(url,{},{
       headers:{
@@ -101,24 +100,24 @@ export class AdminComponent implements OnInit{
       }
     }).subscribe({
       next:(response)=>{
-        this.izlistajSveKorisnike();
-        this.izlistajCrnuListu();
+        this.listAllUsers();
+        this.listBlacklist();
       }})
-  }
+    }
 
   onSubmit() {
     if (!this.selectedFile) {
-      alert('Molimo odaberite fajl.');
+      alert('Please choose a file.');
       return;
     }
     const formData = new FormData();
-    formData.append("slika", this.selectedFile);
+    formData.append("photo", this.selectedFile);
 
-    let slikaUrl = MojConfig.adresa_servera + `/Slika`;
+    let photoUrl = MojConfig.adresa_servera + `/UserPhoto`;
 
-    this.httpClient.put(slikaUrl,formData).subscribe({
+    this.httpClient.put(photoUrl,formData).subscribe({
       next:(response) => {
-        this.izlistajAdmina();
+        this.listAdmin();
       }
     })
   }
@@ -129,7 +128,7 @@ export class AdminComponent implements OnInit{
       this.selectedFile = file;
     }
   }
-  dohvatiKorisnika(){
+  handleUser(){
     return JSON.parse(window.localStorage.getItem("korisnik")??"");
   }
 }

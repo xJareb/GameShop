@@ -20,13 +20,13 @@ export class KupnjeIgriceComponent implements OnInit{
   ngOnInit(): void {
 
   }
-  @Input() listaIgrica:any;
-  @Output() otvori = new EventEmitter<boolean>();
-  private prikaz: boolean = true;
+  @Input() gameList:any;
+  @Output() open = new EventEmitter<boolean>();
+  private show: boolean = true;
 
-  zatvori() {
-  this.prikaz = !this.prikaz;
-  this.otvori.emit(this.prikaz);
+  close() {
+  this.show = !this.show;
+  this.open.emit(this.show);
   }
 
 }

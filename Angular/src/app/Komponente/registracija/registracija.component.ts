@@ -6,7 +6,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MojConfig} from "../../moj-config";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
-import {RegistracijaRequest} from "../../Servis/RegistracijaService/registracija-request";
+import {RegistrationRequest} from "../../Servis/RegistracijaService/registration-request";
 
 @Component({
   selector: 'app-registracija',
@@ -26,7 +26,7 @@ import {RegistracijaRequest} from "../../Servis/RegistracijaService/registracija
 })
 export class RegistracijaComponent implements OnInit {
 
-  public noviKorisnik:RegistracijaRequest | null = null;
+  public newUser:RegistrationRequest | null = null;
 
   userForm: FormGroup;
 
@@ -47,27 +47,27 @@ export class RegistracijaComponent implements OnInit {
     }
   }
 
-  kreirajKorisnika() {
-    let url = MojConfig.adresa_servera + `/Dodaj`;
-    this.noviKorisnik = {
-      "ime": this.userForm.controls['ime'].value,
-      "prezime": this.userForm.controls['prezime'].value,
-      "korisnickoIme": this.userForm.controls['korisnickoIme'].value,
-      "email": this.userForm.controls['email'].value,
-      "datumRodjenja": this.userForm.controls['datumRodjenja'].value,
-      "lozinka": this.userForm.controls['lozinka'].value
+  createUser() {
+    let url = MojConfig.adresa_servera + `/UserAdd`;
+    this.newUser = {
+      name: this.userForm.controls['ime'].value,
+      surname: this.userForm.controls['prezime'].value,
+      username: this.userForm.controls['korisnickoIme'].value,
+      email: this.userForm.controls['email'].value,
+      birhtDate: this.userForm.controls['datumRodjenja'].value,
+      password: this.userForm.controls['lozinka'].value
     }
 
-    const validnaForma = this.userForm.valid;
-    if(validnaForma){
-      this.httpClient.post(url,this.noviKorisnik).subscribe(x=>{
+    const validForm = this.userForm.valid;
+    if(validForm){
+      this.httpClient.post(url,this.newUser).subscribe(x=>{
         this.router.navigate(["/"]);
       })
     }
   }
 
-  postaviStil(kontrola:string){
-    if (this.userForm.controls[kontrola].invalid && !this.userForm.controls[kontrola].untouched) {
+  setStyle(control:string){
+    if (this.userForm.controls[control].invalid && !this.userForm.controls[control].untouched) {
       return {
         'background-color': 'red',
         'color': 'white'

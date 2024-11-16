@@ -2,11 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MojConfig} from "../../moj-config";
-import {Zanr} from "../../Servis/ZanrService/zanr";
-import {Kupovine, KupovineResponse} from "../../Servis/KupovineService/kupovine-response";
 import {NgForOf, NgIf} from "@angular/common";
 import {KupnjeIgriceComponent} from "./kupnje-igrice/kupnje-igrice.component";
 import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
+import {Purchase, PurchasesResponse} from "../../Servis/KupovineService/purchases-response";
 
 @Component({
   selector: 'app-kupnje',
@@ -23,31 +22,31 @@ import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.ser
 })
 export class KupnjeComponent implements OnInit{
 
-    public kupovineResponse:Kupovine[] = [];
-    public prikazPregledaj: boolean = false;
-    public listaIgrica:any;
+    public purchaseResponse:Purchase[] = [];
+    public showModalOverview: boolean = false;
+    public gameList:any;
     constructor(public httpClient:HttpClient,public authService:MyAuthServiceService) {
     }
     ngOnInit(): void {
-        this.izlistajKupovine();
+        this.listPurchase();
     }
-    izlistajKupovine(){
-      let url = MojConfig.adresa_servera + `/IzlistajKupovine`;
-      this.httpClient.get<KupovineResponse>(url,{
+    listPurchase(){
+      let url = MojConfig.adresa_servera + `/PurchaseGet`;
+      this.httpClient.get<PurchasesResponse>(url,{
         headers:{
           "my-auth-token":this.authService.vratiToken()
         }
       }).subscribe(x=>{
-        this.kupovineResponse = x.kupovine;
+        this.purchaseResponse = x.purchases;
       })
     }
 
-    pripremiPodatke(k: Kupovine) {
-      this.listaIgrica = k.igrice;
+    prepareData(k: Purchase) {
+      this.gameList = k.games;
 
     }
-    otvaranjePregled($event : boolean)
+    openModalOverview($event : boolean)
     {
-    this.prikazPregledaj = $event;
+    this.showModalOverview = $event;
     }
 }

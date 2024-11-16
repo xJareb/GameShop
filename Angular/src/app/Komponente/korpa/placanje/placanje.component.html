@@ -1,67 +1,67 @@
-<div class="navigation flex-div content-center">
+<div class="navigation">
   <div class="first-step ">
-    <div class="body align-center flex-div center-div">
+    <div class="body">
       <h2 class="default-border">1</h2>
-      <p class="text">Korpa</p>
+      <p class="text">Cart</p>
       <p class="symbol">&#10230;</p>
     </div>
   </div>
   <div class="second-step color-white">
-    <div class="body align-center flex-div center-div">
+    <div class="body">
       <h2 class="border-step">2</h2>
-      <p class="text">Plaćanje</p>
+      <p class="text">Payment</p>
       <p class="symbol">&#10230;</p>
     </div>
   </div>
   <div class="third-step">
-    <div class="body align-center flex-div center-div">
+    <div class="body">
       <h2 class="default-border">3</h2>
-      <p class="text">Aktivacija igre</p>
+      <p class="text">Game activation</p>
     </div>
   </div>
 </div>
-<div class="route flex-div color-white">
-  <p routerLink="" class="single-route">Početna</p>
+<div class="route">
+  <p routerLink="" class="single-route">Home</p>
   <p>></p>
-  <p routerLink="/korpa" class="single-route">Korpa</p>
+  <p routerLink="/korpa" class="single-route">Cart</p>
   <p>></p>
-  <p routerLink="/placanje" class="single-route">Placanje</p>
+  <p routerLink="/placanje" class="single-route">Payment</p>
 </div>
-<div class="cart-body border-15 flex-div">
-  <div class="left border-15 background">
-    <form [formGroup]="userPayment" class="color-white center-div">
+<div class="cart-body">
+  <div class="left">
+    <form [formGroup]="userPayment">
       <div class="form-group ">
-        <label for="brojKartice">Broj kartice</label>
-        <input type="text" class="form-control color-white primary-background border-color" id="brojKartice" formControlName="brojKartice" placeholder="•••• •••• •••• ••••" (input)="restrikcijaUnosaSlova($event)" [ngStyle]="postaviStil('brojKartice')" maxlength="16" [(ngModel)]="ngBrojKartice">
+        <label for="brojKartice">Card number</label>
+        <input type="text" class="form-control" id="brojKartice" formControlName="brojKartice" placeholder="•••• •••• •••• ••••" (input)="disableLetters($event)" [ngStyle]="setStyle('brojKartice')" maxlength="16" [(ngModel)]="ngCardNumber">
       </div>
       <div class="form-group">
-        <label for="imeprezime">Ime i prezime</label>
-        <input type="text" class="form-control color-white primary-background border-color" id="imeprezime" formControlName="imePrezime" placeholder="Ime Prezime" (input)="restrikcijaUnosaBrojeva($event)" [ngStyle]="postaviStil('imePrezime')">
+        <label for="imeprezime">Name and Surname</label>
+        <input type="text" class="form-control" id="imeprezime" formControlName="imePrezime" placeholder="Ime Prezime" (input)="disableNumbers($event)" [ngStyle]="setStyle('imePrezime')">
       </div>
-      <div class="split-inputs content-between flex-div">
+      <div class="split-inputs ">
         <div class="form-group">
-          <label for="datumIsteka">Datum isteka</label>
-          <input type="date" class="form-control color-white primary-background border-color" id="datumIsteka" formControlName="datumIsteka" [ngStyle]="postaviStil('datumIsteka')" [(ngModel)]="ngDatumIsteka">
+          <label for="datumIsteka">Expiration date</label>
+          <input type="date" class="form-control " id="datumIsteka" formControlName="datumIsteka" [ngStyle]="setStyle('datumIsteka')" [(ngModel)]="ngExpirationDate">
         </div>
         <div class="form-group">
-          <label for="sigurnosniBroj">Sigurnosni broj</label>
-          <input type="text" class="form-control color-white primary-background border-color" id="sigurnosniBroj" placeholder="CVC" formControlName="sigurnosniBroj" [ngStyle]="postaviStil('sigurnosniBroj')">
+          <label for="sigurnosniBroj">CVC</label>
+          <input type="text" class="form-control " id="sigurnosniBroj" placeholder="CVC" formControlName="sigurnosniBroj" [ngStyle]="setStyle('sigurnosniBroj')">
         </div>
       </div>
       <div class="form-check">
-        <input type="checkbox" class="form-check-input primary-background border-color" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Zapamti karticu</label>
+        <input type="checkbox" class="form-check-input " id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Remember card</label>
       </div>
     </form>
 
   </div>
-  <div class="right background border-15 border-color color-white">
-    <div class="total flex-div content-between center-div">
-      <p>Ukupno:</p>
-      <span>${{ukupno.toFixed(2)}}</span>
+  <div class="right ">
+    <div class="total">
+      <p>Total:</p>
+      <span>${{total.toFixed(2)}}</span>
     </div>
-    <button class="pay-button button-manage center-div" (click)="placanje()" >Plati</button>
-    <p class="rules center-div">Klikom na "Plati" potvrđujem da sam pročitao i prihvatio uvjete i pravila privatnosti.</p>
+    <button class="pay-button button-manage" (click)="payment()">Pay</button>
+    <p class="rules">By clicking "Pay", we confirm that I have read and accepted the terms and privacy policy.</p>
   </div>
 </div>
 

@@ -4,9 +4,9 @@ import {NgForOf, NgIf} from "@angular/common";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MojConfig} from "../../moj-config";
 import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
-import {IzlistajKorpu, Korpa} from "../../Servis/KorpaService/Izlistaj-korpu";
 import {FormsModule} from "@angular/forms";
-import {AzurirajKolicinu} from "../../Servis/KorpaService/azuriraj-kolicinu";
+import {Cart, CartListResponse} from "../../Servis/KorpaService/cart-list-response";
+import {QuantityRequest} from "../../Servis/KorpaService/quantity-request";
 
 @Component({
   selector: 'app-korpa',
@@ -23,71 +23,68 @@ import {AzurirajKolicinu} from "../../Servis/KorpaService/azuriraj-kolicinu";
 })
 export class KorpaComponent implements OnInit{
 
-    public listaKorpe:Korpa[] = [];
-    public pocetnoStanje:boolean = true;
-    public ukupnaAkcijskaCijena:number = 0;
-    public ukupnaPravaCijena:number = 0;
-    public razlikaCijena:number = 0;
-    public kolicinaRequest:AzurirajKolicinu | null = null;
-    public prelazNaPlacanje:boolean = false;
-    public prikazUredi: boolean = false;
-
+    public cartList:Cart[] = [];
+    public firstState:boolean = true;
+    public totalActionPrice:number = 0;
+    public totalPrice:number = 0;
+    public priceDifference:number = 0;
+    public quantityRequest:QuantityRequest | null = null;
 
     constructor(public httpClient:HttpClient, public authService:MyAuthServiceService) {
 
     }
     ngOnInit(): void {
-        this.ucitajKorpu();
+        this.loadCart();
     }
-    ucitajKorpu(){
-      let korisnikID = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
-      let url = MojConfig.adresa_servera + `/PretraziKorpu?Id=${korisnikID}`;
+    loadCart(){
+      let userID = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
+      let url = MojConfig.adresa_servera + `/CartGet?ID=${userID}`;
 
-      this.httpClient.get<IzlistajKorpu>(url,{
+      this.httpClient.get<CartListResponse>(url,{
         headers:{
           "my-auth-token": this.authService.vratiToken()
         }
-      }).subscribe((x:IzlistajKorpu) => {
-        this.listaKorpe = x.korpa;
-        if(this.listaKorpe.length > 0){
-          this.pocetnoStanje = false;
-          this.ukupnaAkcijskaCijena = this.listaKorpe.reduce((total, item) => total + (item.akcijskaCijena * item.kolicina), 0)
-          this.ukupnaPravaCijena = this.listaKorpe.reduce((total, item) => total + (item.pravaCijena * item.kolicina), 0)
-          this.razlikaCijena = this.ukupnaPravaCijena - this.ukupnaAkcijskaCijena;
+      }).subscribe((x:CartListResponse) => {
+        this.cartList = x.cart;
+        if(this.cartList.length > 0){
+          this.firstState = false;
+          this.totalActionPrice = this.cartList.reduce((total, item) => total + (item.actionPrice * item.quantity), 0)
+          this.totalPrice = this.cartList.reduce((total, item) => total + (item.price * item.quantity), 0)
+          this.priceDifference = this.totalPrice - this.totalActionPrice;
         }else{
-          this.pocetnoStanje = true;
-          this.ukupnaAkcijskaCijena = 0;
-          this.ukupnaPravaCijena = 0;
-          this.razlikaCijena = 0;
+          this.firstState = true;
+          this.totalActionPrice = 0;
+          this.totalPrice = 0;
+          this.priceDifference = 0;
         }
       })
     }
 
-  obrisiIzKorpe(lk: Korpa) {
-    let zapisID = lk.id;
+  deleteFromCart(lk: Cart) {
+    let recordID = lk.id;
 
-    let url = MojConfig.adresa_servera + `/KorpaObrisiIgircu?ID=${zapisID}`;
+    let url = MojConfig.adresa_servera + `/CartDelete?ID=${recordID}`;
 
     this.httpClient.delete(url).subscribe((x) => {
-      this.ucitajKorpu();
+      this.loadCart();
     })
   }
-  azurirajKolicinu(lk: Korpa, $event: Event) {
-    let zapisID = lk.id;
-    let kolicina = ($event.target as HTMLSelectElement).value;
-    let url = MojConfig.adresa_servera + `/AzurirajKolicinu`;
+  updateQuantity(lk: Cart, $event: Event) {
+    let recordID = lk.id;
+    let quantity = ($event.target as HTMLSelectElement).value;
+    let url = MojConfig.adresa_servera + `/CartUpdate`;
 
-    this.kolicinaRequest = {
-      id:zapisID,
-      kolicina: Number(kolicina),
+    this.quantityRequest = {
+      id:recordID,
+      quantity: Number(quantity),
     }
 
-    this.httpClient.put(url,this.kolicinaRequest).subscribe((x) => {
-      this.ucitajKorpu();
+    this.httpClient.put(url,this.quantityRequest).subscribe((x) => {
+      this.loadCart();
     })
   }
 
-  pripremiCijenu() {
-    window.localStorage.setItem("cijena",this.ukupnaAkcijskaCijena.toString())
+  handlePrice() {
+    window.localStorage.setItem("cijena",this.totalActionPrice.toString())
   }
 }

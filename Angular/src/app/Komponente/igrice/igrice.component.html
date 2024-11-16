@@ -1,73 +1,73 @@
-<div class="game-panel margin-auto">
-  <div class="route flex-div color-white">
-    <p routerLink="/" class="cursor-pointer">Početna</p>
+<div class="game-panel ">
+  <div class="route">
+    <p routerLink="/">Home</p>
     <p>></p>
-    <p routerLink="/igrice" class="cursor-pointer">Igrice</p>
+    <p routerLink="/igrice">Games</p>
   </div>
-  <div class="title color-white">
-    <h2 style="text-align: center">Igrice</h2>
+  <div class="title">
+    <h2 style="text-align: center">Games</h2>
   </div>
-  <div class="category-filter color-white flex-div content-between cursor-pointer margin-auto w-80">
-    <p (click)="zanr=0;filter2(0,pocetnaCijena,zavrsnaCijena,sort)">Sve</p>
-    <div class="category" *ngFor="let lz of listaZanrova">
-      <p (click)="uzmiZanr(lz);filter2(zanr,pocetnaCijena,zavrsnaCijena,sort)">{{lz.naziv}}</p>
+  <div class="category-filter">
+    <p (click)="genre=0;filter2(0,firstPrice,lastPrice,sort)">All</p>
+    <div class="category" *ngFor="let lz of genreList">
+      <p (click)="handleGenre(lz);filter2(genre,firstPrice,lastPrice,sort)">{{lz.name}}</p>
     </div>
   </div>
-  <div class="filter-grid color-white flex-div content-between margin-auto w-80">
-    <div class="price-rangne flex-div">
+  <div class="filter-grid">
+    <div class="price-range">
       <div class="firstPrice">
-        <p class="center-text">Min</p>
-        <input type="number" id="pocetna" class="center-text inputs color-white border-10" (change)="filter2(zanr,pocetnaCijena,zavrsnaCijena,sort)" [value]="pocetnaCijena" [(ngModel)]="pocetnaCijena" min="1" [max]="zavrsnaCijena">
+        <p>Min</p>
+        <input type="number" id="pocetna" (change)="filter2(genre,firstPrice,lastPrice,sort)" [value]="firstPrice" [(ngModel)]="firstPrice" min="1" [max]="lastPrice">
       </div>
       <div class="lastPrice">
-        <p class="center-text">Max</p>
-        <input type="number" id="zavrsna" class="center-text inputs color-white border-10" (change)="filter2(zanr,pocetnaCijena,zavrsnaCijena,sort)" [value]="zavrsnaCijena" [(ngModel)]="zavrsnaCijena" [min]="pocetnaCijena + 1" max="250">
+        <p class="">Max</p>
+        <input type="number" id="zavrsna"  (change)="filter2(genre,firstPrice,lastPrice,sort)" [value]="lastPrice" [(ngModel)]="lastPrice" [min]="firstPrice + 1" max="250">
       </div>
     </div>
     <div class="sorting">
-      <select id="sort" class="color-white inputs" (change)="test();filter2(zanr,pocetnaCijena,zavrsnaCijena,sort)">
-        <option selected>Relevantno</option>
-        <option value="asc" >Naziv: A - Z</option>
-        <option value="desc">Naziv: Z - A</option>
+      <select id="sort" class="inputs" (change)="test();filter2(genre,firstPrice,lastPrice,sort)">
+        <option selected>Relevant</option>
+        <option value="asc" >Name: A - Z</option>
+        <option value="desc">Name: Z - A</option>
       </select>
     </div>
   </div>
-  <div class="game-grid flex-div margin-auto color-white ">
-    <div class="game-add center-text cursor-pointer transition border-10" (click)="prikazDodaj = true" *ngIf="authService.jelAdmin()">
+  <div class="game-grid">
+    <div class="game-add transition" (click)="showModalAdd = true" *ngIf="authService.jelAdmin()">
       <p class="icon">&#43;</p>
       <div class="title">
-        <p>Dodaj novu igricu</p>
+        <p>Add new game</p>
       </div>
     </div>
-      <div class="game-item border-10" *ngFor="let li of listaIgrica">
+      <div class="game-item" *ngFor="let li of gameList">
         <div class="game-control" *ngIf="authService.jelAdmin()">
-          <button (click)="pripremiPodatke(li);prikazUredi = true" class="border-10">Uredi</button>
-          <button (click)="obirisiIgricu(li)" class="border-10">Obrisi</button>
-          <button (click)="izdvojiIgricu(li)" class="border-10">Izdvoji</button>
+          <button (click)="prepareData(li);showModalEdit = true">Edit</button>
+          <button (click)="deleteGame(li)">Delete</button>
+          <button (click)="highlightGame(li)" >Highlight</button>
         </div>
-        <img src="{{li.slika}}" alt="" (click)="idiUDetalje(li)" class="cursor-pointer transition">
-        <div class="discount center-text">-{{li.postotakAkcije}}%</div>
-        <div class="details color-white flex-div content-between">
-          <p>{{li.naziv}}</p>
-          <p class="price color-white">${{li.akcijskaCijena}}</p>
+        <img src="{{li.photo}}" alt="" (click)="goToDetails(li)" class="transition">
+        <div class="discount">-{{li.percentageDiscount}}%</div>
+        <div class="details">
+          <p>{{li.name}}</p>
+          <p class="price ">${{li.actionPrice}}</p>
         </div>
       </div>
   </div>
 </div>
 
-<app-uredi-igricu *ngIf="prikazUredi"
-                  (otvori)="this.otvaranjeUredi($event)"
-                  [igricaID]="odabranaIgrica!.igricaID"
-                  [naziv]="odabranaIgrica!.naziv"
-                  [zanrID]="odabranaIgrica!.zanrID"
-                  [datumIzlaska]="odabranaIgrica!.datumIzlaska"
-                  [slika]="odabranaIgrica!.slika"
-                  [izdavac]="odabranaIgrica!.izdavac"
-                  [opis]="odabranaIgrica!.opis"
-                  [cijena]="odabranaIgrica!.cijena"
-                  [postotakAkcije]="odabranaIgrica!.postotakAkcije"
+<app-uredi-igricu *ngIf="showModalEdit"
+                  (open)="this.openModalEdit($event)"
+                  [gameID]="selectedGame!.gameID"
+                  [name]="selectedGame!.name"
+                  [genreID]="selectedGame!.genreID"
+                  [releaseDate]="selectedGame!.releaseDate"
+                  [photo]="selectedGame!.photo"
+                  [publisher]="selectedGame!.publisher"
+                  [description]="selectedGame!.description"
+                  [price]="selectedGame!.price"
+                  [percentageDiscount]="selectedGame!.percentageDiscount"
 ></app-uredi-igricu>
 
-<app-dodaj-igricu *ngIf="prikazDodaj"
-                  (otvori)="this.otvaranjeDodaj($event)"
+<app-dodaj-igricu *ngIf="showModalAdd"
+                  (open)="this.openModalAdd($event)"
 ></app-dodaj-igricu>

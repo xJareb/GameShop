@@ -2,18 +2,11 @@
   margin-top: 2%;
   border-radius: 8px;
   transition: border 0.3s ease;
+  background-color: #242424;
+  border: 2px solid #3D3D3D;
 }
 .card:hover {
   border: 2px solid darkorange;
-}
-.background {
-  background-color: #242424;
-}
-.primary-background {
-  background-color: #323232;
-}
-.border-color {
-  border: 2px solid #3D3D3D;
 }
 .card-image {
   width: 100px;
@@ -35,14 +28,14 @@
 .card-text {
   margin-top: 5px;
 }
-.recenzije-div {
+.reviews-div {
   display: flex;
   justify-content: center;
   gap: 20px;
   overflow-x: auto;
   scrollbar-width: none; /* Firefox */
 }
-.recenzije-div::-webkit-scrollbar {
+.reviews-div::-webkit-scrollbar {
   width: 0;
 }
 h4{

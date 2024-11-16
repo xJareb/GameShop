@@ -1,12 +1,12 @@
-<h4 class="color-white">Specijalna ponuda ></h4>
+<h4 class="color-white">Special offer ></h4>
 <div class="body">
-  <div class="game-item" *ngFor="let sp of sedmicnaPonuda">
-    <img src="{{sp.slika}}" alt="" (click)="idiUdetalje(sp)">
-    <div class="discount color-white">-{{sp.postotakAkcije}}%</div>
-    <div class="remove" (click)="obirisIgricu(sp)" *ngIf="authService.jelAdmin()">&#x274c;</div>
-    <div class="details color-white">
-      <p>{{sp.naziv}}</p>
-      <p class="price">${{sp.akcijskaCijena}}</p>
+  <div class="game-item" *ngFor="let sp of specialOffer">
+    <img src="{{sp.photo}}" alt="" (click)="goToDetails(sp)">
+    <div class="discount">-{{sp.percentageDiscount}}%</div>
+    <div class="remove" (click)="deleteGame(sp)" *ngIf="authService.jelAdmin()">&#x274c;</div>
+    <div class="details">
+      <p>{{sp.name}}</p>
+      <p class="price">${{sp.actionPrice}}</p>
     </div>
   </div>
 </div>

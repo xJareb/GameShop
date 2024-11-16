@@ -2,9 +2,9 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {NoviAzuriraniKorisnik} from "../../../Servis/KorisnikService/novi-azurirani-korisnik";
 import {MojConfig} from "../../../moj-config";
 import {MyAuthServiceService} from "../../../Servis/AuthService/my-auth-service.service";
+import {UserUpdateRequest} from "../../../Servis/KorisnikService/user-update-request";
 
 @Component({
   selector: 'app-uredi-korisnika',
@@ -19,76 +19,73 @@ import {MyAuthServiceService} from "../../../Servis/AuthService/my-auth-service.
 })
 export class UrediKorisnikaComponent implements OnInit{
 
-    @Input() ime!:string;
-    @Input() prezime!:string;
+    @Input() name!:string;
+    @Input() surname!:string;
     @Input() email!:string;
-    @Output() otvori = new EventEmitter<boolean>();
-    private prikaz: boolean = true;
+    @Output() open = new EventEmitter<boolean>();
+    private show: boolean = true;
 
-    public lozinka:string="";
-    public ponovljenaLozinka:string="";
+    public password:string="";
+    public confirmedPassword:string="";
 
-    public azuriraniKorisnik:NoviAzuriraniKorisnik|null = null;
-    tranzicija: boolean = false;
+    public userUpdateRequest:UserUpdateRequest|null = null;
+    transition: boolean = false;
 
-    public nazivDugmeta:string = "Nastavi";
-    public uslov:boolean = false;
+    public buttonText:string = "Next";
+    public condition:boolean = false;
 
     constructor(public httpClient: HttpClient, public authService: MyAuthServiceService) {
     }
     ngOnInit(): void {
 
     }
-    zatvori() {
-    this.prikaz = !this.prikaz;
-    this.otvori.emit(this.prikaz);
+    close() {
+    this.show = !this.show;
+    this.open.emit(this.show);
   }
 
-    azuriraj() {
-      if(this.uslov == true) {
-        this.azuriraniKorisnik = {
-          korisnikID: this.dohvatiKorisnika().autentifikacijaToken.korisnickiNalog.id,
-          ime: this.ime,
-          prezime: this.prezime,
+    UpdateUser() {
+      if(this.condition == true) {
+        this.userUpdateRequest = {
+          userID: this.authService.korisnikID(),
+          name: this.name,
+          surname: this.surname,
           email: this.email,
-          lozinka: this.lozinka
+          password: this.password
         };
 
-        let url = MojConfig.adresa_servera + `/AzurirajKorisnika`;
+        let url = MojConfig.adresa_servera + `/UserUpdate`;
 
-        if(this.azuriraniKorisnik.lozinka != "" && this.ponovljenaLozinka != "")
+        if(this.userUpdateRequest.password != "" && this.confirmedPassword != "")
         {
-          this.httpClient.put(url,this.azuriraniKorisnik,{
+          this.httpClient.put(url,this.userUpdateRequest,{
             headers:{
               "my-auth-token":this.authService.vratiToken()
             }
           }).subscribe({
             next:(response) => {
-              if(this.azuriraniKorisnik?.lozinka == this.ponovljenaLozinka)
+              if(this.userUpdateRequest?.password == this.confirmedPassword)
               {
-                this.zatvori();
+                this.close();
                 window.location.reload();
               }
             },
             error:(err) =>{
-              this.postaviStil();
+              this.setStyle();
             }
           })
         }else{
-          alert('Sva polja su obavezna')
+          this.setStyle();
         }
 
       }
     }
-    dohvatiKorisnika(){
-      return JSON.parse(window.localStorage.getItem("korisnik")??"");
-    }
 
-  priprema() {
-    this.nazivDugmeta = "Azuriraj";
-    this.uslov = true;
+  prepareToNextPage() {
+    this.buttonText = "Update";
+    this.condition = true;
   }
-  postaviStil(){
+  setStyle(){
       let lozinkaInput = document.getElementById("password") as HTMLInputElement;
       let potlozinkaInput = document.getElementById("compassword") as HTMLInputElement;
       lozinkaInput.style.backgroundColor = 'red';

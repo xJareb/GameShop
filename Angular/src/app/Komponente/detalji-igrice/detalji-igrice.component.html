@@ -1,55 +1,55 @@
 <div class="container-md">
-  <div class="route color-white flex-div">
-    <p routerLink="/">Početna</p>
+  <div class="route ">
+    <p routerLink="/">Home</p>
     <p>></p>
-    <p routerLink="/igrice">Igrice</p>
+    <p routerLink="/igrice">Games</p>
     <p>></p>
-    <p>Detalji igrice</p>
+    <p>Game details</p>
   </div>
 </div>
-<div class="container border-color align-center border-10 flex-div" *ngFor="let di of detaljiIgrice">
-  <div class="game-info color-white">
-    <img src="{{di.slika}}" class="border-10">
+<div class="container" *ngFor="let di of gameDetails">
+  <div class="game-info ">
+    <img src="{{di.photo}}">
     <div class="informations">
-      <div class="info flex-div">
-        <p class="font-bold">Zanr: </p><span>{{di.zanr}}</span>
+      <div class="info ">
+        <p>Genre: </p><span>{{di.genre}}</span>
       </div>
-      <div class="info flex-div">
-        <p class="font-bold">Izdavac: </p><span>{{di.izdavac}}</span>
+      <div class="info ">
+        <p>Publisher: </p><span>{{di.publisher}}</span>
       </div>
-      <div class="info flex-div">
-        <p class="font-bold">Datum izlaska: </p><span>{{di.datumIzlaska.substring(0,di.datumIzlaska.indexOf('T'))}}</span>
+      <div class="info ">
+        <p>Release date: </p><span>{{di.releaseDate.substring(0,di.releaseDate.indexOf('T'))}}</span>
       </div>
     </div>
   </div>
-  <div class="game-info-more  color-white">
-    <h2 class="center-text">{{di.naziv}}</h2>
-    <div class="bio center-text center-div">
-      <p>{{di.opis}}</p>
+  <div class="game-info-more">
+    <h2 class="">{{di.name}}</h2>
+    <div class="bio">
+      <p>{{di.description}}</p>
     </div>
-    <div class="add-to-cart center-text">
-      <button (click)="authService.onemoguciKorpu();dodajUKorpu(di)" class="color-white button-manage">Dodaj u korpu</button>
-      <button (click)="pripremiPodatke(di);prikazFormeZaRecenziju = true" class="color-white button-manage" *ngIf="recenzijaProlaz">Ostavi recenziju</button>
+    <div class="add-to-cart ">
+      <button (click)="authService.onemoguciKorpu();addToCart(di)" class=" button-manage">Add to cart</button>
+      <button (click)="prepareData(di);showReviewModal = true" class=" button-manage" *ngIf="conditionReview">Leave review</button>
     </div>
     <div class="par-review">
-    <div class="review align-center flex-div border-10 border-color background" *ngFor="let r of listaRecenzija">
+    <div class="review" *ngFor="let r of listOfReviews">
       <div class="left">
-        <img [src]="'data:image/jpeg;base64,' + r.slika" alt="" width="70px" height="70px" class="center-div">
-        <p class="center-text font-bold">{{r.korisnickoIme}}</p>
+        <img [src]="'data:image/jpeg;base64,' + r.photoBytes" alt="" width="70px" height="70px">
+        <p class=" font-bold">{{r.username}}</p>
       </div>
-      <div class="right center-text">
-        <ngb-rating [(rate)]="r.ocjena" style="color: yellow" [readonly]="true"/>
-        <p>{{r.sadrzaj}}</p>
+      <div class="right ">
+        <ngb-rating [(rate)]="r.grade" style="color: yellow" [readonly]="true"/>
+        <p>{{r.content}}</p>
       </div>
     </div>
     </div>
   </div>
-  <div class="game-price border-color center-text border-10 color-white background">
-    <p class="original-price"><span>${{di.cijena}}</span></p>
-    <p class="discount">-{{di.postotakAkcije}}%</p>
-    <p class="final-price font-bold">${{di.akcijskaCijena}}</p>
+  <div class="game-price">
+    <p class="original-price"><span>${{di.price}}</span></p>
+    <p class="discount">-{{di.percentageDiscount}}%</p>
+    <p class="final-price font-bold">${{di.actionPrice}}</p>
   </div>
 </div>
-<app-recenzija *ngIf="prikazFormeZaRecenziju"
-(otvori)="otvaranjeFormeZaRecenziju($event)"
-[igricaID]="igricaID"></app-recenzija>
+<app-recenzija *ngIf="showReviewModal"
+(open)="openReviewModal($event)"
+[gameID]="gameID"></app-recenzija>

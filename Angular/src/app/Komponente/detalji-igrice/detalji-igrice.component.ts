@@ -2,13 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {MojConfig} from "../../moj-config";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {DetaljiIgrice} from "../../Servis/DetaljiIgriceService/detalji-igrice";
 import {NgForOf, NgIf} from "@angular/common";
 import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
 import {RecenzijaComponent} from "./recenzija/recenzija.component";
 import {NgbRatingModule} from "@ng-bootstrap/ng-bootstrap";
-import {Kupovine, KupovineResponse} from "../../Servis/KupovineService/kupovine-response";
-import {Recenzije, RecenzijeResponse} from "../../Servis/RecenzijeService/recenzije-response";
+import {GameDetailsData} from "../../Servis/DetaljiIgriceService/game-details-data";
+import {Review, ReviewResponse} from "../../Servis/RecenzijeService/reviews-response";
+import {Purchase, PurchasesResponse} from "../../Servis/KupovineService/purchases-response";
 
 @Component({
   selector: 'app-detalji-igrice',
@@ -19,39 +19,39 @@ import {Recenzije, RecenzijeResponse} from "../../Servis/RecenzijeService/recenz
 })
 export class DetaljiIgriceComponent implements OnInit{
 
-  igricaID:any;
-  detaljiIgrice:any;
+  gameID:any;
+  gameDetails:any;
 
-  public listaRecenzija:Recenzije[] = [];
-  public kupovineResponse:Kupovine[] = [];
-  public recenzijaProlaz:boolean = false;
+  public listOfReviews:Review[] = [];
+  public kupovineResponse:Purchase[] = [];
+  public conditionReview:boolean = false;
 
 
-  public prikazFormeZaRecenziju:boolean = false;
+  public showReviewModal:boolean = false;
 
   constructor(public activatedRoute:ActivatedRoute,public httpClient:HttpClient, public authService:MyAuthServiceService, public route:Router) {
   }
   ngOnInit(): void {
-    this.igricaID = this.activatedRoute.snapshot.params["id"];
-    let url = MojConfig.adresa_servera + `/Pretrazi?IgricaID=${this.igricaID}`;
+    this.gameID = this.activatedRoute.snapshot.params["id"];
+    let url = MojConfig.adresa_servera + `/GamesGet?GameID=${this.gameID}`;
 
-    this.httpClient.get<DetaljiIgrice>(url).subscribe(x=>{
-      this.detaljiIgrice = x.igrice;
+    this.httpClient.get<GameDetailsData>(url).subscribe(x=>{
+      this.gameDetails = x.game;
     })
-    this.ucitajRecenzije();
-    this.provjeriDostupnostRecenzije();
+    this.listReviews();
+    this.checkConditionToLeaveReview();
   }
 
-  dodajUKorpu(di: any) {
-    let igricaID = di.id;
-    let korisnikID = this.authService.dohvatiAutorzacijskiToken().autentifikacijaToken.korisnikID;
+  addToCart(di: any) {
+    let gameID = di.id;
+    let userID = this.authService.dohvatiAutorzacijskiToken().autentifikacijaToken.korisnikID;
 
-    let url = MojConfig.adresa_servera + `/DodajUKorpu`;
+    let url = MojConfig.adresa_servera + `/ShoppingCartAdd`;
 
     let requestBody={
-      "korisnikID": korisnikID,
-      "igricaID": igricaID,
-      "kolicina": 1
+      "userID": userID,
+      "gameID": gameID,
+      "quantity": 1
     }
 
     this.httpClient.post(url,requestBody,{
@@ -62,38 +62,38 @@ export class DetaljiIgriceComponent implements OnInit{
       this.route.navigate(['/igrice']);
     })
   }
-  otvaranjeFormeZaRecenziju($event : boolean)
+  openReviewModal($event : boolean)
   {
-    this.prikazFormeZaRecenziju = $event;
+    this.showReviewModal = $event;
   }
-  pripremiPodatke(di: any) {
-    this.igricaID = di.id;
+  prepareData(di: any) {
+    this.gameID = di.id;
   }
-  ucitajRecenzije(){
-    let url = MojConfig.adresa_servera + `/PrikaziRecenzije?IgricaID=${this.igricaID}`;
+  listReviews(){
+    let url = MojConfig.adresa_servera + `/ReviewsGetBy?GameID=${this.gameID}`;
 
-    this.httpClient.get<RecenzijeResponse>(url).subscribe(x=>{
-      this.listaRecenzija = x.recenzije
-      this.listaRecenzija.some(x=>{
-        if(x.igricaID == this.igricaID && x.korisnikID == this.authService.korisnikID()){
-          this.recenzijaProlaz = false;
+    this.httpClient.get<ReviewResponse>(url).subscribe(x=>{
+      this.listOfReviews = x.reviews
+      this.listOfReviews.some(x=>{
+        if(x.gameID == this.gameID && x.userID == this.authService.korisnikID()){
+          this.conditionReview = false;
         }
       })
     })
   }
-  provjeriDostupnostRecenzije(){
-    let url = MojConfig.adresa_servera + `/IzlistajKupovine`;
-    this.httpClient.get<KupovineResponse>(url,{
+  checkConditionToLeaveReview(){
+    let url = MojConfig.adresa_servera + `/PurchaseGet`;
+    this.httpClient.get<PurchasesResponse>(url,{
       headers:{
         "my-auth-token":this.authService.vratiToken()
       }
     }).subscribe(x=>{
-      this.kupovineResponse = x.kupovine;
+      this.kupovineResponse = x.purchases;
       this.kupovineResponse.some(x=>{
-        if(this.authService.korisnikID() == x.korisnikID){
-          x.igrice.some(i=>{
-            if(i.id == this.igricaID){
-              this.recenzijaProlaz = true;
+        if(this.authService.korisnikID() == x.userID){
+          x.games.some(i=>{
+            if(i.id == this.gameID){
+              this.conditionReview = true;
             }
           })
         }

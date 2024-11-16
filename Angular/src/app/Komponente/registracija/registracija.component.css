@@ -59,13 +59,17 @@ form h2{
 form{
   margin-top: 10%;
 }
-.color-white{
-  color: white;
-}
-.flex-div{
+.fluid-container, .form-inputs, .container-route{
   display: flex;
 }
-.center-div{
+.left-container, .right-container{
+  width: 50%;
+  height: 100vh;
+}
+.container-route, form h2, .form-group input, form button{
+  color: white;
+}
+form button{
   margin-left:auto;
   margin-right: auto;
 }

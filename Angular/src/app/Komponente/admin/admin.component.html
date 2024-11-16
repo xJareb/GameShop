@@ -1,78 +1,78 @@
-<div class="route color-white flex-div">
-  <p routerLink="" class="single-route">Početna</p>
+<div class="route">
+  <p routerLink="" class="single-route">Home</p>
   <p>></p>
   <p routerLink="/admin" class="single-route">Admin</p>
 </div>
-<div class="main flex-div background border-color border-15">
-  <div class="left-side primary-background border-color" *ngFor="let ap of adminPodaci">
+<div class="main">
+  <div class="left-side" *ngFor="let ap of adminData">
     <div class="photo">
-      <img [src]="'data:image/jpeg;base64,' + ap.slika" alt="" srcset="" class="center-div"><form (submit)="onSubmit()" enctype="multipart/form-data">
-      <input type="file" (change)="onFileSelected($event)" accept="image/*" class="color-white"/>
-      <button type="submit">Ažuriraj sliku</button>
+      <img [src]="'data:image/jpeg;base64,' + ap.photoBytes" alt="" srcset=""><form (submit)="onSubmit()" enctype="multipart/form-data">
+      <input type="file" (change)="onFileSelected($event)" accept="image/*"/>
+      <button type="submit">Update photo</button>
     </form>
     </div>
-    <div class="user-info center-div">
+    <div class="user-info">
       <div class="user">
-        <h3 style="text-align: center">{{ap.ime}} {{ap.prezime}}</h3>
+        <h3 style="text-align: center">{{ap.name}} {{ap.surname}}</h3>
       </div>
       <hr>
-      <div class="username flex-div">
-        <p>Korisničko ime:</p>
-        <p>{{ap.korisnickoIme}}</p>
+      <div class="username">
+        <p>Username:</p>
+        <p>{{ap.username}}</p>
       </div>
       <hr>
-      <div class="email flex-div">
+      <div class="email">
         <p>Email:</p>
         <p>{{ap.email}}</p>
       </div>
       <hr>
     </div>
   </div>
-  <div class="right-side primary-background border-color border-15">
-    <div class="title color-white">
-      <h2 style="text-align: center">Lista korisnika</h2>
+  <div class="right-side">
+    <div class="title">
+      <h2 style="text-align: center">List of users</h2>
     </div>
-    <table class="table customTable center-div">
+    <table class="table">
       <thead>
       <tr>
         <th scope="col">ID</th>
-        <th scope="col">Ime</th>
-        <th scope="col">Prezime</th>
-        <th scope="col">Korisnicko ime</th>
+        <th scope="col">Name</th>
+        <th scope="col">Surname</th>
+        <th scope="col">Username</th>
         <th scope="col">Email</th>
-        <th scope="col">Akcija</th>
+        <th scope="col">Action</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let lk of listaKorisnika">
+      <tr *ngFor="let lk of listOfUsers">
         <th scope="row">{{lk.id}}</th>
-        <td>{{lk.ime}}</td>
-        <td>{{lk.prezime}}</td>
-        <td>{{lk.korisnickoIme}}</td>
+        <td>{{lk.name}}</td>
+        <td>{{lk.surname}}</td>
+        <td>{{lk.username}}</td>
         <td>{{lk.email}}</td>
-        <td><button (click)="obrisiKorisnika(lk)">Obrisi</button><button (click)="crnaListaKorisnika(lk)">Crna lista</button></td>
+        <td><button (click)="deleteUser(lk)">Delete</button><button (click)="blacklistUser(lk)">Blacklist</button></td>
       </tr>
       </tbody>
     </table>
-    <div class="title color-white">
-      <h2 style="text-align: center">Crna lista korisnika</h2>
+    <div class="title">
+      <h2 style="text-align: center">Black list of users</h2>
     </div>
-    <table class="table customTable center-div">
+    <table class="table">
       <thead>
       <tr>
         <th scope="col">ID</th>
-        <th scope="col">Ime</th>
-        <th scope="col">Prezime</th>
-        <th scope="col">Korisnicko ime</th>
+        <th scope="col">Name</th>
+        <th scope="col">Surname</th>
+        <th scope="col">Username</th>
         <th scope="col">Email</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let cl of crnaLista">
+      <tr *ngFor="let cl of blackList">
         <th scope="row">{{cl.id}}</th>
-        <td>{{cl.ime}}</td>
-        <td>{{cl.prezime }}</td>
-        <td>{{cl.korisnickoIme}}</td>
+        <td>{{cl.name}}</td>
+        <td>{{cl.surname}}</td>
+        <td>{{cl.username}}</td>
         <td>{{cl.email}}</td>
       </tr>
       </tbody>

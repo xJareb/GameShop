@@ -3,10 +3,10 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {Route, Router, RouterLink} from "@angular/router";
 import {MojConfig} from "../../moj-config";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {PrijavaRequest} from "../../Servis/PrijavaService/prijava-request";
 import {PrijavaResponse} from "../../Servis/PrijavaService/prijava-response";
 import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
 import {NgIf} from "@angular/common";
+import {LoginRequest} from "../../Servis/PrijavaService/login-request";
 
 declare const google: any;
 
@@ -27,9 +27,9 @@ export class PrijavaComponent implements OnInit{
 
   clientId: string = '316824710872-dfm9p799fd6krd5p1furj9mt9s04h1ta.apps.googleusercontent.com';
 
-  public loginPodaci: PrijavaRequest|null = null;
-  lozinka: any;
-  korisnickoIme: any;
+  public dataLogin: LoginRequest|null = null;
+  password: any;
+  username: any;
 
 
   constructor(public httpClient:HttpClient, private route:Router, public authService:MyAuthServiceService) {
@@ -54,24 +54,24 @@ export class PrijavaComponent implements OnInit{
     const payload = JSON.parse(atob(credential.split('.')[1]));
 
     let requestBody = {
-      "ime": payload.name,
+      "name": payload.name,
       "email": payload.email,
-      "slika": payload.picture,
+      "photo": payload.picture,
       "isGoogleProvider": true
     }
 
-    let url = MojConfig.adresa_servera + `/DodajGoogleKorisnik`
+    let url = MojConfig.adresa_servera + `/UserGoogleAdd`
 
     this.httpClient.post(url,requestBody).subscribe(x=>{
     })
-    this.googlePrijava(payload.email);
+    this.googleLogin(payload.email);
   }
-  googlePrijava(email:string){
-    let url = MojConfig.adresa_servera + `/Prijavi-se-google?Email=${email}`;
+  googleLogin(email:string){
+    let url = MojConfig.adresa_servera + `/Login-google?Email=${email}`;
 
     this.httpClient.post<PrijavaResponse>(url,{}).subscribe(x=>{
       if(!x.isLogiran || x.autentifikacijaToken.korisnickiNalog.isDeleted || x.autentifikacijaToken.korisnickiNalog.isBlackList){
-        alert('Greška na serveru');
+        alert('Error');
         return;
       }else{
         window.localStorage.setItem('my-auth-token', x.autentifikacijaToken.vrijednost);
@@ -81,18 +81,18 @@ export class PrijavaComponent implements OnInit{
     })
   }
 
-  prijaviSe() {
-    let url = MojConfig.adresa_servera + `/Prijavi-se`;
+  login() {
+    let url = MojConfig.adresa_servera + `/Login`;
 
-    this.loginPodaci = {
-      korisnickoIme: this.korisnickoIme,
-      lozinka: this.lozinka
+    this.dataLogin = {
+      username: this.username,
+      password: this.password
     };
 
-    if(this.loginPodaci.korisnickoIme != null && this.loginPodaci.lozinka != null){
-    this.httpClient.post<PrijavaResponse>(url, this.loginPodaci).subscribe(x => {
+    if(this.dataLogin.username != null && this.dataLogin.password != null){
+    this.httpClient.post<PrijavaResponse>(url, this.dataLogin).subscribe(x => {
         if (!x.isLogiran || x.autentifikacijaToken.korisnickiNalog.isDeleted || x.autentifikacijaToken.korisnickiNalog.isBlackList) {
-            this.postaviStil();
+            this.setStyle();
         }
         else {
           window.localStorage.setItem('my-auth-token', x.autentifikacijaToken.vrijednost);
@@ -101,10 +101,10 @@ export class PrijavaComponent implements OnInit{
         }
       })
     }else{
-      this.postaviStil();
+      this.setStyle();
     }
   }
-  postaviStil(){
+  setStyle(){
     let korisnickoImeInput = document.getElementById("exampleInputUsername1") as HTMLInputElement;
     let lozinkaInput = document.getElementById("exampleInputPassword1") as HTMLInputElement;
 

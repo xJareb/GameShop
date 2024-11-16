@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {Igrice, ListaIgrica} from "../../Servis/IgriceService/lista-igrica";
 import {MojConfig} from "../../moj-config";
-import {KupovineResponse} from "../../Servis/KupovineService/kupovine-response";
 import {NgForOf, NgIf} from "@angular/common";
 import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
+import {AllGamesResponse, Game} from "../../Servis/IgriceService/all-games-response";
 
 @Component({
   selector: 'app-izdvojena-igrica',
@@ -17,28 +16,28 @@ import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.ser
   styleUrl: './izdvojena-igrica.component.css'
 })
 export class IzdvojenaIgricaComponent implements OnInit{
-    public listaIgrica:Igrice[]=[];
-    public odabranaIgrica: Igrice[] = [];
+    public gameList:Game[]=[];
+    public odabranaIgrica: Game[] = [];
 
-    public ngIgricaID:number = 4;
+    public ngGameID:number = 5;
     constructor(public httpClient:HttpClient, public authService:MyAuthServiceService) {
     }
     ngOnInit(): void {
-        this.izlistajSveIgre();
-        this.ucitajOabranuIgricu();
+        this.listAllGames();
+        this.listCheckedGame();
     }
-    izlistajSveIgre(){
-      let url = MojConfig.adresa_servera + `/Pretrazi`;
+    listAllGames(){
+      let url = MojConfig.adresa_servera + `/GamesGet`;
 
-      this.httpClient.get<ListaIgrica>(url).subscribe(x=>{
-        this.listaIgrica = x.igrice;
+      this.httpClient.get<AllGamesResponse>(url).subscribe(x=>{
+        this.gameList = x.game;
       })
     }
-    ucitajOabranuIgricu(){
-      let url = MojConfig.adresa_servera + `/Pretrazi?IgricaID=${this.ngIgricaID}`;
+    listCheckedGame(){
+      let url = MojConfig.adresa_servera + `/GamesGet?GameID=${this.ngGameID}`;
 
-      this.httpClient.get<ListaIgrica>(url).subscribe(x=>{
-        this.odabranaIgrica = x.igrice;
+      this.httpClient.get<AllGamesResponse>(url).subscribe(x=>{
+        this.odabranaIgrica = x.game;
       })
     }
 

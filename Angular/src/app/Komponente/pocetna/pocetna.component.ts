@@ -3,7 +3,6 @@ import {NgbPopoverModule} from "@ng-bootstrap/ng-bootstrap";
 import {NgForOf, NgIf} from "@angular/common";
 import {MojConfig} from "../../moj-config";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {ListaIgrica} from "../../Servis/IgriceService/lista-igrica";
 import {Router, RouterLink} from "@angular/router";
 import {SedmicnaPonudaComponent} from "../sedmicna-ponuda/sedmicna-ponuda.component";
 import {withNoHttpTransferCache} from "@angular/platform-browser";
@@ -13,6 +12,8 @@ import {RecenzijaComponent} from "../detalji-igrice/recenzija/recenzija.componen
 import {RecenzijeComponent} from "../recenzije/recenzije.component";
 import {IzdvojenaIgricaComponent} from "../izdvojena-igrica/izdvojena-igrica.component";
 import {KontaktPodnozjeComponent} from "../kontakt-podnozje/kontakt-podnozje.component";
+import {AllGamesResponse} from "../../Servis/IgriceService/all-games-response";
+import {GameCategoriesResponse} from "../../Servis/IgriceService/all-games-category-response";
 
 declare const google: any;
 
@@ -26,40 +27,39 @@ declare const google: any;
 })
 export class PocetnaComponent implements OnInit{
 
-  protected readonly console = console;
-  protected readonly event = event;
-
-  listaIgrica:any;
+  gameList:any;
   statusModal: boolean = false;
 
   constructor(public httpClient:HttpClient,private router:Router, public authService:MyAuthServiceService) {
   }
-  ucitajIgrice($event: Event) {
+  loadGames($event: Event) {
     // @ts-ignore
-    let naziv = $event.target.value;
-    let url = MojConfig.adresa_servera + `/ByKategorija?Sortiranje=asc&NazivIgrice=${naziv}`;
+    let name = $event.target.value;
+    let url = MojConfig.adresa_servera + `/GetByCategory?Sorting=asc&GameName=${name}`;
 
-    if(naziv != ""){
+    if(name != ""){
       this.statusModal = true;
-      this.httpClient.get<ListaIgrica>(url).subscribe(x=>{
-        this.listaIgrica=x.igrice;
+      this.httpClient.get<GameCategoriesResponse>(url).subscribe(x=>{
+        this.gameList=x.games;
+        console.log(this.gameList);
+        console.log(x.games)
       })
     }
     else{
       this.statusModal = false;
     }
   }
-  ime:any;
+  name:any;
   ngOnInit(): void {
-    this.ime = this.authService.prikazImena();
+    this.name = this.authService.prikazImena();
   }
 
-  idiNaRutu(li: any) {
+  goToRoute(li: any) {
     let igricaID = li.id;
     this.router.navigate([`/detalji-igrice/${igricaID}`])
   }
 
-  odjaviSe() {
+  logout() {
     let token = window.localStorage.getItem("my-auth-token")??"";
     let korisnik = window.localStorage.getItem("korisnik")??"";
     let ime = window.localStorage.getItem("ime");
@@ -78,7 +78,7 @@ export class PocetnaComponent implements OnInit{
       window.localStorage.removeItem("my-auth-token");
     })
   }
-  idiNaStranicu() {
+  goToPage() {
     if(!this.authService.jelLogiran()){
       this.router.navigate(["/prijava"])
     }

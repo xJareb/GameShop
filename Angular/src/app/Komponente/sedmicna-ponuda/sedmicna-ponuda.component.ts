@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+  import {Component, OnInit} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {MojConfig} from "../../moj-config";
 import {HttpClient} from "@angular/common/http";
-import {SedmicnaPonuda} from "../../Servis/SedmicnaPonudaService/sedmicna-ponuda";
 import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
 import {Router} from "@angular/router";
+  import {OfferResponse} from "../../Servis/SedmicnaPonudaService/offer-response";
 
 @Component({
   selector: 'app-sedmicna-ponuda',
@@ -18,32 +18,35 @@ import {Router} from "@angular/router";
 })
 export class SedmicnaPonudaComponent implements OnInit{
 
-    sedmicnaPonuda:any;
+    specialOffer:any;
 
     ngOnInit(): void {
-      this.izlistajPonudu();
+      this.listOffer();
     }
     constructor(public httpClient:HttpClient, public authService:MyAuthServiceService, private router:Router) {
     }
-    izlistajPonudu(){
-      let url = MojConfig.adresa_servera + `/IzdvojeneIgrice`;
+    listOffer(){
+      let url = MojConfig.adresa_servera + `/GameOffer`;
 
-      this.httpClient.get<SedmicnaPonuda>(url).subscribe(x=>{
-        this.sedmicnaPonuda = x.igrice;
+      this.httpClient.get<OfferResponse>(url).subscribe(x=>{
+        this.specialOffer = x.games;
       })
     }
 
-  obirisIgricu(sp: any) {
-    let igricaID = sp.id;
-    let url = MojConfig.adresa_servera + `/IzdvojiIgricu?IgricaID=${igricaID}&Izdvojeno=false`;
-
-    this.httpClient.put(url,{}).subscribe(x=>{
-      this.izlistajPonudu();
+  deleteGame(sp: any) {
+    let gameID = sp.id;
+    let url = MojConfig.adresa_servera + `/GameHighlight?GameID=${gameID}&Highlighted=false`;
+    this.httpClient.put(url,{},{
+      headers:{
+        "my-auth-token":this.authService.vratiToken()
+      }
+    }).subscribe(x=>{
+      this.listOffer();
     })
   }
 
-  idiUdetalje(sp: any) {
-    let igricaID = sp.id;
-    this.router.navigate([`/detalji-igrice/${igricaID}`])
+  goToDetails(sp: any) {
+    let gameID = sp.id;
+    this.router.navigate([`/detalji-igrice/${gameID}`])
   }
 }

@@ -1,7 +1,4 @@
-.container-dimensions{
-  width: 50%;
-  height: 100vh;
-}
+
 .bg-image{
   background-image: url("https://images.alphacoders.com/210/210941.jpg");
   background-size: cover;
@@ -59,16 +56,20 @@ form h2{
 .account-option p{
   cursor: pointer;
 }
-.color-white{
-  color: white;
-}
-.center-div{
-  margin-left: auto;
-  margin-right: auto;
-}
-.flex-div{
-  display: flex;
-}
 .OAuth2{
   margin:2% 0 0 25%;
+}
+.fluid-container, .container-route, .account-option{
+  display: flex;
+}
+.left-container, .right-container{
+  width: 50%;
+  height: 100vh;
+}
+form h2, form-control, .login-button, .account-option, .form-group input{
+  color: white;
+}
+.form-group input, .login-button, .account-option{
+  margin-left: auto;
+  margin-right: auto;
 }

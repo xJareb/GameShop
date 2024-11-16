@@ -4,8 +4,8 @@ import {FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import {HttpClient} from "@angular/common/http";
 import {MyAuthServiceService} from "../../../Servis/AuthService/my-auth-service.service";
-import {RecenzijaRequest} from "../../../Servis/RecenzijeService/recenzija-request";
 import {MojConfig} from "../../../moj-config";
+import {ReviewRequest} from "../../../Servis/RecenzijeService/review-request";
 
 @Component({
   selector: 'app-recenzija',
@@ -16,39 +16,39 @@ import {MojConfig} from "../../../moj-config";
 })
 export class RecenzijaComponent {
   rating = 1;
-  public prikaz:boolean = true;
-  @Input() igricaID:any;
-  @Output() otvori = new EventEmitter<boolean>();
-  public recenzijaRequest:RecenzijaRequest | null = null;
+  public show:boolean = true;
+  @Input() gameID:any;
+  @Output() open = new EventEmitter<boolean>();
+  public reviewRequest:ReviewRequest | null = null;
 
   constructor(public httpClient:HttpClient, public authService:MyAuthServiceService) {
   }
 
-  ostaviRecenziju() {
-    let sadrzaj = document.getElementById('message-text') as HTMLInputElement;
+  leaveReview() {
+    let content = document.getElementById('message-text') as HTMLInputElement;
     let korisnikID = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
-    let url = MojConfig.adresa_servera + `/DodajRecenziju`
+    let url = MojConfig.adresa_servera + `/ReviewAdd`
 
-    this.recenzijaRequest = {
-      korisnikID:korisnikID,
-      igricaID:this.igricaID,
-      sadrzaj:sadrzaj.value,
-      ocjena:this.rating
+    this.reviewRequest = {
+      userID:korisnikID,
+      gameID:this.gameID,
+      content:content.value,
+      grade:this.rating
     }
-    if(this.recenzijaRequest.sadrzaj != ""){
-    this.httpClient.post(url,this.recenzijaRequest,{
+    if(this.reviewRequest.content != ""){
+    this.httpClient.post(url,this.reviewRequest,{
       headers:{
         "my-auth-token":this.authService.vratiToken()
       }
     }).subscribe(x=>{
-      this.zatvori();
+      this.close();
       window.location.reload();
     })
   }
   }
 
-  zatvori() {
-    this.prikaz = !this.prikaz;
-    this.otvori.emit(this.prikaz);
+  close() {
+    this.show = !this.show;
+    this.open.emit(this.show);
   }
 }

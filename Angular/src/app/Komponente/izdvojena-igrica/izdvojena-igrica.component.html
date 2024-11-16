@@ -1,17 +1,18 @@
 <div class="body" *ngFor="let oi of odabranaIgrica">
-  <img [src]="oi.slika" alt="">
+  <img [src]="oi.photo" alt="">
   <div class="section">
-    <select [(ngModel)]="ngIgricaID" (change)="ucitajOabranuIgricu()" *ngIf="authService.jelAdmin()">
-      <option *ngFor="let i of listaIgrica" [value]="i.id">{{i.naziv}}</option>
+    <select [(ngModel)]="ngGameID" (change)="listCheckedGame()" *ngIf="authService.jelAdmin()">
+      <option *ngFor="let i of gameList" [value]="i.id">{{i.name}}</option>
     </select>
   </div>
   <div class="informations" >
-    <h1>{{oi.naziv}}</h1>
+    <h1>{{oi.name}}</h1>
     <div class="details">
-      <div class="discount">-{{oi.postotakAkcije}}%</div>
-      <div class="cijena">
-        <h3>${{oi.cijena.toFixed(2)}}</h3>
+      <div class="discount">-{{oi.percentageDiscount}}%</div>
+      <div class="price">
+        <h3>${{oi.actionPrice.toFixed(2)}}</h3>
       </div>
     </div>
   </div>
 </div>
+

@@ -1,37 +1,37 @@
-<div class="fluid-container flex-div">
-  <div class="left-container container-dimensions">
-    <div class="container-route flex-div">
-      <p routerLink="">Početna</p>
+<div class="fluid-container">
+  <div class="left-container">
+    <div class="container-route">
+      <p routerLink="">Home</p>
       <p>></p>
-      <p routerLink="/prijava">Prijava</p>
+      <p routerLink="/prijava">Login</p>
     </div>
     <div class="login-forma">
       <form>
-        <h2 class="color-white">Prijavi se</h2>
+        <h2>Login</h2>
         <div class="form-inputs">
           <div class="form-group">
             <div class="OAuth2">
               <div id="google-signin-button"></div>
             </div>
-            <input type="text" class="form-control color-white center-div" id="exampleInputUsername1" placeholder="Korisnicko ime" [(ngModel)]="korisnickoIme" [ngModelOptions]="{standalone: true}">
+            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username" [(ngModel)]="username" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="form-group">
-            <input type="password" class="form-control color-white center-div" id="exampleInputPassword1" placeholder="Lozinka" [(ngModel)]="lozinka" [ngModelOptions]="{standalone: true}">
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
-        <button type="submit" class="login-button color-white center-div" (click)="prijaviSe()">Prijavi se</button>
-        <div class="account-option color-white flex-div center-div">
+        <button type="submit" class="login-button" (click)="login()">Prijavi se</button>
+        <div class="account-option">
           <div class="account-reg">
-            <p routerLink="/registracija">Nemate još nalog?</p>
+            <p routerLink="/registracija">Don't have account?</p>
           </div>
           <div class="account-pass">
-            <p>Zaboravili ste lozinku?</p>
+            <p>X</p>
           </div>
         </div>
       </form>
     </div>
   </div>
-  <div class="right-container container-dimensions bg-image">
+  <div class="right-container bg-image">
   </div>
 </div>
 

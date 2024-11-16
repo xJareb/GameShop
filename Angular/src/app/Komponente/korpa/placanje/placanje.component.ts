@@ -1,13 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {KreditnaKarticaRequest} from "../../../Servis/KorpaService/kreditna-kartica-request";
-import {KupovinaRequest} from "../../../Servis/KorpaService/kupovina-request";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MyAuthServiceService} from "../../../Servis/AuthService/my-auth-service.service";
 import {Router, RouterLink} from "@angular/router";
 import {MojConfig} from "../../../moj-config";
 import {NgIf, NgStyle} from "@angular/common";
 import {KorpaComponent} from "../korpa.component"
+import {CardAddRequest} from "../../../Servis/KorpaService/card-add-request";
+import {PurchaseRequest} from "../../../Servis/KorpaService/purchase-request";
 
 @Component({
   selector: 'app-placanje',
@@ -26,11 +26,11 @@ import {KorpaComponent} from "../korpa.component"
 export class PlacanjeComponent implements OnInit{
 
 
-  public kreditnaKartica :KreditnaKarticaRequest | null = null;
-  public korisnikKupovina: KupovinaRequest | null = null;
-  ngBrojKartice:any;
-  ngDatumIsteka:any;
-  public ukupno:number = 0;
+  public cardRequest :CardAddRequest | null = null;
+  public userPurchase: PurchaseRequest | null = null;
+  ngCardNumber:any;
+  ngExpirationDate:any;
+  public total:number = 0;
 
   userPayment : FormGroup;
 
@@ -43,10 +43,10 @@ export class PlacanjeComponent implements OnInit{
     })
   }
   ngOnInit(): void {
-      this.ukupno = Number((window.localStorage.getItem("cijena")));
+      this.total = Number((window.localStorage.getItem("cijena")));
   }
-  postaviStil(kontrola:string){
-    if (this.userPayment.controls[kontrola].invalid && !this.userPayment.controls[kontrola].untouched) {
+  setStyle(control:string){
+    if (this.userPayment.controls[control].invalid && !this.userPayment.controls[control].untouched) {
       return {
         'background-color': 'red',
         'color': 'white'
@@ -55,7 +55,7 @@ export class PlacanjeComponent implements OnInit{
       return {}
     }
   }
-  cekiranoPamcenje():boolean{
+  checkedRemember():boolean{
     let checkbox = document.getElementById('exampleCheck1') as HTMLInputElement;
     if(checkbox.checked){
       return true;
@@ -63,61 +63,60 @@ export class PlacanjeComponent implements OnInit{
     return false;
   }
 
-  placanje() {
+  payment() {
     const validnaForma = this.userPayment.valid;
     if(validnaForma){
-      if(this.cekiranoPamcenje()){
-        this.sacuvajKreditnuKarticu()
+      if(this.checkedRemember()){
+        this.saveCard()
       }
-      this.napraviKupnju();
+      this.createPurchase();
     }
   }
-  restrikcijaUnosaSlova(event:Event){
-    const unos = event.target as HTMLInputElement;
-    unos.value = unos.value.replace(/[^0-9]/g, '')
+  disableLetters(event:Event){
+    const input = event.target as HTMLInputElement;
+    input.value = input.value.replace(/[^0-9]/g, '')
   }
-  restrikcijaUnosaBrojeva(event:Event){
-    const unos = event.target as HTMLInputElement;
-    unos.value = unos.value.replace(/[^a-zA-Z ]/g, '')
+  disableNumbers(event:Event){
+    const input = event.target as HTMLInputElement;
+    input.value = input.value.replace(/[^a-zA-Z ]/g, '')
   }
-  napraviKupnju(){
-    let url = MojConfig.adresa_servera + `/DodajKupovinu`;
-    let korisnikID = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
+  createPurchase(){
+    let url = MojConfig.adresa_servera + `/PurchaseAdd`;
+    let userID = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
 
-    this.korisnikKupovina = {
-      korisnikID:korisnikID
+    this.userPurchase = {
+      userID:userID
     }
 
-   this.httpClient.post(url,this.korisnikKupovina,{
+   this.httpClient.post(url,this.userPurchase,{
      headers:{
        "my-auth-token": this.authService.vratiToken()
      }
    }).subscribe(x=>{
-      this.obrisiOpsegKorpe();
+      this.deleteCartRange();
       this.route.navigate(['/aktivacija']);
       window.localStorage.setItem("cijena","");
     })
   }
-  sacuvajKreditnuKarticu(){
-    let url = MojConfig.adresa_servera + `/DodajKarticu`;
-    let korisnikID = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
+  saveCard(){
+    let url = MojConfig.adresa_servera + `/CardAdd`;
+    let userID = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
 
-    this.kreditnaKartica = {
-      brojKartice: this.ngBrojKartice,
-      datumIsteka: this.ngDatumIsteka,
-      korisnikID: korisnikID
+    this.cardRequest = {
+      cardNumber: this.ngCardNumber,
+      expirationDate: this.ngExpirationDate,
+      userID: userID
     }
-
-    this.httpClient.post(url,this.kreditnaKartica,{
+    this.httpClient.post(url,this.cardRequest,{
       headers:{
         "my-auth-token":this.authService.vratiToken()
       }
     }).subscribe(x=>{
     })
   }
-  obrisiOpsegKorpe(){
-    let korisnikID = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
-    let url = MojConfig.adresa_servera + `/ObrisiKorpuKorisnika?KorisnikID=${korisnikID}`;
+  deleteCartRange(){
+    let userID = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
+    let url = MojConfig.adresa_servera + `/CartDeleteRange?UserID=${userID}`;
 
     this.httpClient.delete(url,{
       headers:{

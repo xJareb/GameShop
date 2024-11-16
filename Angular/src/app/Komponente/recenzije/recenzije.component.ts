@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {NgbRating, NgbRatingModule} from "@ng-bootstrap/ng-bootstrap";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MojConfig} from "../../moj-config";
-import {Recenzije, RecenzijeResponse} from "../../Servis/RecenzijeService/recenzije-response";
 import {NgForOf} from "@angular/common";
+import {Review, ReviewResponse} from "../../Servis/RecenzijeService/reviews-response";
 
 @Component({
   selector: 'app-recenzije',
@@ -16,19 +16,19 @@ import {NgForOf} from "@angular/common";
 })
 export class RecenzijeComponent implements OnInit{
 
-  public listaRecenzija:Recenzije[] = [];
+  public listOfReviews:Review[] = [];
   public rating = 1;
 
   constructor(public httpClient: HttpClient) {
   }
   ngOnInit(): void {
-    this.prikaziRecenzije();
+    this.showReviews();
   }
-  prikaziRecenzije(){
-    let url = MojConfig.adresa_servera + `/PrikaziRecenzije`;
+  showReviews(){
+    let url = MojConfig.adresa_servera + `/ReviewsGetBy`;
 
-    this.httpClient.get<RecenzijeResponse>(url).subscribe((x:RecenzijeResponse)=>{
-      this.listaRecenzija = x.recenzije;
+    this.httpClient.get<ReviewResponse>(url).subscribe((x:ReviewResponse)=>{
+      this.listOfReviews = x.reviews;
     })
   }
 

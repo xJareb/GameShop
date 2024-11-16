@@ -20,22 +20,22 @@ namespace GameShop.Endpoint.Reviews.Add
         [HttpPost("ReviewAdd")]
         public override async Task<NoResponse> Obradi([FromBody] ReviewsAddRequest request, CancellationToken cancellationToken = default)
         {
-            if (!_myAuthService.jelLogiran())
+            if (!_myAuthService.isLogged())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
             }
-            var checkDuplicates = _applicationDbContext.Recenzije.Where(r => request.UserID == r.KorisnikID && request.UserID == r.IgricaID).FirstOrDefault();
+            var checkDuplicates = _applicationDbContext.Reviews.Where(r => request.UserID == r.UserID && request.UserID == r.GameID).FirstOrDefault();
             if (checkDuplicates != null)
                 throw new Exception($"{HttpStatusCode.Conflict}");
-            var newReview = new Data.Models.Recenzije()
+            var newReview = new Data.Models.Reviews()
             {
-                Sadrzaj = request.Content,
-                Ocjena = request.Grade,
-                KorisnikID = request.UserID,
-                IgricaID = request.GameID,
+                Content = request.Content,
+                Grade = request.Grade,
+                UserID = request.UserID,
+                GameID = request.GameID,
             };
 
-            _applicationDbContext.Recenzije.Add(newReview);
+            _applicationDbContext.Reviews.Add(newReview);
             await _applicationDbContext.SaveChangesAsync();
 
             return new NoResponse();

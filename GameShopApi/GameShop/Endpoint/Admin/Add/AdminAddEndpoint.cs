@@ -21,17 +21,17 @@ namespace GameShop.Endpoint.Admin.Add
         [HttpGet("GetAdmin")]
         public override async Task<AdminAddResponse> Obradi([FromQuery] AdminAddRequest request, CancellationToken cancellationToken = default)
         {
-            if (!_authService.jelAdmin())
+            if (!_authService.isAdmin())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
             }
-            var admin = await _applicationDbContext.Korisnik.Include(kn => kn.KNalog).Where(a => a.Id == request.ID && a.KNalog.isAdmin == true).Select(x => new AdminAddResponseAdmin()
+            var admin = await _applicationDbContext.User.Include(kn => kn.UserAccount).Where(a => a.ID == request.ID && a.UserAccount.isAdmin == true).Select(x => new AdminAddResponseAdmin()
             {
-                Name = x.Ime,
-                Surname = x.Prezime,
-                Username = x.KNalog.KorisnickoIme,
-                Email = x.KNalog.Email,
-                PhotoBytes = x.Slika
+                Name = x.Name,
+                Surname = x.Surname,
+                Username = x.UserAccount.Username,
+                Email = x.UserAccount.Email,
+                PhotoBytes = x.PhotoBytes
             }).ToListAsync();
 
 

@@ -17,10 +17,10 @@ namespace GameShop.Endpoint.Genres.Get
         [HttpGet("GenresGet")]
         public override async Task<GenresGetResponse> Obradi([FromQuery] NoRequest request, CancellationToken cancellationToken = default)
         {
-            var genres = await _applicationDbContext.Zanr.Select(x => new GenresGetResponseGenre()
+            var genres = await _applicationDbContext.Genre.Select(x => new GenresGetResponseGenre()
             {
-                ID = x.Id,
-                Name = x.Naziv
+                ID = x.ID,
+                Name = x.Name
             }).ToListAsync();
 
             return new GenresGetResponse()

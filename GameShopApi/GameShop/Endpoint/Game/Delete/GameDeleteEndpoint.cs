@@ -21,11 +21,11 @@ namespace GameShop.Endpoint.Game.Delete
         [HttpDelete("GameDelete")]
         public override async Task<NoResponse> Obradi([FromQuery] GameDeleteRequest request, CancellationToken cancellationToken = default)
         {
-            if (!_authService.jelAdmin())
+            if (!_authService.isAdmin())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
             }
-            var game = _applicationDbContext.Igrice.Where(i => i.Id == request.GameID).FirstOrDefault();
+            var game = _applicationDbContext.Game.Where(i => i.ID == request.GameID).FirstOrDefault();
             if (game == null)
                 throw new Exception($"{HttpStatusCode.NotFound}");
 

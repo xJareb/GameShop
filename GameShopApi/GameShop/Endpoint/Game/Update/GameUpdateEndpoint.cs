@@ -20,23 +20,23 @@ namespace GameShop.Endpoint.Game.Update
         [HttpPut("GameUpdate")]
         public override async Task<GameUpdateResponse> Obradi([FromBody] GameUpdateRequest request, CancellationToken cancellationToken = default)
         {
-            if (!_myAuthService.jelAdmin())
+            if (!_myAuthService.isAdmin())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
             }
-            var game = _applicationDbContext.Igrice.Where(i => i.Id == request.GameID).FirstOrDefault();
+            var game = _applicationDbContext.Game.Where(i => i.ID == request.GameID).FirstOrDefault();
             if (game == null)
                 throw new Exception($"{HttpStatusCode.NotFound}");
 
-            game.Naziv = request.Name;
-            game.ZanrID = request.GenreID;
-            game.DatumIzlaska = request.ReleaseDate;
-            game.Slika = request.Photo;
-            game.Izdavac = request.Publisher;
-            game.Opis = request.Description;
-            game.Cijena = request.Price;
-            game.PostotakAkcije = request.PercentageDiscount;
-            game.AkcijskaCijena = request.Price - request.Price * (request.PercentageDiscount / 100);
+            game.Name = request.Name;
+            game.GenreID = request.GenreID;
+            game.ReleaseDate = request.ReleaseDate;
+            game.Photo = request.Photo;
+            game.Publisher = request.Publisher;
+            game.Description = request.Description;
+            game.Price = request.Price;
+            game.PercentageDiscount = request.PercentageDiscount;
+            game.ActionPrice = request.Price - request.Price * (request.PercentageDiscount / 100);
 
             _applicationDbContext.Update(game);
             await _applicationDbContext.SaveChangesAsync();

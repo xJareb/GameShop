@@ -18,12 +18,12 @@ namespace GameShop.Endpoint.Users.Photo
         [HttpPut("UserPhoto")]
         public override async Task<NoResponse> Obradi([FromForm] UserPhotoRequest request, CancellationToken cancellationToken = default)
         {
-            var logedUser = _applicationDbContext.AutentifikacijaToken.FirstOrDefault();
+            var logedUser = _applicationDbContext.AuthenticationToken.FirstOrDefault();
             if (logedUser == null)
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
-            var loggedUserID = logedUser.KorisnickiNalogID;
+            var loggedUserID = logedUser.UserAccountID;
 
-            var user = _applicationDbContext.Korisnik.Where(k => k.Id == loggedUserID).FirstOrDefault();
+            var user = _applicationDbContext.User.Where(k => k.ID == loggedUserID).FirstOrDefault();
             if (user == null)
                 throw new Exception($"{HttpStatusCode.NotFound}");
 
@@ -33,9 +33,9 @@ namespace GameShop.Endpoint.Users.Photo
                 {
                     await request.Photo.CopyToAsync(memoryStream);
 
-                    user.Slika = memoryStream.ToArray();
+                    user.PhotoBytes = memoryStream.ToArray();
 
-                    _applicationDbContext.Korisnik.Update(user);
+                    _applicationDbContext.User.Update(user);
                     await _applicationDbContext.SaveChangesAsync();
                 }
                 return new NoResponse();

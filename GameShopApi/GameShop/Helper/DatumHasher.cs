@@ -5,9 +5,9 @@ namespace GameShop.Helper
 {
     public class DatumHasher
     {
-        public static string HashDate(DateTime datum)
+        public static string HashDate(DateTime date)
         {
-            string datumString = datum.ToString("o");
+            string datumString = date.ToString("o");
 
             using (SHA256 sha256 = SHA256.Create())
             {

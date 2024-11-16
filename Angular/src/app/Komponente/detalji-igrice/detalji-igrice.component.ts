@@ -44,7 +44,7 @@ export class DetaljiIgriceComponent implements OnInit{
 
   addToCart(di: any) {
     let gameID = di.id;
-    let userID = this.authService.dohvatiAutorzacijskiToken().autentifikacijaToken.korisnikID;
+    let userID = this.authService.userID();
 
     let url = MojConfig.adresa_servera + `/ShoppingCartAdd`;
 
@@ -56,7 +56,7 @@ export class DetaljiIgriceComponent implements OnInit{
 
     this.httpClient.post(url,requestBody,{
       headers:{
-        "my-auth-token":this.authService.vratiToken()
+        "my-auth-token":this.authService.returnToken()
       }
     }).subscribe(x=>{
       this.route.navigate(['/igrice']);
@@ -75,7 +75,7 @@ export class DetaljiIgriceComponent implements OnInit{
     this.httpClient.get<ReviewResponse>(url).subscribe(x=>{
       this.listOfReviews = x.reviews
       this.listOfReviews.some(x=>{
-        if(x.gameID == this.gameID && x.userID == this.authService.korisnikID()){
+        if(x.gameID == this.gameID && x.userID == this.authService.userID()){
           this.conditionReview = false;
         }
       })
@@ -85,12 +85,12 @@ export class DetaljiIgriceComponent implements OnInit{
     let url = MojConfig.adresa_servera + `/PurchaseGet`;
     this.httpClient.get<PurchasesResponse>(url,{
       headers:{
-        "my-auth-token":this.authService.vratiToken()
+        "my-auth-token":this.authService.returnToken()
       }
     }).subscribe(x=>{
       this.kupovineResponse = x.purchases;
       this.kupovineResponse.some(x=>{
-        if(this.authService.korisnikID() == x.userID){
+        if(this.authService.userID() == x.userID){
           x.games.some(i=>{
             if(i.id == this.gameID){
               this.conditionReview = true;

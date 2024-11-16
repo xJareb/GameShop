@@ -51,7 +51,7 @@ export class PocetnaComponent implements OnInit{
   }
   name:any;
   ngOnInit(): void {
-    this.name = this.authService.prikazImena();
+    this.name = this.authService.showName();
   }
 
   goToRoute(li: any) {
@@ -67,7 +67,7 @@ export class PocetnaComponent implements OnInit{
 
     window.localStorage.setItem("korisnik","");
 
-    let url = MojConfig.adresa_servera + `/Odjavi-se`;
+    let url = MojConfig.adresa_servera + `/Logout`;
 
     this.httpClient.post(url,{},{
       headers: {
@@ -79,13 +79,13 @@ export class PocetnaComponent implements OnInit{
     })
   }
   goToPage() {
-    if(!this.authService.jelLogiran()){
+    if(!this.authService.isLogged()){
       this.router.navigate(["/prijava"])
     }
-    if(this.authService.jelLogiran() && this.authService.jelAdmin()){
+    if(this.authService.isLogged() && this.authService.isAdmin()){
       this.router.navigate(["/admin"])
     }
-    if(this.authService.jelLogiran() && this.authService.jelKorisnik()){
+    if(this.authService.isLogged() && this.authService.isUser()){
       this.router.navigate(["/korisnik"])
     }
   }

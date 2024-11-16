@@ -6,9 +6,9 @@
 <div class="main background " *ngFor="let k of dataLoggedUser">
   <div class="left-side ">
     <div class="photo">
-      <img *ngIf="!authService.jelGoogleProvider()" [src]="'data:image/jpeg;base64,' + k.photoBytes" alt="" srcset="" >
-      <img *ngIf="authService.jelGoogleProvider()" src="{{k.googlePhoto}}" alt="" srcset="" >
-      <form (submit)="onSubmit()" enctype="multipart/form-data" class="" *ngIf="!authService.jelGoogleProvider()">
+      <img *ngIf="!authService.isGoogleProvider()" [src]="'data:image/jpeg;base64,' + k.photoBytes" alt="" srcset="" >
+      <img *ngIf="authService.isGoogleProvider()" src="{{k.googlePhoto}}" alt="" srcset="" >
+      <form (submit)="onSubmit()" enctype="multipart/form-data" class="" *ngIf="!authService.isGoogleProvider()">
         <input type="file" (change)="onFileSelected($event)" accept="image/*"/>
         <button type="submit" >Update photo</button>
       </form>
@@ -41,11 +41,11 @@
           <label for="ime">Name</label>
           <input type="text" class="form-control  background " id="ime" disabled [value]="k.name">
         </div>
-        <div class="form-group" *ngIf="!authService.jelGoogleProvider()">
+        <div class="form-group" *ngIf="!authService.isGoogleProvider()">
           <label for="prezime">Surname</label>
           <input type="text" class="form-control  background " id="prezime" disabled [value]="k.surname">
         </div>
-        <div class="form-group" *ngIf="!authService.jelGoogleProvider()">
+        <div class="form-group" *ngIf="!authService.isGoogleProvider()">
           <label for="korisnickoime">Username</label>
           <input type="text" class="form-control  background " id="korisnickoime" disabled [value]="k.username">
         </div>
@@ -55,13 +55,13 @@
           <label for="email">Email</label>
           <input type="email" class="form-control  background " id="email" disabled [value]="k.email">
         </div>
-        <div class="form-group" *ngIf="!authService.jelGoogleProvider()">
+        <div class="form-group" *ngIf="!authService.isGoogleProvider()">
           <label for="datumRodjenja">Date of birth</label>
           <input type="text" class="form-control  background " id="datumRodjenja" disabled [value]="k.dateBirth.substring(0,k.dateBirth.indexOf('T')) ?? emptyValue">
         </div>
       </div>
     </div>
-    <button class=" button-manage" (click)="prepareData(k);showDialogEdit = true" [disabled]="authService.jelGoogleProvider()">Change</button>
+    <button class=" button-manage" (click)="prepareData(k);showDialogEdit = true" [disabled]="authService.isGoogleProvider()">Change</button>
   </div>
 </div>
 

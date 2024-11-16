@@ -37,12 +37,12 @@ export class KorpaComponent implements OnInit{
         this.loadCart();
     }
     loadCart(){
-      let userID = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
+      let userID = this.authService.userID();
       let url = MojConfig.adresa_servera + `/CartGet?ID=${userID}`;
 
       this.httpClient.get<CartListResponse>(url,{
         headers:{
-          "my-auth-token": this.authService.vratiToken()
+          "my-auth-token": this.authService.returnToken()
         }
       }).subscribe((x:CartListResponse) => {
         this.cartList = x.cart;

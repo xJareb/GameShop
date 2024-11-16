@@ -33,14 +33,14 @@
     </div>
   </div>
   <div class="game-grid">
-    <div class="game-add transition" (click)="showModalAdd = true" *ngIf="authService.jelAdmin()">
+    <div class="game-add transition" (click)="showModalAdd = true" *ngIf="authService.isAdmin()">
       <p class="icon">&#43;</p>
       <div class="title">
         <p>Add new game</p>
       </div>
     </div>
       <div class="game-item" *ngFor="let li of gameList">
-        <div class="game-control" *ngIf="authService.jelAdmin()">
+        <div class="game-control" *ngIf="authService.isAdmin()">
           <button (click)="prepareData(li);showModalEdit = true">Edit</button>
           <button (click)="deleteGame(li)">Delete</button>
           <button (click)="highlightGame(li)" >Highlight</button>

@@ -47,7 +47,7 @@ export class UrediKorisnikaComponent implements OnInit{
     UpdateUser() {
       if(this.condition == true) {
         this.userUpdateRequest = {
-          userID: this.authService.korisnikID(),
+          userID: this.authService.userID(),
           name: this.name,
           surname: this.surname,
           email: this.email,
@@ -60,7 +60,7 @@ export class UrediKorisnikaComponent implements OnInit{
         {
           this.httpClient.put(url,this.userUpdateRequest,{
             headers:{
-              "my-auth-token":this.authService.vratiToken()
+              "my-auth-token":this.authService.returnToken()
             }
           }).subscribe({
             next:(response) => {

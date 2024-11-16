@@ -23,31 +23,31 @@ namespace GameShop.Endpoint.Purchases.Add
         [HttpPost("PurchaseAdd")]
         public override async Task<NoResponse> Obradi([FromBody] PurchasesAddRequest request, CancellationToken cancellationToken = default)
         {
-            if (!_myAuthService.jelLogiran())
+            if (!_myAuthService.isLogged())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
             }
-            var user = _applicationDbContext.Korisnik.Include(kn => kn.KNalog).Where(k => k.Id == request.UserID).FirstOrDefault();
+            var user = _applicationDbContext.User.Include(kn => kn.UserAccount).Where(k => k.ID == request.UserID).FirstOrDefault();
 
             if (user == null)
                 throw new Exception($"{HttpStatusCode.NotFound}");
-            var cartList = await _applicationDbContext.Korpa.Include(i => i.Igrica).Where(k => request.UserID == k.KorisnikID).ToListAsync();
-            var emailKorisnik = user.KNalog.Email;
+            var cartList = await _applicationDbContext.ShoppingCart.Include(i => i.Game).Where(k => request.UserID == k.UserID).ToListAsync();
+            var emailKorisnik = user.UserAccount.Email;
             if (!cartList.Any())
                 throw new Exception($"{HttpStatusCode.NotFound}");
-            var games = cartList.Select(k => k.Igrica).ToList();
-            var newPurchase = new Data.Models.Kupovine
+            var games = cartList.Select(k => k.Game).ToList();
+            var newPurchase = new Data.Models.Purchases
             {
-                DatumKupovine = DateTime.UtcNow,
-                KorisnikID = request.UserID,
-                Igrice = games
+                BirthDate = DateTime.UtcNow,
+                UserID = request.UserID,
+                Games = games
             };
 
-            List<Data.Models.Igrice> UserGames = newPurchase.Igrice;
-            _applicationDbContext.Kupovine.Add(newPurchase);
+            List<Data.Models.Games> UserGames = newPurchase.Games;
+            _applicationDbContext.Purchases.Add(newPurchase);
             await _applicationDbContext.SaveChangesAsync();
 
-            _emailSender.Posalji(emailKorisnik, UserGames);
+            _emailSender.SendEmail(emailKorisnik, UserGames);
 
             return new NoResponse();
         }

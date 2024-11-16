@@ -17,12 +17,12 @@ namespace GameShop.Endpoint.ShoppingCart.Update
         [HttpPut("CartUpdate")]
         public override async Task<NoResponse> Obradi([FromBody] ShoppingCartUpdateRequest request, CancellationToken cancellationToken = default)
         {
-            var game = _applicationDbContext.Korpa.Where(i => i.Id == request.ID).FirstOrDefault();
+            var game = _applicationDbContext.ShoppingCart.Where(i => i.ID == request.ID).FirstOrDefault();
             if (game == null)
                 throw new Exception($"{HttpStatusCode.NotFound}");
 
-            game.Kolicina = request.Quantity;
-            _applicationDbContext.Korpa.Update(game);
+            game.Quantity = request.Quantity;
+            _applicationDbContext.ShoppingCart.Update(game);
             await _applicationDbContext.SaveChangesAsync();
 
             return new NoResponse();

@@ -17,14 +17,14 @@ namespace GameShop.Endpoint.ShoppingCart.Get
         [HttpGet("CartGet")]
         public override async Task<ShoppingCartGetResponse> Obradi([FromQuery] ShoppingCartGetRequest request, CancellationToken cancellationToken = default)
         {
-            var cart = await _applicationDbContext.Korpa.Where(k => k.Korisnik.Id == request.ID).Select(x => new ShoppingCartGetResponseShoppingCart()
+            var cart = await _applicationDbContext.ShoppingCart.Where(k => k.User.ID == request.ID).Select(x => new ShoppingCartGetResponseShoppingCart()
             {
-                ID = x.Id,
-                Name = x.Igrica.Naziv,
-                Photo = x.Igrica.Slika,
-                Price = x.Igrica.Cijena,
-                ActionPrice = x.Igrica.AkcijskaCijena ?? x.Igrica.Cijena,
-                Quantity = x.Kolicina
+                ID = x.ID,
+                Name = x.Game.Name,
+                Photo = x.Game.Photo,
+                Price = x.Game.Price,
+                ActionPrice = x.Game.ActionPrice ?? x.Game.Price,
+                Quantity = x.Quantity
 
             }).ToListAsync();
 

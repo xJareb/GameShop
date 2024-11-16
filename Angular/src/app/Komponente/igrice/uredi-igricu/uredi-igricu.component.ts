@@ -63,7 +63,7 @@ export class UrediIgricuComponent implements OnInit{
 
     this.httpClient.put(url,this.selectedGame,{
       headers:{
-        "my-auth-token": this.authservice.vratiToken()
+        "my-auth-token": this.authservice.returnToken()
       }
     }).subscribe(x=>{
       this.close();

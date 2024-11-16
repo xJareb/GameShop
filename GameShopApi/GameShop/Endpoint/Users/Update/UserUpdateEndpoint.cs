@@ -22,19 +22,19 @@ namespace GameShop.Endpoint.Users.Update
         [HttpPut("UserUpdate")]
         public override async Task<UserUpdateResponse> Obradi(UserUpdateRequest request, CancellationToken cancellationToken = default)
         {
-            if (!_authService.jelLogiran())
+            if (!_authService.isLogged())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
             }
-            var user = _applicationDbContext.Korisnik.Include(kn => kn.KNalog).Where(k => k.Id == request.UserID).FirstOrDefault();
+            var user = _applicationDbContext.User.Include(kn => kn.UserAccount).Where(k => k.ID == request.UserID).FirstOrDefault();
             if (user == null)
                 throw new Exception($"{HttpStatusCode.NotFound}");
 
-            user.Ime = request.Name;
-            user.Prezime = request.Surname;
-            user.KNalog.Email = request.Email;
+            user.Name = request.Name;
+            user.Surname = request.Surname;
+            user.UserAccount.Email = request.Email;
 
-            if (LozinkaHasher.VerifikujLozinku(request.Password, user.KNalog.Lozinka))
+            if (LozinkaHasher.VerifikujLozinku(request.Password, user.UserAccount.Password))
             {
                 _applicationDbContext.Update(user);
                 await _applicationDbContext.SaveChangesAsync();

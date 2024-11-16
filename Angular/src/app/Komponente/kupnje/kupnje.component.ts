@@ -34,7 +34,7 @@ export class KupnjeComponent implements OnInit{
       let url = MojConfig.adresa_servera + `/PurchaseGet`;
       this.httpClient.get<PurchasesResponse>(url,{
         headers:{
-          "my-auth-token":this.authService.vratiToken()
+          "my-auth-token":this.authService.returnToken()
         }
       }).subscribe(x=>{
         this.purchaseResponse = x.purchases;

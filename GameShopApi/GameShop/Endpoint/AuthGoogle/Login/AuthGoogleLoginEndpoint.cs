@@ -19,9 +19,9 @@ namespace GameShop.Endpoint.AuthGoogle.Login
         [HttpPost("Login-google")]
         public override async Task<MyAuthInfo> Obradi([FromQuery] AuthGoogleLoginReuqest request, CancellationToken cancellationToken = default)
         {
-            var loggedUser = await _applicationDbContext.Korisnik.Include(kn => kn.KNalog)
+            var loggedUser = await _applicationDbContext.User.Include(kn => kn.UserAccount)
                 .FirstOrDefaultAsync(k =>
-                    k.KNalog.Email == request.Email && k.KNalog.isGoogleProvider == true);
+                    k.UserAccount.Email == request.Email && k.UserAccount.isGoogleProvider == true);
 
             if (loggedUser == null)
             {
@@ -29,13 +29,13 @@ namespace GameShop.Endpoint.AuthGoogle.Login
             }
             string randomString = TokenGenerator.Generate(10);
 
-            var newToken = new AutentifikacijaToken()
+            var newToken = new AuthenticationToken()
             {
-                ipAdresa = Request.HttpContext.Connection.RemoteIpAddress?.ToString(),
-                vrijednost = randomString,
-                korisnickiNalog = loggedUser.KNalog,
-                vrijemeEvidentiranja = DateTime.Now,
-                KorisnikID = loggedUser.Id
+                ipAdress = Request.HttpContext.Connection.RemoteIpAddress?.ToString(),
+                value = randomString,
+                UserAccount = loggedUser.UserAccount,
+                TimeOfRecording = DateTime.Now,
+                UserID = loggedUser.ID
             };
             _applicationDbContext.Add(newToken);
             await _applicationDbContext.SaveChangesAsync(cancellationToken);

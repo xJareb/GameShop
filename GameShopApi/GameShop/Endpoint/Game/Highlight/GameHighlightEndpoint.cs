@@ -20,15 +20,15 @@ namespace GameShop.Endpoint.Game.Highlight
         [HttpPut("GameHighlight")]
         public override async Task<GameHighLightResponse> Obradi([FromQuery] GameHighlightRequest request, CancellationToken cancellationToken = default)
         {
-            if (!_authService.jelAdmin())
+            if (!_authService.isAdmin())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
             }
-            var game = _applicationDbContext.Igrice.Where(i => i.Id == request.GameID).FirstOrDefault();
+            var game = _applicationDbContext.Game.Where(i => i.ID == request.GameID).FirstOrDefault();
             if (game == null)
                 throw new Exception($"{HttpStatusCode.NotFound}");
 
-            game.Izdvojeno = request.Highlighted;
+            game.Highlighted = request.Highlighted;
 
             _applicationDbContext.Update(game);
             await _applicationDbContext.SaveChangesAsync();

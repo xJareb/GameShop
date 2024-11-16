@@ -21,21 +21,21 @@ namespace GameShop.Endpoint.Users.Delete
         [HttpPut("UserDelete")]
         public override async Task<NoResponse> Obradi([FromQuery] UserDeleteRequest request, CancellationToken cancellationToken = default)
         {
-            if (!_authService.jelAdmin())
+            if (!_authService.isAdmin())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
             }
-            var user = _applicationDbContext.Korisnik.Include(kn => kn.KNalog).Where(k => k.Id == request.ID).FirstOrDefault();
+            var user = _applicationDbContext.User.Include(kn => kn.UserAccount).Where(k => k.ID == request.ID).FirstOrDefault();
             if (user == null)
                 throw new Exception($"{HttpStatusCode.NotFound}");
 
             if (request.isBlackList == false)
             {
-                user.KNalog.isDeleted = true;
+                user.UserAccount.isDeleted = true;
             }
             else
             {
-                user.KNalog.isBlackList = true;
+                user.UserAccount.isBlackList = true;
             }
 
 

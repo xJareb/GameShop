@@ -11,7 +11,7 @@ namespace GameShop.Helper
             {
                 Name = "my-auth-token",
                 In = ParameterLocation.Header,
-                Description = "upisati token preuzet iz autentikacijacontrollera"
+                Description = "enter the token taken from the authentication controller"
             });
         }
     }

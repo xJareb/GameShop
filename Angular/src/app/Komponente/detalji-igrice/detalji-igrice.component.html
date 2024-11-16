@@ -28,7 +28,7 @@
       <p>{{di.description}}</p>
     </div>
     <div class="add-to-cart ">
-      <button (click)="authService.onemoguciKorpu();addToCart(di)" class=" button-manage">Add to cart</button>
+      <button (click)="authService.disableShoppingCart();addToCart(di)" class=" button-manage">Add to cart</button>
       <button (click)="prepareData(di);showReviewModal = true" class=" button-manage" *ngIf="conditionReview">Leave review</button>
     </div>
     <div class="par-review">

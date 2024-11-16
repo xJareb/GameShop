@@ -1,7 +1,7 @@
 <div class="body" *ngFor="let oi of odabranaIgrica">
   <img [src]="oi.photo" alt="">
   <div class="section">
-    <select [(ngModel)]="ngGameID" (change)="listCheckedGame()" *ngIf="authService.jelAdmin()">
+    <select [(ngModel)]="ngGameID" (change)="listCheckedGame()" *ngIf="authService.isAdmin()">
       <option *ngFor="let i of gameList" [value]="i.id">{{i.name}}</option>
     </select>
   </div>

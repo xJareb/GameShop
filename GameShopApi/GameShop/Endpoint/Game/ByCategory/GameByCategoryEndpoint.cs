@@ -17,30 +17,30 @@ namespace GameShop.Endpoint.Game.ByCategory
         [HttpGet("GetByCategory")]
         public override async Task<GameByCategoryResponse> Obradi([FromQuery] GameByCategoryRequest request, CancellationToken cancellationToken = default)
         {
-            var upit = _applicationDbContext.Igrice.Where
-                (i => (i.ZanrID == request.GenreID || request.GenreID == 0) && i.AkcijskaCijena > request.FirstPrice && i.AkcijskaCijena < request.LastPrice && (request.GameName == null || i.Naziv.ToLower().StartsWith(request.GameName.ToLower())));
+            var upit = _applicationDbContext.Game.Where
+                (i => (i.GenreID == request.GenreID || request.GenreID == 0) && i.ActionPrice > request.FirstPrice && i.ActionPrice < request.LastPrice && (request.GameName == null || i.Name.ToLower().StartsWith(request.GameName.ToLower())));
 
             if (request.Sorting == "desc")
             {
-                upit = upit.OrderByDescending(i => i.Naziv);
+                upit = upit.OrderByDescending(i => i.Name);
             }
             if (request.Sorting == "asc")
             {
-                upit = upit.OrderBy(i => i.Naziv);
+                upit = upit.OrderBy(i => i.Name);
             }
             var games = await upit.Select(x => new GameByCategoryResponseGame()
             {
-                ID = x.Id,
-                Name = x.Naziv,
-                GenreID = x.ZanrID,
-                Genre = x.Zanr.Naziv,
-                ReleaseDate = x.DatumIzlaska,
-                Photo = x.Slika,
-                Publisher = x.Izdavac,
-                Description = x.Opis,
-                Price = x.Cijena,
-                PercentageDiscount = x.PostotakAkcije,
-                ActionPrice = x.AkcijskaCijena ?? 0
+                ID = x.ID,
+                Name = x.Name,
+                GenreID = x.GenreID,
+                Genre = x.Genre.Name,
+                ReleaseDate = x.ReleaseDate,
+                Photo = x.Photo,
+                Publisher = x.Publisher,
+                Description = x.Description,
+                Price = x.Price,
+                PercentageDiscount = x.PercentageDiscount,
+                ActionPrice = x.ActionPrice ?? 0
             }).ToListAsync(cancellationToken);
 
 

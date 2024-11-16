@@ -66,7 +66,7 @@ export class DodajIgricuComponent implements OnInit{
     if(!this.checkObject(this.newGameRequest)){
       this.httpClient.post(url,this.newGameRequest,{
         headers:{
-          "my-auth-token": this.authservice.vratiToken()
+          "my-auth-token": this.authservice.returnToken()
         }
       }).subscribe(x=>{
         window.location.reload();

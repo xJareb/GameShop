@@ -21,23 +21,23 @@ namespace GameShop.Endpoint.Purchases.Get
         [HttpGet("PurchaseGet")]
         public override async Task<PurchasesGetResponse> Obradi([FromQuery] NoRequest request, CancellationToken cancellationToken = default)
         {
-            if (!_myAuthService.jelLogiran())
+            if (!_myAuthService.isLogged())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
             }
 
-            var purchases = await _applicationDbContext.Kupovine.Include(i => i.Igrice).Select(x => new PurchasesGetResponsePurchase()
+            var purchases = await _applicationDbContext.Purchases.Include(i => i.Games).Select(x => new PurchasesGetResponsePurchase()
             {
-                ID = x.Id,
-                PurchaseDate = x.DatumKupovine,
-                UserID = x.KorisnikID,
-                User = x.Korisnik.KNalog.KorisnickoIme ?? x.Korisnik.Ime,
-                Games = x.Igrice.Select(i => new PurchasedGames()
+                ID = x.ID,
+                PurchaseDate = x.BirthDate,
+                UserID = x.UserID,
+                User = x.User.UserAccount.Username ?? x.User.Name,
+                Games = x.Games.Select(i => new PurchasedGames()
                 {
-                    ID = i.Id,
-                    Name = i.Naziv,
-                    Photo = i.Slika,
-                    ActionPrice = i.AkcijskaCijena ?? i.Cijena
+                    ID = i.ID,
+                    Name = i.Name,
+                    Photo = i.Photo,
+                    ActionPrice = i.ActionPrice ?? i.Price
                 }).ToList()
             }).ToListAsync();
 

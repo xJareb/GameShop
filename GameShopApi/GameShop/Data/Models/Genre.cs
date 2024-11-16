@@ -2,10 +2,10 @@
 
 namespace GameShop.Data.Models
 {
-    public class Zanr
+    public class Genre
     {
         [Key]
-        public int Id { get; set; }
-        public string Naziv {  get; set; }
+        public int ID { get; set; }
+        public string Name {  get; set; }
     }
 }

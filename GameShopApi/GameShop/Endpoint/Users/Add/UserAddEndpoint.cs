@@ -18,34 +18,34 @@ namespace GameShop.Endpoint.Users.Add
         [HttpPost]
         public override async Task<NoResponse> Obradi([FromBody] UserAddRequest request, CancellationToken cancellationToken = default)
         {
-            var userAccount = new KorisnickiNalog()
+            var userAccount = new UserAccount()
             {
-                KorisnickoIme = request.Username,
+                Username = request.Username,
                 Email = request.Email,
-                Lozinka = LozinkaHasher.HashPassword(request.Password),
-                DatumRodjenja = request.BirhtDate,
+                Password = LozinkaHasher.HashPassword(request.Password),
+                BirthDate = request.BirhtDate,
                 isAdmin = false,
-                isKorisnik = true
+                isUser = true
             };
 
-            var checkDoubleName = _applicationDbContext.KorisnickiNalog.Where(kn => kn.KorisnickoIme == request.Username).FirstOrDefault();
+            var checkDoubleName = _applicationDbContext.UserAccounts.Where(kn => kn.Username == request.Username).FirstOrDefault();
             if (checkDoubleName != null)
                 throw new Exception($"{HttpStatusCode.Conflict}");
 
-            var checkDoubleEmail = _applicationDbContext.KorisnickiNalog.Where(e => e.Email == request.Email).FirstOrDefault();
+            var checkDoubleEmail = _applicationDbContext.UserAccounts.Where(e => e.Email == request.Email).FirstOrDefault();
             if (checkDoubleEmail != null)
                 throw new Exception($"{HttpStatusCode.Conflict}");
 
-            _applicationDbContext.KorisnickiNalog.Add(userAccount);
+            _applicationDbContext.UserAccounts.Add(userAccount);
             await _applicationDbContext.SaveChangesAsync();
 
-            var user = new Data.Models.Korisnik()
+            var user = new Data.Models.User()
             {
-                Ime = request.Name,
-                Prezime = request.Surname,
-                KorisnickiNalogID = userAccount.Id
+                Name = request.Name,
+                Surname = request.Surname,
+                UserAccountID = userAccount.ID
             };
-            _applicationDbContext.Korisnik.Add(user);
+            _applicationDbContext.User.Add(user);
             await _applicationDbContext.SaveChangesAsync();
 
             return new NoResponse

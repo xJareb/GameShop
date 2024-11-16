@@ -3,10 +3,10 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {Route, Router, RouterLink} from "@angular/router";
 import {MojConfig} from "../../moj-config";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {PrijavaResponse} from "../../Servis/PrijavaService/prijava-response";
 import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.service";
 import {NgIf} from "@angular/common";
 import {LoginRequest} from "../../Servis/PrijavaService/login-request";
+import {LoginResponse} from "../../Servis/PrijavaService/login-response";
 
 declare const google: any;
 
@@ -36,7 +36,7 @@ export class PrijavaComponent implements OnInit{
   }
 
   ngOnInit(): void {
-        if(this.authService.jelLogiran()){
+        if(this.authService.isLogged()){
           this.route.navigate(["/"])
         }
     google.accounts.id.initialize({
@@ -69,12 +69,12 @@ export class PrijavaComponent implements OnInit{
   googleLogin(email:string){
     let url = MojConfig.adresa_servera + `/Login-google?Email=${email}`;
 
-    this.httpClient.post<PrijavaResponse>(url,{}).subscribe(x=>{
-      if(!x.isLogiran || x.autentifikacijaToken.korisnickiNalog.isDeleted || x.autentifikacijaToken.korisnickiNalog.isBlackList){
+    this.httpClient.post<LoginResponse>(url,{}).subscribe(x=>{
+      if(!x.isLogged || x.authenticationToken.userAccount.isDeleted || x.authenticationToken.userAccount.isBlackList){
         alert('Error');
         return;
       }else{
-        window.localStorage.setItem('my-auth-token', x.autentifikacijaToken.vrijednost);
+        window.localStorage.setItem('my-auth-token', x.authenticationToken.value);
         window.localStorage.setItem('korisnik', JSON.stringify(x));
         this.route.navigate(["/"]);
       }
@@ -90,12 +90,12 @@ export class PrijavaComponent implements OnInit{
     };
 
     if(this.dataLogin.username != null && this.dataLogin.password != null){
-    this.httpClient.post<PrijavaResponse>(url, this.dataLogin).subscribe(x => {
-        if (!x.isLogiran || x.autentifikacijaToken.korisnickiNalog.isDeleted || x.autentifikacijaToken.korisnickiNalog.isBlackList) {
+    this.httpClient.post<LoginResponse>(url, this.dataLogin).subscribe(x => {
+        if (!x.isLogged || x.authenticationToken.userAccount.isDeleted || x.authenticationToken.userAccount.isBlackList) {
             this.setStyle();
         }
         else {
-          window.localStorage.setItem('my-auth-token', x.autentifikacijaToken.vrijednost);
+          window.localStorage.setItem('my-auth-token', x.authenticationToken.value);
           window.localStorage.setItem('korisnik', JSON.stringify(x));
           this.route.navigate(["/"]);
         }

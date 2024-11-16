@@ -82,7 +82,7 @@ export class PlacanjeComponent implements OnInit{
   }
   createPurchase(){
     let url = MojConfig.adresa_servera + `/PurchaseAdd`;
-    let userID = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
+    let userID = this.authService.userID();
 
     this.userPurchase = {
       userID:userID
@@ -90,7 +90,7 @@ export class PlacanjeComponent implements OnInit{
 
    this.httpClient.post(url,this.userPurchase,{
      headers:{
-       "my-auth-token": this.authService.vratiToken()
+       "my-auth-token": this.authService.returnToken()
      }
    }).subscribe(x=>{
       this.deleteCartRange();
@@ -100,7 +100,7 @@ export class PlacanjeComponent implements OnInit{
   }
   saveCard(){
     let url = MojConfig.adresa_servera + `/CardAdd`;
-    let userID = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
+    let userID = this.authService.userID();
 
     this.cardRequest = {
       cardNumber: this.ngCardNumber,
@@ -109,18 +109,18 @@ export class PlacanjeComponent implements OnInit{
     }
     this.httpClient.post(url,this.cardRequest,{
       headers:{
-        "my-auth-token":this.authService.vratiToken()
+        "my-auth-token":this.authService.returnToken()
       }
     }).subscribe(x=>{
     })
   }
   deleteCartRange(){
-    let userID = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
+    let userID = this.authService.userID();
     let url = MojConfig.adresa_servera + `/CartDeleteRange?UserID=${userID}`;
 
     this.httpClient.delete(url,{
       headers:{
-        "my-auth-token":this.authService.vratiToken()
+        "my-auth-token":this.authService.returnToken()
       }
     }).subscribe(x=>{
 

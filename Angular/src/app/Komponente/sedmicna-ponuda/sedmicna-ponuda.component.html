@@ -3,7 +3,7 @@
   <div class="game-item" *ngFor="let sp of specialOffer">
     <img src="{{sp.photo}}" alt="" (click)="goToDetails(sp)">
     <div class="discount">-{{sp.percentageDiscount}}%</div>
-    <div class="remove" (click)="deleteGame(sp)" *ngIf="authService.jelAdmin()">&#x274c;</div>
+    <div class="remove" (click)="deleteGame(sp)" *ngIf="authService.isAdmin()">&#x274c;</div>
     <div class="details">
       <p>{{sp.name}}</p>
       <p class="price">${{sp.actionPrice}}</p>

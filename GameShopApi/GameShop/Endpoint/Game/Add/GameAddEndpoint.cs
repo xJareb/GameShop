@@ -23,21 +23,21 @@ namespace GameShop.Endpoint.Igrice.Dodaj
         [HttpPost("GameAdd")]
         public override async Task<GameAddResponse> Obradi([FromBody]GameAddRequest request, CancellationToken cancellationToken = default)
         {
-            if (!_authService.jelAdmin())
+            if (!_authService.isAdmin())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
             }
-            var novaIgrica = new Data.Models.Igrice()
+            var novaIgrica = new Data.Models.Games()
             {
-                Naziv = request.Name,
-                ZanrID = request.GenreID,
-                DatumIzlaska = request.ReleaseDate,
-                Slika = request.Photo,
-                Izdavac = request.Publisher,
-                Opis = request.Description,
-                Cijena = request.Price,
-                PostotakAkcije = request.PercentageDiscount,
-                AkcijskaCijena = request.Price - (request.Price * (request.PercentageDiscount / 100))
+                Name = request.Name,
+                GenreID = request.GenreID,
+                ReleaseDate = request.ReleaseDate,
+                Photo = request.Photo,
+                Publisher = request.Publisher,
+                Description = request.Description,
+                Price = request.Price,
+                PercentageDiscount = request.PercentageDiscount,
+                ActionPrice = request.Price - (request.Price * (request.PercentageDiscount / 100))
             };
             _applicationDbContext.Add(novaIgrica);
             await _applicationDbContext.SaveChangesAsync();

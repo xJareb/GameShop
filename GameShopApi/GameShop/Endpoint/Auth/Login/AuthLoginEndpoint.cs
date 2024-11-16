@@ -20,11 +20,11 @@ namespace GameShop.Endpoint.Auth.Prijava
         [HttpPost("Login")]
         public override async Task<MyAuthInfo> Obradi([FromBody]AuthLoginResponse request, CancellationToken cancellationToken = default)
         {
-            var loggedUser = await _applicationDbContext.Korisnik.Include(kn=>kn.KNalog)
+            var loggedUser = await _applicationDbContext.User.Include(kn=>kn.UserAccount)
                 .FirstOrDefaultAsync(k =>
-                    k.KNalog.KorisnickoIme == request.Username, cancellationToken);
+                    k.UserAccount.Username == request.Username, cancellationToken);
 
-            if (!LozinkaHasher.VerifikujLozinku(request.Password, loggedUser.KNalog.Lozinka)){
+            if (!LozinkaHasher.VerifikujLozinku(request.Password, loggedUser.UserAccount.Password)){
                 throw new Exception("Not found");
             }
 
@@ -34,13 +34,13 @@ namespace GameShop.Endpoint.Auth.Prijava
             }
             string randomString = TokenGenerator.Generate(10);
 
-            var newToken = new AutentifikacijaToken()
+            var newToken = new AuthenticationToken()
             {
-                ipAdresa = Request.HttpContext.Connection.RemoteIpAddress?.ToString(),
-                vrijednost = randomString,
-                korisnickiNalog = loggedUser.KNalog,
-                vrijemeEvidentiranja = DateTime.Now,
-                KorisnikID = loggedUser.Id
+                ipAdress = Request.HttpContext.Connection.RemoteIpAddress?.ToString(),
+                value = randomString,
+                UserAccount = loggedUser.UserAccount,
+                TimeOfRecording = DateTime.Now,
+                UserID = loggedUser.ID
             };
             _applicationDbContext.Add(newToken);
             await _applicationDbContext.SaveChangesAsync(cancellationToken);

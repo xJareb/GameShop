@@ -20,30 +20,30 @@ namespace GameShop.Endpoint.ShoppingCart.Add
         [HttpPost("ShoppingCartAdd")]
         public override async Task<NoResponse> Obradi([FromBody] ShoppingCartAddRequest request, CancellationToken cancellationToken = default)
         {
-            if (!_authService.jelLogiran())
+            if (!_authService.isLogged())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
             }
-            var checkDuplicates = _applicationDbContext.Korpa.Where(pd => pd.KorisnikID == request.UserID && pd.IgricaID == request.UserID).FirstOrDefault();
+            var checkDuplicates = _applicationDbContext.ShoppingCart.Where(pd => pd.UserID == request.UserID && pd.GameID == request.UserID).FirstOrDefault();
             if (checkDuplicates == null)
             {
-                var novaIgrica = new Data.Models.Korpa()
+                var novaIgrica = new Data.Models.ShoppingCart()
                 {
-                    KorisnikID = request.UserID,
-                    IgricaID = request.GameID,
-                    Kolicina = request.Quantity
+                    UserID = request.UserID,
+                    GameID = request.GameID,
+                    Quantity = request.Quantity
                 };
-                if (novaIgrica.Kolicina == 0)
+                if (novaIgrica.Quantity == 0)
                 {
                     throw new Exception($"{HttpStatusCode.BadRequest}");
                 }
-                _applicationDbContext.Korpa.Add(novaIgrica);
+                _applicationDbContext.ShoppingCart.Add(novaIgrica);
 
             }
             else
             {
-                checkDuplicates.Kolicina = checkDuplicates.Kolicina + request.Quantity;
-                _applicationDbContext.Korpa.Update(checkDuplicates);
+                checkDuplicates.Quantity = checkDuplicates.Quantity + request.Quantity;
+                _applicationDbContext.ShoppingCart.Update(checkDuplicates);
             }
             await _applicationDbContext.SaveChangesAsync();
 

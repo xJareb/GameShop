@@ -4,6 +4,6 @@ namespace GameShop.Endpoint.Users.Update
 {
     public class UserUpdateResponse
     {
-        public Data.Models.Korisnik User { get; set; }
+        public Data.Models.User User { get; set; }
     }
 }

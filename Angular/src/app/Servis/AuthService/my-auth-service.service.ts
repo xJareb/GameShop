@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {AutentifikacijaToken, PrijavaResponse} from "../PrijavaService/prijava-response";
 import {Router} from "@angular/router";
 
 @Injectable({
@@ -9,7 +8,7 @@ export class MyAuthServiceService {
 
   constructor(public router:Router) { }
 
-  dohvatiAutorzacijskiToken():any | null{
+  handleAuthToken():any | null{
     let tokenString = window.localStorage.getItem("korisnik")??"";
     try {
       return JSON.parse(tokenString);
@@ -18,29 +17,29 @@ export class MyAuthServiceService {
       return null;
     }
   }
-  korisnikID():number{
-    return this.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID ?? 0;
+  userID():number{
+    return this.handleAuthToken()?.authenticationToken.userID ?? 0;
   }
-  jelAdmin():boolean{
-    return this.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnickiNalog.isAdmin ?? false;
+  isAdmin():boolean{
+    return this.handleAuthToken()?.authenticationToken.userAccount.isAdmin ?? false;
   }
-  jelLogiran():boolean{
-    return this.dohvatiAutorzacijskiToken()?.isLogiran ?? false;
+  isLogged():boolean{
+    return this.handleAuthToken()?.isLogged ?? false;
   }
-  prikazImena():string {
-    return this.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnickiNalog.korisnickoIme ?? "Prijavi se";
+  showName():string {
+    return this.handleAuthToken()?.authenticationToken.userAccount.username ?? "Login";
   }
-  jelKorisnik():boolean{
-    return this.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnickiNalog.isKorisnik ?? false;
+  isUser():boolean{
+    return this.handleAuthToken()?.authenticationToken.userAccount.isUser ?? false;
   }
-  jelGoogleProvider():boolean{
-    return this.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnickiNalog.isGoogleProvider ?? false;
+  isGoogleProvider():boolean{
+    return this.handleAuthToken()?.authenticationToken.userAccount.isGoogleProvider ?? false;
   }
-  vratiToken():string{
-    return this.dohvatiAutorzacijskiToken()?.autentifikacijaToken.vrijednost;
+  returnToken():string{
+    return this.handleAuthToken()?.authenticationToken.value;
   }
-  onemoguciKorpu(){
-    if(!this.jelLogiran()){
+  disableShoppingCart(){
+    if(!this.isLogged()){
       this.router.navigate(["/prijava"]);
     }
   }

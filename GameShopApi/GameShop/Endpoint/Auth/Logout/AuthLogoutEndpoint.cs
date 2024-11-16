@@ -7,24 +7,24 @@ using Microsoft.AspNetCore.Mvc;
 namespace GameShop.Endpoint.Auth.Odjava
 {
     [Tags("Auth")]
-    public class AuthOdjavaEndpoint : MyBaseEndpoint<NoRequest,NoResponse>
+    public class AuthLogoutEndpoint : MyBaseEndpoint<NoRequest,NoResponse>
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly MyAuthService _authService;
-        public AuthOdjavaEndpoint(ApplicationDbContext applicationDbContext, MyAuthService authService)
+        public AuthLogoutEndpoint(ApplicationDbContext applicationDbContext, MyAuthService authService)
         {
             _applicationDbContext = applicationDbContext;
             _authService = authService;
         }
-        [HttpPost("Odjavi-se")]
+        [HttpPost("Logout")]
         public override async Task<NoResponse> Obradi([FromBody] NoRequest request, CancellationToken cancellationToken)
         {
-           AutentifikacijaToken? autentifikacijaToken = _authService.GetAuthInfo().autentifikacijaToken;
+           AuthenticationToken? authenticationToken = _authService.GetAuthInfo().AuthenticationToken;
 
-            if (autentifikacijaToken == null)
+            if (authenticationToken == null)
                 return new NoResponse();
 
-            _applicationDbContext.Remove(autentifikacijaToken);
+            _applicationDbContext.Remove(authenticationToken);
             await _applicationDbContext.SaveChangesAsync(cancellationToken);
             return new NoResponse();
         }

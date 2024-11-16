@@ -18,13 +18,13 @@ namespace GameShop.Endpoint.Game.Offer
         [HttpGet("GameOffer")]
         public override async Task<GameOfferResponse> Obradi([FromQuery] NoRequest request, CancellationToken cancellationToken = default)
         {
-            var offer = await _applicationDbContext.Igrice.Where(i => i.Izdvojeno == true).Select(x => new GameOfferResponseGame()
+            var offer = await _applicationDbContext.Game.Where(i => i.Highlighted == true).Select(x => new GameOfferResponseGame()
             {
-                ID = x.Id,
-                Name = x.Naziv,
-                Photo = x.Slika,
-                ActionPrice = x.AkcijskaCijena,
-                PercentageDiscount = x.PostotakAkcije
+                ID = x.ID,
+                Name = x.Name,
+                Photo = x.Photo,
+                ActionPrice = x.ActionPrice,
+                PercentageDiscount = x.PercentageDiscount
             }).ToListAsync();
 
             return new GameOfferResponse()

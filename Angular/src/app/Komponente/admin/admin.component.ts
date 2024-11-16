@@ -33,7 +33,7 @@ export class AdminComponent implements OnInit{
     constructor(public httpClient:HttpClient,public authService:MyAuthServiceService,public router:Router) {
     }
     ngOnInit(): void {
-      if(!this.authService.jelAdmin()){
+      if(!this.authService.isAdmin()){
         this.router.navigate(["/"])
       }else{
         this.listAllUsers();
@@ -43,12 +43,12 @@ export class AdminComponent implements OnInit{
 
     }
     listAdmin(){
-      let id = this.handleUser().autentifikacijaToken.korisnickiNalog.id;
+      let id = this.handleUser().authenticationToken.userAccount.id;
       let url = MojConfig.adresa_servera + `/GetAdmin?ID=${id}`;
 
       this.httpClient.get<AdminData>(url,{
         headers:{
-          "my-auth-token":this.authService.vratiToken()
+          "my-auth-token":this.authService.returnToken()
         }
       }).subscribe((x:AdminData) => {
         this.adminData = x.admin;
@@ -59,7 +59,7 @@ export class AdminComponent implements OnInit{
 
         this.httpClient.get<ListOfAllUsers>(url,{
           headers:{
-            "my-auth-token":this.authService.vratiToken()
+            "my-auth-token":this.authService.returnToken()
           }
         }).subscribe((x:ListOfAllUsers)=>{
               this.listOfUsers = x.users;
@@ -70,7 +70,7 @@ export class AdminComponent implements OnInit{
 
       this.httpClient.get<ListOfAllUsers>(url,{
         headers:{
-          "my-auth-token":this.authService.vratiToken()
+          "my-auth-token":this.authService.returnToken()
         }
       }).subscribe((x:ListOfAllUsers)=>{
         this.blackList = x.users;
@@ -82,7 +82,7 @@ export class AdminComponent implements OnInit{
     let url = MojConfig.adresa_servera + `/UserDelete?ID=${id}&isBlackList=false`;
     this.httpClient.put(url,{},{
       headers:{
-        "my-auth-token":this.authService.vratiToken()
+        "my-auth-token":this.authService.returnToken()
       }
     }).subscribe({
       next:(response)=> {
@@ -96,7 +96,7 @@ export class AdminComponent implements OnInit{
 
     this.httpClient.put(url,{},{
       headers:{
-        "my-auth-token":this.authService.vratiToken()
+        "my-auth-token":this.authService.returnToken()
       }
     }).subscribe({
       next:(response)=>{

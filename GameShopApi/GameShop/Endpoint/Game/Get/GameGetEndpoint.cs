@@ -17,18 +17,18 @@ namespace GameShop.Endpoint.Game.Get
         [HttpGet("GamesGet")]
         public override async Task<GameGetResponse> Obradi([FromQuery] GameGetRequest request, CancellationToken cancellationToken = default)
         {
-            var games = await _applicationDbContext.Igrice.Where(i => request.GameID == i.Id || request.GameID == 0).Select(x => new GameGetResponseGame()
+            var games = await _applicationDbContext.Game.Where(i => request.GameID == i.ID || request.GameID == 0).Select(x => new GameGetResponseGame()
             {
-                ID = x.Id,
-                Name = x.Naziv,
-                Genre = x.Zanr.Naziv,
-                ReleaseDate = x.DatumIzlaska,
-                Photo = x.Slika,
-                Publisher = x.Izdavac,
-                Description = x.Opis,
-                Price = x.Cijena,
-                PercentageDiscount = x.PostotakAkcije,
-                ActionPrice = x.AkcijskaCijena ?? 0
+                ID = x.ID,
+                Name = x.Name,
+                Genre = x.Genre.Name,
+                ReleaseDate = x.ReleaseDate,
+                Photo = x.Photo,
+                Publisher = x.Publisher,
+                Description = x.Description,
+                Price = x.Price,
+                PercentageDiscount = x.PercentageDiscount,
+                ActionPrice = x.ActionPrice ?? 0
             }).ToListAsync();
 
             return new GameGetResponse

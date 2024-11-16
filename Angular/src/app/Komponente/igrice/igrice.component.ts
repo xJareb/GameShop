@@ -80,7 +80,7 @@ export class IgriceComponent implements OnInit{
     this.sort  = select?.value;
 
   }
-  filter2(genreID:any,pocetnacijena:any,zavrsnacijena:any,sorting:any){
+  filter2(genreID:any,firstPrice:any,lastPrice:any,sorting:any){
     this.genre = genreID
     this.sort = sorting
 
@@ -98,7 +98,7 @@ export class IgriceComponent implements OnInit{
 
         this.httpClient.delete(url,{
           headers:{
-            "my-auth-token":this.authService.vratiToken()
+            "my-auth-token":this.authService.returnToken()
           }
         }).subscribe(x=>{
           window.location.reload();
@@ -111,7 +111,7 @@ export class IgriceComponent implements OnInit{
 
       this.httpClient.put(url,{},{
         headers:{
-          "my-auth-token": this.authService.vratiToken()
+          "my-auth-token": this.authService.returnToken()
         }
       }).subscribe(x=>{
           window.location.reload();

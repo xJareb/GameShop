@@ -20,16 +20,16 @@ namespace GameShop.Endpoint.ShoppingCart.DeleteRange
         [HttpDelete("CartDeleteRange")]
         public override async Task<NoResponse> Obradi([FromQuery] CartDeleteRangeRequest request, CancellationToken cancellationToken = default)
         {
-            if (!_myAuthService.jelLogiran())
+            if (!_myAuthService.isLogged())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
             }
-            var cartList = await _applicationDbContext.Korpa.Where(k => request.UserID == k.KorisnikID).ToListAsync();
+            var cartList = await _applicationDbContext.ShoppingCart.Where(k => request.UserID == k.UserID).ToListAsync();
 
             if (!cartList.Any())
                 throw new Exception($"{HttpStatusCode.NotFound}");
 
-            _applicationDbContext.Korpa.RemoveRange(cartList);
+            _applicationDbContext.ShoppingCart.RemoveRange(cartList);
             await _applicationDbContext.SaveChangesAsync();
 
             return new NoResponse();

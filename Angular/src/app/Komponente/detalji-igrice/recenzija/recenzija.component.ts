@@ -26,7 +26,7 @@ export class RecenzijaComponent {
 
   leaveReview() {
     let content = document.getElementById('message-text') as HTMLInputElement;
-    let korisnikID = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
+    let korisnikID = this.authService.handleAuthToken()?.autentifikacijaToken.korisnikID;
     let url = MojConfig.adresa_servera + `/ReviewAdd`
 
     this.reviewRequest = {
@@ -38,7 +38,7 @@ export class RecenzijaComponent {
     if(this.reviewRequest.content != ""){
     this.httpClient.post(url,this.reviewRequest,{
       headers:{
-        "my-auth-token":this.authService.vratiToken()
+        "my-auth-token":this.authService.returnToken()
       }
     }).subscribe(x=>{
       this.close();

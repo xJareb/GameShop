@@ -42,7 +42,7 @@ export class RegistracijaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.authService.jelLogiran()){
+    if(this.authService.isLogged()){
       this.router.navigate(['/']);
     }
   }

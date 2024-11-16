@@ -38,7 +38,7 @@ export class SedmicnaPonudaComponent implements OnInit{
     let url = MojConfig.adresa_servera + `/GameHighlight?GameID=${gameID}&Highlighted=false`;
     this.httpClient.put(url,{},{
       headers:{
-        "my-auth-token":this.authService.vratiToken()
+        "my-auth-token":this.authService.returnToken()
       }
     }).subscribe(x=>{
       this.listOffer();

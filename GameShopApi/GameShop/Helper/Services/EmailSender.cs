@@ -6,25 +6,25 @@ namespace GameShop.Helper.Services
 {
     public class EmailSender
     {
-        public void Posalji(string to,List<Data.Models.Igrice> igrice)
+        public void SendEmail(string to,List<Data.Models.Games> games)
         {
             string fromMail = "gameshop840@gmail.com";
             string fromPassword = "txejlvuoqunzzjaz";
 
             MailMessage message = new MailMessage();
             message.From = new MailAddress(fromMail);
-            message.Subject = "Uživajte u kupnji! Ne zaboravite provjeriti ove dodatke!";
+            message.Subject = "Enjoy your shopping! Don't forget to check out these plugins!";
             message.To.Add(new MailAddress(to));
-            string bodyContent = "<html><body>Dragi korisniče,<br>" +
-            "<br>Hvala vam što ste izvršili kupovinu kod nas! Vaša narudžba je uspešno završena, a u nastavku se nalaze aktivacijski kodovi za kupljene igre:<br><br>";
+            string bodyContent = "<html><body>Dear user,<br>" +
+            "<br>Thank you for shopping with us! Your order has been successfully completed, and below are the activation codes for the purchased games:<br><br>";
 
-            for(int i = 0; i < igrice.Count; i++)
+            for(int i = 0; i < games.Count; i++)
             {
-                bodyContent += $"<strong>{igrice[i].Naziv}: </strong>{TokenGenerator.Generate(7)}<br>";
+                bodyContent += $"<strong>{games[i].Name}: </strong>{TokenGenerator.Generate(7)}<br>";
             }
-            bodyContent += "<br>Molimo vas da proverite svoj inbox (ili spam folder) kako biste pronašli kodove potrebne za aktivaciju.<br><br>" +
-                   "Uživajte u igranju!<br><br>" +
-                   "Ako imate bilo kakvih pitanja, slobodno nas kontaktirajte.<br></body></html>";
+            bodyContent += "<br>Please check your inbox (or spam folder) to find the codes needed for activation.<br><br>" +
+                   "Enjoy playing!<br><br>" +
+                   "If you have any questions, feel free to contact us.<br></body></html>";
             message.Body = bodyContent;
             message.IsBodyHtml = true;
 

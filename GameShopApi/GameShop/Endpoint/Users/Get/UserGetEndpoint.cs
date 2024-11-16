@@ -21,17 +21,17 @@ namespace GameShop.Endpoint.Users.Get
         [HttpGet("UsersGet")]
         public override async Task<UserGetResponse> Obradi([FromQuery] UserGetRequest request, CancellationToken cancellationToken = default)
         {
-            if (!_authService.jelLogiran())
+            if (!_authService.isLogged())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
             }
-            var users = await _applicationDbContext.Korisnik.Include(kn => kn.KNalog).Where(k => k.KNalog.isKorisnik == true && k.KNalog.isDeleted == false && k.KNalog.isBlackList == request.isBlackList).Select(x => new UserGetResponseUser()
+            var users = await _applicationDbContext.User.Include(kn => kn.UserAccount).Where(k => k.UserAccount.isUser == true && k.UserAccount.isDeleted == false && k.UserAccount.isBlackList == request.isBlackList).Select(x => new UserGetResponseUser()
             {
-                ID = x.Id,
-                Name = x.Ime,
-                Surname = x.Prezime,
-                Username = x.KNalog.KorisnickoIme,
-                Email = x.KNalog.Email
+                ID = x.ID,
+                Name = x.Name,
+                Surname = x.Surname,
+                Username = x.UserAccount.Username,
+                Email = x.UserAccount.Email
             }).ToListAsync();
 
 

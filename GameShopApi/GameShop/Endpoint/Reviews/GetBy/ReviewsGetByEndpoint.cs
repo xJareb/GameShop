@@ -17,15 +17,15 @@ namespace GameShop.Endpoint.Reviews.GetBy
         [HttpGet("ReviewsGetBy")]
         public override async Task<ReviewsGetByResponse> Obradi([FromQuery] ReviewsGetByRequest request, CancellationToken cancellationToken = default)
         {
-            var reviews = await _applicationDbContext.Recenzije.Where(r => request.GameID == r.IgricaID || request.GameID == 0).Select(x => new ReviewsGetByResponseReview()
+            var reviews = await _applicationDbContext.Reviews.Where(r => request.GameID == r.GameID || request.GameID == 0).Select(x => new ReviewsGetByResponseReview()
             {
-                UserID = x.KorisnikID,
-                Content = x.Sadrzaj,
-                Grade = x.Ocjena,
-                PhotoBytes = x.Korisnik.Slika,
-                Username = x.Korisnik.KNalog.KorisnickoIme,
-                GameID = x.IgricaID,
-                Game = x.Igrice.Naziv
+                UserID = x.UserID,
+                Content = x.Content,
+                Grade = x.Grade,
+                PhotoBytes = x.User.PhotoBytes,
+                Username = x.User.UserAccount.Username,
+                GameID = x.GameID,
+                Game = x.Games.Name
             }).ToListAsync();
 
             return new ReviewsGetByResponse

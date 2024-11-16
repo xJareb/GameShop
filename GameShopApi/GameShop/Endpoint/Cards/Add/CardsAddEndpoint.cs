@@ -21,20 +21,20 @@ namespace GameShop.Endpoint.Cards.Add
         [HttpPost("CardAdd")]
         public override async Task<NoResponse> Obradi(CarsAddRequest request, CancellationToken cancellationToken = default)
         {
-            if (!_authService.jelLogiran())
+            if (!_authService.isLogged())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
             }
             byte[] key = Encoding.UTF8.GetBytes("1234567890123456");
             byte[] iv = Encoding.UTF8.GetBytes("1234567890123456");
 
-            var newCard = new Data.Models.Kartica()
+            var newCard = new Data.Models.Card()
             {
-                BrojKartice = EncryptDecryptString.EncryptString(request.CardNumber, key, iv),
-                Istek = DatumHasher.HashDate(request.ExpirationDate),
-                KorisnikID = request.UserID
+                CardNumber = EncryptDecryptString.EncryptString(request.CardNumber, key, iv),
+                Expiration = DatumHasher.HashDate(request.ExpirationDate),
+                UserID = request.UserID
             };
-            _applicationDbContext.Kartica.Add(newCard);
+            _applicationDbContext.Card.Add(newCard);
             await _applicationDbContext.SaveChangesAsync();
 
             return new NoResponse();

@@ -28,7 +28,7 @@ export class KorisnikComponent implements OnInit{
     constructor(public httpClient:HttpClient,public authService:MyAuthServiceService,public router:Router) {
     }
     ngOnInit(): void {
-        if(!this.authService.jelKorisnik()){
+        if(!this.authService.isUser()){
           this.router.navigate(["/"]);
         }
         else{
@@ -36,12 +36,12 @@ export class KorisnikComponent implements OnInit{
         }
     }
     listLoggedUser(){
-      let id = this.authService.dohvatiAutorzacijskiToken()?.autentifikacijaToken.korisnikID;
+      let id = this.authService.userID();
       let url = MojConfig.adresa_servera + `/GetLogged?LoggedUserID=${id}`;
 
       this.httpClient.get<LoggedUser>(url,{
         headers:{
-          "my-auth-token": this.authService.vratiToken()
+          "my-auth-token": this.authService.returnToken()
         }
       }).subscribe((x:LoggedUser)=>{
         this.dataLoggedUser = x.user;

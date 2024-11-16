@@ -22,22 +22,22 @@ namespace GameShop.Endpoint.Users.GetLogged
         [HttpGet("GetLogged")]
         public override async Task<UserGetLoggedResponse> Obradi([FromQuery] UserGetLoggedRequest request, CancellationToken cancellationToken = default)
         {
-            if (!_authService.jelLogiran())
+            if (!_authService.isLogged())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
             }
-            var purchaseCount = _applicationDbContext.Kupovine.Where(k => k.KorisnikID == request.LoggedUserID).Count();
-            var loggedUser = await _applicationDbContext.Korisnik.Include(k => k.KNalog).Where(lk => lk.Id == request.LoggedUserID).Select(x => new UserGetLoggedResponseUser()
+            var purchaseCount = _applicationDbContext.Purchases.Where(k => k.UserID == request.LoggedUserID).Count();
+            var loggedUser = await _applicationDbContext.User.Include(k => k.UserAccount).Where(lk => lk.ID == request.LoggedUserID).Select(x => new UserGetLoggedResponseUser()
             {
-                ID = x.Id,
-                Name = x.Ime,
-                Surname = x.Prezime,
-                Username = x.KNalog.KorisnickoIme,
-                Email = x.KNalog.Email,
-                DateBirth = x.KNalog.DatumRodjenja,
-                PhotoBytes = x.Slika,
+                ID = x.ID,
+                Name = x.Name,
+                Surname = x.Surname,
+                Username = x.UserAccount.Username,
+                Email = x.UserAccount.Email,
+                DateBirth = x.UserAccount.BirthDate,
+                PhotoBytes = x.PhotoBytes,
                 NumberOfPurchase = purchaseCount,
-                GooglePhoto = x.GoogleSlika
+                GooglePhoto = x.GooglePhoto
             }).ToListAsync();
             return new UserGetLoggedResponse()
             {

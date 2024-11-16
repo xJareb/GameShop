@@ -17,29 +17,29 @@ namespace GameShop.Endpoint.Users.AddGoogle
         [HttpPost("UserGoogleAdd")]
         public override async Task<NoResponse> Obradi([FromBody] UserAddGoogleRequest request, CancellationToken cancellationToken = default)
         {
-            var checkEmail = _applicationDbContext.KorisnickiNalog.Where(kn => kn.Email == request.Email).FirstOrDefault();
-            var googleUser = new KorisnickiNalog()
+            var checkEmail = _applicationDbContext.UserAccounts.Where(kn => kn.Email == request.Email).FirstOrDefault();
+            var googleUser = new UserAccount()
             {
                 Email = request.Email,
                 isGoogleProvider = request.isGoogleProvider,
-                isKorisnik = true
+                isUser = true
             };
 
             if (checkEmail == null)
             {
-                _applicationDbContext.KorisnickiNalog.Add(googleUser);
+                _applicationDbContext.UserAccounts.Add(googleUser);
                 await _applicationDbContext.SaveChangesAsync();
             }
-            var user = new Data.Models.Korisnik()
+            var user = new Data.Models.User()
             {
-                Ime = request.Name,
-                GoogleSlika = request.Photo,
-                KorisnickiNalogID = googleUser.Id
+                Name = request.Name,
+                GooglePhoto = request.Photo,
+                UserAccountID = googleUser.ID
             };
 
             if (checkEmail == null)
             {
-                _applicationDbContext.Korisnik.Add(user);
+                _applicationDbContext.User.Add(user);
                 await _applicationDbContext.SaveChangesAsync();
             }
             return new NoResponse();

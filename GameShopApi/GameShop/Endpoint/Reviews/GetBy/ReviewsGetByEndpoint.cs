@@ -23,6 +23,7 @@ namespace GameShop.Endpoint.Reviews.GetBy
                 Content = x.Content,
                 Grade = x.Grade,
                 PhotoBytes = x.User.PhotoBytes,
+                GooglePhoto = x.User.GooglePhoto,
                 Username = x.User.UserAccount.Username,
                 GameID = x.GameID,
                 Game = x.Games.Name

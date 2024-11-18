@@ -11,11 +11,13 @@ namespace GameShop.Endpoint.Game.Highlight
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly MyAuthService _authService;
+        private readonly TokenValidation _tokenValidation;
 
-        public GameHighlightEndpoint(ApplicationDbContext applicationDbContext, MyAuthService authService)
+        public GameHighlightEndpoint(ApplicationDbContext applicationDbContext, MyAuthService authService, TokenValidation tokenValidation)
         {
             _applicationDbContext = applicationDbContext;
             _authService = authService;
+            _tokenValidation = tokenValidation;
         }
         [HttpPut("GameHighlight")]
         public override async Task<GameHighLightResponse> Obradi([FromQuery] GameHighlightRequest request, CancellationToken cancellationToken = default)
@@ -23,6 +25,10 @@ namespace GameShop.Endpoint.Game.Highlight
             if (!_authService.isAdmin())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
+            }
+            if (!_tokenValidation.checkTokenValidation())
+            {
+                throw new Exception($"{HttpStatusCode.Unauthorized} : Token expired");
             }
             var game = _applicationDbContext.Game.Where(i => i.ID == request.GameID).FirstOrDefault();
             if (game == null)

@@ -13,6 +13,7 @@ namespace GameShop.Data.Models
         public int UserAccountID { get; set; }
         public UserAccount UserAccount { get; set; }
         public DateTime TimeOfRecording { get; set; }
+        public DateTime ExpirationTime { get; set; }
         public string? ipAdress { get; set; }
     }
 }

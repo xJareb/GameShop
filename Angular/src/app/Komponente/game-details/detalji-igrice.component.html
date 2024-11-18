@@ -35,6 +35,7 @@
     <div class="review" *ngFor="let r of listOfReviews">
       <div class="left">
         <img [src]="'data:image/jpeg;base64,' + r.photoBytes" alt="" width="70px" height="70px">
+        <img *ngIf="authService.isGoogleProvider()" src="{{r.googlePhoto}}" alt="" srcset="" >
         <p class=" font-bold">{{r.username}}</p>
       </div>
       <div class="right ">

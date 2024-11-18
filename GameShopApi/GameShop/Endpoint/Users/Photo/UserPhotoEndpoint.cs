@@ -10,14 +10,20 @@ namespace GameShop.Endpoint.Users.Photo
     public class UserPhotoEndpoint : MyBaseEndpoint<UserPhotoRequest, NoResponse>
     {
         private readonly ApplicationDbContext _applicationDbContext;
+        private readonly TokenValidation _tokenValidation;
 
-        public UserPhotoEndpoint(ApplicationDbContext applicationDbContext)
+        public UserPhotoEndpoint(ApplicationDbContext applicationDbContext, TokenValidation tokenValidation)
         {
             _applicationDbContext = applicationDbContext;
+            _tokenValidation = tokenValidation;
         }
         [HttpPut("UserPhoto")]
         public override async Task<NoResponse> Obradi([FromForm] UserPhotoRequest request, CancellationToken cancellationToken = default)
         {
+            if (!_tokenValidation.checkTokenValidation())
+            {
+                throw new Exception($"{HttpStatusCode.Unauthorized} : Token expired");
+            }
             var logedUser = _applicationDbContext.AuthenticationToken.FirstOrDefault();
             if (logedUser == null)
                 throw new Exception($"{HttpStatusCode.Unauthorized}");

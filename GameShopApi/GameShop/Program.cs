@@ -21,6 +21,7 @@ builder.Services.AddSwaggerGen(x => x.OperationFilter<AutorizacijaSwaggerHeader>
 builder.Services.AddTransient<MyAuthService>();
 builder.Services.AddTransient<LozinkaHasher>();
 builder.Services.AddTransient<EmailSender>();
+builder.Services.AddTransient<TokenValidation>();
 builder.Services.AddHttpContextAccessor();
 
 

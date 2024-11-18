@@ -7,6 +7,7 @@ export interface Review {
   content: string
   grade: number
   photoBytes: string
+  googlePhoto:string
   username: string
   gameID: number
   game: string

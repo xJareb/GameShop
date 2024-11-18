@@ -13,11 +13,13 @@ namespace GameShop.Endpoint.Purchases.Add
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly EmailSender _emailSender;
         private readonly MyAuthService _myAuthService;
-        public PurchasesAddEndpoint(ApplicationDbContext applicationDbContext, EmailSender emailSender, MyAuthService myAuthService)
+        private readonly TokenValidation _tokenValidation;
+        public PurchasesAddEndpoint(ApplicationDbContext applicationDbContext, EmailSender emailSender, MyAuthService myAuthService, TokenValidation tokenValidation)
         {
             _applicationDbContext = applicationDbContext;
             _emailSender = emailSender;
             _myAuthService = myAuthService;
+            _tokenValidation = tokenValidation;
         }
 
         [HttpPost("PurchaseAdd")]
@@ -26,6 +28,10 @@ namespace GameShop.Endpoint.Purchases.Add
             if (!_myAuthService.isLogged())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
+            }
+            if (!_tokenValidation.checkTokenValidation())
+            {
+                throw new Exception($"{HttpStatusCode.Unauthorized} : Token expired");
             }
             var user = _applicationDbContext.User.Include(kn => kn.UserAccount).Where(k => k.ID == request.UserID).FirstOrDefault();
 

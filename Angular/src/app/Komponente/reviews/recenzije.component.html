@@ -2,6 +2,7 @@
 <div class="reviews-div">
   <div class="card  border-color" style="width: 18rem" *ngFor="let lr of listOfReviews.slice().reverse()">
     <img [src]="'data:image/jpeg;base64,' + lr.photoBytes" class="card-img-top card-image">
+    <img *ngIf="authService.isGoogleProvider()" src="{{lr.googlePhoto}}" alt="" srcset="" >
     <div class="card-body">
       <div class="rating">
         <ngb-rating [(rate)]="lr.grade" [readonly]="true"/>

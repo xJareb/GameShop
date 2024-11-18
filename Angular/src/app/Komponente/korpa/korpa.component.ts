@@ -65,7 +65,11 @@ export class KorpaComponent implements OnInit{
 
     let url = MojConfig.adresa_servera + `/CartDelete?ID=${recordID}`;
 
-    this.httpClient.delete(url).subscribe((x) => {
+    this.httpClient.delete(url,{
+      headers:{
+        "my-auth-token":this.authService.returnToken()
+      }
+    }).subscribe((x) => {
       this.loadCart();
     })
   }
@@ -79,7 +83,11 @@ export class KorpaComponent implements OnInit{
       quantity: Number(quantity),
     }
 
-    this.httpClient.put(url,this.quantityRequest).subscribe((x) => {
+    this.httpClient.put(url,this.quantityRequest,{
+      headers:{
+        "my-auth-token": this.authService.returnToken()
+      }
+    }).subscribe((x) => {
       this.loadCart();
     })
   }

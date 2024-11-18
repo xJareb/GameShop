@@ -13,11 +13,13 @@ namespace GameShop.Endpoint.Igrice.Dodaj
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly MyAuthService _authService;
+        private readonly TokenValidation _tokenValidation;
 
-        public GameAddEndpoint(ApplicationDbContext applicationDbContext, MyAuthService authService)
+        public GameAddEndpoint(ApplicationDbContext applicationDbContext, MyAuthService authService, TokenValidation tokenValidation)
         {
             _applicationDbContext = applicationDbContext;
             _authService = authService;
+            _tokenValidation = tokenValidation;
         }
 
         [HttpPost("GameAdd")]
@@ -26,6 +28,10 @@ namespace GameShop.Endpoint.Igrice.Dodaj
             if (!_authService.isAdmin())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
+            }
+            if (!_tokenValidation.checkTokenValidation())
+            {
+                throw new Exception($"{HttpStatusCode.Unauthorized} : Token expired");
             }
             var novaIgrica = new Data.Models.Games()
             {

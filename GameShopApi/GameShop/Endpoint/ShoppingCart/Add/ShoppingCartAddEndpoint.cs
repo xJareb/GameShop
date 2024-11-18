@@ -12,10 +12,12 @@ namespace GameShop.Endpoint.ShoppingCart.Add
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly MyAuthService _authService;
-        public ShoppingCartAddEndpoint(ApplicationDbContext applicationDbContext, MyAuthService authService)
+        private readonly TokenValidation _tokenValidation;
+        public ShoppingCartAddEndpoint(ApplicationDbContext applicationDbContext, MyAuthService authService, TokenValidation tokenValidation)
         {
             _applicationDbContext = applicationDbContext;
             _authService = authService;
+            _tokenValidation = tokenValidation;
         }
         [HttpPost("ShoppingCartAdd")]
         public override async Task<NoResponse> Obradi([FromBody] ShoppingCartAddRequest request, CancellationToken cancellationToken = default)
@@ -23,6 +25,11 @@ namespace GameShop.Endpoint.ShoppingCart.Add
             if (!_authService.isLogged())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
+            }
+
+            if (!_tokenValidation.checkTokenValidation())
+            {
+                throw new Exception($"{HttpStatusCode.Unauthorized} : Token expired");
             }
             var checkDuplicates = _applicationDbContext.ShoppingCart.Where(pd => pd.UserID == request.UserID && pd.GameID == request.UserID).FirstOrDefault();
             if (checkDuplicates == null)

@@ -40,7 +40,8 @@ namespace GameShop.Endpoint.Auth.Prijava
                 value = randomString,
                 UserAccount = loggedUser.UserAccount,
                 TimeOfRecording = DateTime.Now,
-                UserID = loggedUser.ID
+                UserID = loggedUser.ID,
+                ExpirationTime = DateTime.Now.AddMinutes(30)
             };
             _applicationDbContext.Add(newToken);
             await _applicationDbContext.SaveChangesAsync(cancellationToken);

@@ -12,11 +12,13 @@ namespace GameShop.Endpoint.Users.Update
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly MyAuthService _authService;
+        private readonly TokenValidation _tokenValidation;
 
-        public UserUpdateEndpoint(ApplicationDbContext applicationDbContext, MyAuthService authService)
+        public UserUpdateEndpoint(ApplicationDbContext applicationDbContext, MyAuthService authService, TokenValidation tokenValidation)
         {
             _applicationDbContext = applicationDbContext;
             _authService = authService;
+            _tokenValidation = tokenValidation;
         }
 
         [HttpPut("UserUpdate")]
@@ -25,6 +27,10 @@ namespace GameShop.Endpoint.Users.Update
             if (!_authService.isLogged())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
+            }
+            if (!_tokenValidation.checkTokenValidation())
+            {
+                throw new Exception($"{HttpStatusCode.Unauthorized} : Token expired");
             }
             var user = _applicationDbContext.User.Include(kn => kn.UserAccount).Where(k => k.ID == request.UserID).FirstOrDefault();
             if (user == null)

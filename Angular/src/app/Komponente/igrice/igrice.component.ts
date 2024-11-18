@@ -106,8 +106,8 @@ export class IgriceComponent implements OnInit{
     }
 
   highlightGame(li: any) {
-      let igricaID = li.id;
-      let url = MojConfig.adresa_servera + `/IzdvojiIgricu?IgricaID=${igricaID}&Izdvojeno=true`;
+      let gameID = li.id;
+      let url = MojConfig.adresa_servera + `/GameHighlight?GameID=${gameID}&Highlighted=true`;
 
       this.httpClient.put(url,{},{
         headers:{

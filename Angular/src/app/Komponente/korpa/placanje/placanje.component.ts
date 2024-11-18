@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MyAuthServiceService} from "../../../Servis/AuthService/my-auth-service.service";
@@ -9,6 +9,8 @@ import {KorpaComponent} from "../korpa.component"
 import {CardAddRequest} from "../../../Servis/KorpaService/card-add-request";
 import {PurchaseRequest} from "../../../Servis/KorpaService/purchase-request";
 import {Card, CardsGetByUser} from "../../../Servis/KorpaService/cards-get-by-user";
+
+declare var paypal: any;
 
 @Component({
   selector: 'app-placanje',
@@ -25,7 +27,7 @@ import {Card, CardsGetByUser} from "../../../Servis/KorpaService/cards-get-by-us
   templateUrl: './placanje.component.html',
   styleUrl: './placanje.component.css'
 })
-export class PlacanjeComponent implements OnInit{
+export class PlacanjeComponent implements OnInit, AfterViewInit{
 
   public cardsGetByUser:Card[] = [];
   public cardRequest :CardAddRequest | null = null;
@@ -37,6 +39,8 @@ export class PlacanjeComponent implements OnInit{
   userPayment : FormGroup;
   rememberStatus: boolean = false;
 
+  @Input() amount: number = 0;
+
   constructor(public httpClient:HttpClient,public authService:MyAuthServiceService,public route:Router) {
     this.userPayment = new FormGroup({
       brojKartice: new FormControl("",[Validators.required,Validators.pattern(/^\d{16}$/)]),
@@ -45,6 +49,10 @@ export class PlacanjeComponent implements OnInit{
       sigurnosniBroj: new FormControl("",[Validators.required,Validators.pattern(/^\d{3}$/)]),
     })
   }
+
+  ngAfterViewInit(): void {
+
+    }
   ngOnInit(): void {
       this.total = Number((window.localStorage.getItem("cijena")));
       this.loadUserCards();

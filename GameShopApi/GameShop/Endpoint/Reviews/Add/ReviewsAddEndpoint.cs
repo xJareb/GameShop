@@ -11,11 +11,13 @@ namespace GameShop.Endpoint.Reviews.Add
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly MyAuthService _myAuthService;
+        private readonly TokenValidation _tokenValidation;
 
-        public ReviewsAddEndpoint(ApplicationDbContext applicationDbContext, MyAuthService myAuthService)
+        public ReviewsAddEndpoint(ApplicationDbContext applicationDbContext, MyAuthService myAuthService, TokenValidation tokenValidation)
         {
             _applicationDbContext = applicationDbContext;
             _myAuthService = myAuthService;
+            _tokenValidation = tokenValidation;
         }
         [HttpPost("ReviewAdd")]
         public override async Task<NoResponse> Obradi([FromBody] ReviewsAddRequest request, CancellationToken cancellationToken = default)
@@ -23,6 +25,10 @@ namespace GameShop.Endpoint.Reviews.Add
             if (!_myAuthService.isLogged())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
+            }
+            if (!_tokenValidation.checkTokenValidation())
+            {
+                throw new Exception($"{HttpStatusCode.Unauthorized} : Token expired");
             }
             var checkDuplicates = _applicationDbContext.Reviews.Where(r => request.UserID == r.UserID && request.GameID == r.GameID).FirstOrDefault();
             if (checkDuplicates != null)

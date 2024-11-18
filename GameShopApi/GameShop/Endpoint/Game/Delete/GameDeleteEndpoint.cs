@@ -11,11 +11,13 @@ namespace GameShop.Endpoint.Game.Delete
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly MyAuthService _authService;
+        private readonly TokenValidation _tokenValidation;
 
-        public GameDeleteEndpoint(ApplicationDbContext applicationDbContext, MyAuthService authService)
+        public GameDeleteEndpoint(ApplicationDbContext applicationDbContext, MyAuthService authService, TokenValidation tokenValidation)
         {
             _applicationDbContext = applicationDbContext;
             _authService = authService;
+            _tokenValidation = tokenValidation;
         }
 
         [HttpDelete("GameDelete")]
@@ -24,6 +26,10 @@ namespace GameShop.Endpoint.Game.Delete
             if (!_authService.isAdmin())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
+            }
+            if (!_tokenValidation.checkTokenValidation())
+            {
+                throw new Exception($"{HttpStatusCode.Unauthorized} : Token expired");
             }
             var game = _applicationDbContext.Game.Where(i => i.ID == request.GameID).FirstOrDefault();
             if (game == null)

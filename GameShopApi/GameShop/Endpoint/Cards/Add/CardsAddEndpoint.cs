@@ -12,11 +12,13 @@ namespace GameShop.Endpoint.Cards.Add
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly MyAuthService _authService;
+        private readonly TokenValidation _tokenValidation;
 
-        public CardsAddEndpoint(ApplicationDbContext applicationDbContext, MyAuthService authService)
+        public CardsAddEndpoint(ApplicationDbContext applicationDbContext, MyAuthService authService, TokenValidation tokenValidation)
         {
             _applicationDbContext = applicationDbContext;
             _authService = authService;
+            _tokenValidation = tokenValidation;
         }
         [HttpPost("CardAdd")]
         public override async Task<NoResponse> Obradi(CarsAddRequest request, CancellationToken cancellationToken = default)
@@ -24,6 +26,10 @@ namespace GameShop.Endpoint.Cards.Add
             if (!_authService.isLogged())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
+            }
+            if (!_tokenValidation.checkTokenValidation())
+            {
+                throw new Exception($"{HttpStatusCode.Unauthorized} : Token expired");
             }
             byte[] key = Encoding.UTF8.GetBytes("1234567890123456");
             byte[] iv = Encoding.UTF8.GetBytes("1234567890123456");

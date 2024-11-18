@@ -11,11 +11,13 @@ namespace GameShop.Endpoint.Game.Update
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly MyAuthService _myAuthService;
+        private readonly TokenValidation _tokenValidation;
 
-        public GameUpdateEndpoint(ApplicationDbContext applicationDbContext, MyAuthService myAuthService)
+        public GameUpdateEndpoint(ApplicationDbContext applicationDbContext, MyAuthService myAuthService, TokenValidation tokenValidation)
         {
             _applicationDbContext = applicationDbContext;
             _myAuthService = myAuthService;
+            _tokenValidation = tokenValidation;
         }
         [HttpPut("GameUpdate")]
         public override async Task<GameUpdateResponse> Obradi([FromBody] GameUpdateRequest request, CancellationToken cancellationToken = default)
@@ -23,6 +25,10 @@ namespace GameShop.Endpoint.Game.Update
             if (!_myAuthService.isAdmin())
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
+            }
+            if (!_tokenValidation.checkTokenValidation())
+            {
+                throw new Exception($"{HttpStatusCode.Unauthorized} : Token expired");
             }
             var game = _applicationDbContext.Game.Where(i => i.ID == request.GameID).FirstOrDefault();
             if (game == null)

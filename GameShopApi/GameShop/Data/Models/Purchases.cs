@@ -7,7 +7,7 @@ namespace GameShop.Data.Models
     {
         [Key]
         public int ID { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateTime PurchaseDate { get; set; }
         public List<Games> Games { get; set; } = new List<Games>();
         [ForeignKey(nameof(User))]
         public int UserID { get; set; }

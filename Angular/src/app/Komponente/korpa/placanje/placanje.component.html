@@ -66,6 +66,8 @@
       <p>Total:</p>
       <span>${{total.toFixed(2)}}</span>
     </div>
+    <app-paypal [amount]="Number(total)"
+    (triggerCreatePurchase)="createPurchase()"></app-paypal>
     <button class="pay-button button-manage" (click)="payment()">Pay</button>
     <p class="rules">By clicking "Pay", we confirm that I have read and accepted the terms and privacy policy.</p>
   </div>

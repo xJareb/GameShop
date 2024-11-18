@@ -44,7 +44,7 @@ namespace GameShop.Endpoint.Purchases.Add
             var games = cartList.Select(k => k.Game).ToList();
             var newPurchase = new Data.Models.Purchases
             {
-                BirthDate = DateTime.UtcNow,
+                PurchaseDate = DateTime.UtcNow,
                 UserID = request.UserID,
                 Games = games
             };

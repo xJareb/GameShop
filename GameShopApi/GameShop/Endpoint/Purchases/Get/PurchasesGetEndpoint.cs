@@ -29,7 +29,7 @@ namespace GameShop.Endpoint.Purchases.Get
             var purchases = await _applicationDbContext.Purchases.Include(i => i.Games).Select(x => new PurchasesGetResponsePurchase()
             {
                 ID = x.ID,
-                PurchaseDate = x.BirthDate,
+                PurchaseDate = x.PurchaseDate,
                 UserID = x.UserID,
                 User = x.User.UserAccount.Username ?? x.User.Name,
                 Games = x.Games.Select(i => new PurchasedGames()

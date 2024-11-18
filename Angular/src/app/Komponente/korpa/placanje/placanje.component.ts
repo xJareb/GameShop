@@ -9,6 +9,7 @@ import {KorpaComponent} from "../korpa.component"
 import {CardAddRequest} from "../../../Servis/KorpaService/card-add-request";
 import {PurchaseRequest} from "../../../Servis/KorpaService/purchase-request";
 import {Card, CardsGetByUser} from "../../../Servis/KorpaService/cards-get-by-user";
+import {PaypalComponent} from "./paypal/paypal.component";
 
 declare var paypal: any;
 
@@ -22,12 +23,13 @@ declare var paypal: any;
     HttpClientModule,
     NgIf,
     RouterLink,
-    NgForOf
+    NgForOf,
+    PaypalComponent
   ],
   templateUrl: './placanje.component.html',
   styleUrl: './placanje.component.css'
 })
-export class PlacanjeComponent implements OnInit, AfterViewInit{
+export class PlacanjeComponent implements OnInit{
 
   public cardsGetByUser:Card[] = [];
   public cardRequest :CardAddRequest | null = null;
@@ -50,9 +52,6 @@ export class PlacanjeComponent implements OnInit, AfterViewInit{
     })
   }
 
-  ngAfterViewInit(): void {
-
-    }
   ngOnInit(): void {
       this.total = Number((window.localStorage.getItem("cijena")));
       this.loadUserCards();
@@ -166,4 +165,6 @@ export class PlacanjeComponent implements OnInit, AfterViewInit{
       this.userPayment.enable();
     }
   }
+
+  protected readonly Number = Number;
 }

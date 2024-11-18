@@ -4,10 +4,11 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MyAuthServiceService} from "../../../Servis/AuthService/my-auth-service.service";
 import {Router, RouterLink} from "@angular/router";
 import {MojConfig} from "../../../moj-config";
-import {NgIf, NgStyle} from "@angular/common";
+import {NgForOf, NgIf, NgStyle} from "@angular/common";
 import {KorpaComponent} from "../korpa.component"
 import {CardAddRequest} from "../../../Servis/KorpaService/card-add-request";
 import {PurchaseRequest} from "../../../Servis/KorpaService/purchase-request";
+import {Card, CardsGetByUser} from "../../../Servis/KorpaService/cards-get-by-user";
 
 @Component({
   selector: 'app-placanje',
@@ -18,21 +19,23 @@ import {PurchaseRequest} from "../../../Servis/KorpaService/purchase-request";
     NgStyle,
     HttpClientModule,
     NgIf,
-    RouterLink
+    RouterLink,
+    NgForOf
   ],
   templateUrl: './placanje.component.html',
   styleUrl: './placanje.component.css'
 })
 export class PlacanjeComponent implements OnInit{
 
-
+  public cardsGetByUser:Card[] = [];
   public cardRequest :CardAddRequest | null = null;
   public userPurchase: PurchaseRequest | null = null;
   ngCardNumber:any;
   ngExpirationDate:any;
   public total:number = 0;
-
+  selectedIndex: number | null = null;
   userPayment : FormGroup;
+  rememberStatus: boolean = false;
 
   constructor(public httpClient:HttpClient,public authService:MyAuthServiceService,public route:Router) {
     this.userPayment = new FormGroup({
@@ -44,6 +47,7 @@ export class PlacanjeComponent implements OnInit{
   }
   ngOnInit(): void {
       this.total = Number((window.localStorage.getItem("cijena")));
+      this.loadUserCards();
   }
   setStyle(control:string){
     if (this.userPayment.controls[control].invalid && !this.userPayment.controls[control].untouched) {
@@ -64,11 +68,15 @@ export class PlacanjeComponent implements OnInit{
   }
 
   payment() {
-    const validnaForma = this.userPayment.valid;
-    if(validnaForma){
-      if(this.checkedRemember()){
-        this.saveCard()
+    const validForm = this.userPayment.valid;
+    if(this.selectedIndex == null) {
+      if (validForm) {
+        if (this.checkedRemember()) {
+          this.saveCard()
+        }
+        this.createPurchase();
       }
+    }else{
       this.createPurchase();
     }
   }
@@ -125,5 +133,29 @@ export class PlacanjeComponent implements OnInit{
     }).subscribe(x=>{
 
     })
+  }
+  loadUserCards(){
+    let userID = this.authService.userID();
+    let url = MojConfig.adresa_servera + `/CardGetBy?UserID=${userID}`
+
+    this.httpClient.get<CardsGetByUser>(url,{
+      headers:{
+        "my-auth-token": this.authService.returnToken()
+      }
+    }).subscribe(x=>{
+      this.cardsGetByUser = x.cards;
+      console.log(this.cardsGetByUser);
+    })
+  }
+
+  onCheckboxChange(index: number) {
+    this.selectedIndex = this.selectedIndex === index ? null : index;
+    if(this.selectedIndex != null){
+      this.rememberStatus = true;
+      this.userPayment.disable()
+    }else{
+      this.rememberStatus = false;
+      this.userPayment.enable();
+    }
   }
 }

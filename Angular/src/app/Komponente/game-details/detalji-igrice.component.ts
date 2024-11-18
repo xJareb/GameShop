@@ -26,7 +26,6 @@ export class DetaljiIgriceComponent implements OnInit{
   public kupovineResponse:Purchase[] = [];
   public conditionReview:boolean = false;
 
-
   public showReviewModal:boolean = false;
 
   constructor(public activatedRoute:ActivatedRoute,public httpClient:HttpClient, public authService:MyAuthServiceService, public route:Router) {
@@ -38,8 +37,10 @@ export class DetaljiIgriceComponent implements OnInit{
     this.httpClient.get<GameDetailsData>(url).subscribe(x=>{
       this.gameDetails = x.game;
     })
-    this.listReviews();
     this.checkConditionToLeaveReview();
+    this.listReviews();
+
+
   }
 
   addToCart(di: any) {
@@ -75,8 +76,9 @@ export class DetaljiIgriceComponent implements OnInit{
     this.httpClient.get<ReviewResponse>(url).subscribe(x=>{
       this.listOfReviews = x.reviews
       this.listOfReviews.some(x=>{
-        if(x.gameID == this.gameID && x.userID == this.authService.userID()){
+        if(x.gameID == Number(this.gameID) && x.userID == this.authService.userID()){
           this.conditionReview = false;
+
         }
       })
     })
@@ -89,6 +91,7 @@ export class DetaljiIgriceComponent implements OnInit{
       }
     }).subscribe(x=>{
       this.kupovineResponse = x.purchases;
+      this.conditionReview = false;
       this.kupovineResponse.some(x=>{
         if(this.authService.userID() == x.userID){
           x.games.some(i=>{

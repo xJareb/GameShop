@@ -107,7 +107,7 @@ form{
 .button-manage:hover{
   background: linear-gradient(to right, orangered, darkorange);
 }
-.navigation, .body, .route, .cart-body, .split-inputs, .total{
+.navigation, .body, .route, .cart-body, .split-inputs, .total, .userCards{
   display: flex;
 }
 .body, .cart-body form, .total, .navigation, .pay-button, .rules{
@@ -124,7 +124,7 @@ form{
 .left, .right, .form-group input, .form-check input{
   border: 2px solid #3D3D3D;
 }
-.right, .form-group input, .route, .second-step, .left form{
+.right, .form-group input, .route, .second-step, .left form, .userCards p{
   color:white;
 }
 .form-group input, .form-check input{
@@ -132,4 +132,10 @@ form{
 }
 .split-inputs, .total{
   justify-content: space-between;
+}
+.userCards{
+  margin-left: 10%;
+  flex-direction: row;
+  gap: 20px;
+  margin-top: 2%;
 }

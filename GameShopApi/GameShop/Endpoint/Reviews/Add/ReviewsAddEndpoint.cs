@@ -24,7 +24,7 @@ namespace GameShop.Endpoint.Reviews.Add
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
             }
-            var checkDuplicates = _applicationDbContext.Reviews.Where(r => request.UserID == r.UserID && request.UserID == r.GameID).FirstOrDefault();
+            var checkDuplicates = _applicationDbContext.Reviews.Where(r => request.UserID == r.UserID && request.GameID == r.GameID).FirstOrDefault();
             if (checkDuplicates != null)
                 throw new Exception($"{HttpStatusCode.Conflict}");
             var newReview = new Data.Models.Reviews()

@@ -29,6 +29,12 @@
 </div>
 <div class="cart-body">
   <div class="left">
+    <div class="userCards">
+    <div class="form-check " *ngFor="let uc of cardsGetByUser.slice(-3); let i = index">
+      <input type="checkbox" [checked]="selectedIndex === i" (change)="onCheckboxChange(i)" class="form-check-input " id="exampleCheck12">
+      <p>**** **** **** {{uc.cardNumber}}</p>
+    </div>
+    </div>
     <form [formGroup]="userPayment">
       <div class="form-group ">
         <label for="brojKartice">Card number</label>
@@ -49,7 +55,7 @@
         </div>
       </div>
       <div class="form-check">
-        <input type="checkbox" class="form-check-input " id="exampleCheck1">
+        <input type="checkbox" class="form-check-input " id="exampleCheck1" [disabled]="rememberStatus">
         <label class="form-check-label" for="exampleCheck1">Remember card</label>
       </div>
     </form>

@@ -34,6 +34,7 @@ export class KorisnikComponent implements OnInit{
         else{
           this.listLoggedUser();
         }
+      console.log(this.authService.isGoogleProvider())
     }
     listLoggedUser(){
       let id = this.authService.userID();

@@ -18,6 +18,8 @@ import {MyAuthServiceService} from "../../Servis/AuthService/my-auth-service.ser
 export class RecenzijeComponent implements OnInit{
 
   public listOfReviews:Review[] = [];
+  public checkGooglePhoto:boolean = false;
+  public checkBytePhoto:boolean = false;
   public rating = 1;
 
   constructor(public httpClient: HttpClient, public authService:MyAuthServiceService) {

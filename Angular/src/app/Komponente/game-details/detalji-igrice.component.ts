@@ -85,6 +85,8 @@ export class DetaljiIgriceComponent implements OnInit{
   }
   checkConditionToLeaveReview(){
     let url = MojConfig.adresa_servera + `/PurchaseGet`;
+    if(this.authService.isLogged()){
+
     this.httpClient.get<PurchasesResponse>(url,{
       headers:{
         "my-auth-token":this.authService.returnToken()
@@ -102,6 +104,7 @@ export class DetaljiIgriceComponent implements OnInit{
         }
       })
     })
+    }
   }
 
 }

@@ -11,5 +11,5 @@ export interface User {
   dateBirth: string
   photoBytes: any
   numberOfPurchase: number
-  googlePhoto: any
+  googlePhoto: string
 }

@@ -31,7 +31,6 @@ export class PaypalComponent implements AfterViewInit{
       },
       onApprove: (data: any, actions: any) => {
         return actions.order.capture().then((details: any) => {
-          alert(`Transakcija uspješno izvršena od strane ${details.payer.name.given_name}.`);
           this.triggerCreatePurchase.emit();
         });
       },

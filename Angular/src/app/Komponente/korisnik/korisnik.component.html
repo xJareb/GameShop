@@ -7,7 +7,7 @@
   <div class="left-side ">
     <div class="photo">
       <img *ngIf="!authService.isGoogleProvider()" [src]="'data:image/jpeg;base64,' + k.photoBytes" alt="" srcset="" >
-      <img *ngIf="authService.isGoogleProvider()" src="{{k.googlePhoto}}" alt="" srcset="" >
+      <img *ngIf="authService.isGoogleProvider()" [src]="k.googlePhoto" alt="" srcset="">
       <form (submit)="onSubmit()" enctype="multipart/form-data" class="" *ngIf="!authService.isGoogleProvider()">
         <input type="file" (change)="onFileSelected($event)" accept="image/*"/>
         <button type="submit" >Update photo</button>

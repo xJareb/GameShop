@@ -3,6 +3,7 @@ using GameShop.Helper;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Net;
+using GameShop.Helper.Services;
 
 namespace GameShop.Endpoint.Users.Photo
 {
@@ -11,11 +12,13 @@ namespace GameShop.Endpoint.Users.Photo
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly TokenValidation _tokenValidation;
+        private readonly MyAuthService _authService;
 
-        public UserPhotoEndpoint(ApplicationDbContext applicationDbContext, TokenValidation tokenValidation)
+        public UserPhotoEndpoint(ApplicationDbContext applicationDbContext, TokenValidation tokenValidation, MyAuthService authService)
         {
             _applicationDbContext = applicationDbContext;
             _tokenValidation = tokenValidation;
+            _authService = authService;
         }
         [HttpPut("UserPhoto")]
         public override async Task<NoResponse> Obradi([FromForm] UserPhotoRequest request, CancellationToken cancellationToken = default)
@@ -24,10 +27,11 @@ namespace GameShop.Endpoint.Users.Photo
             {
                 throw new Exception($"{HttpStatusCode.Unauthorized} : Token expired");
             }
-            var logedUser = _applicationDbContext.AuthenticationToken.FirstOrDefault();
+
+            var logedUser = _authService.GetUser();
             if (logedUser == null)
                 throw new Exception($"{HttpStatusCode.Unauthorized}");
-            var loggedUserID = logedUser.UserAccountID;
+            var loggedUserID = logedUser.AuthenticationToken.UserID;
 
             var user = _applicationDbContext.User.Where(k => k.ID == loggedUserID).FirstOrDefault();
             if (user == null)

@@ -55,6 +55,7 @@ export class PlacanjeComponent implements OnInit{
   ngOnInit(): void {
       this.total = Number((window.localStorage.getItem("cijena")));
       this.loadUserCards();
+
   }
   setStyle(control:string){
     if (this.userPayment.controls[control].invalid && !this.userPayment.controls[control].untouched) {

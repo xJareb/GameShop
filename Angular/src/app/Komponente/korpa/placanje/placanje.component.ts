@@ -38,18 +38,12 @@ export class PlacanjeComponent implements OnInit{
   ngExpirationDate:any;
   public total:number = 0;
   selectedIndex: number | null = null;
-  userPayment : FormGroup;
   rememberStatus: boolean = false;
 
   @Input() amount: number = 0;
 
   constructor(public httpClient:HttpClient,public authService:MyAuthServiceService,public route:Router) {
-    this.userPayment = new FormGroup({
-      brojKartice: new FormControl("",[Validators.required,Validators.pattern(/^\d{16}$/)]),
-      imePrezime: new FormControl("",[Validators.required,Validators.pattern(/^[A-Z][a-z]+ [A-Z][a-z]+$/)]),
-      datumIsteka: new FormControl("",[Validators.required]),
-      sigurnosniBroj: new FormControl("",[Validators.required,Validators.pattern(/^\d{3}$/)]),
-    })
+    
   }
 
   ngOnInit(): void {
@@ -57,44 +51,13 @@ export class PlacanjeComponent implements OnInit{
       this.loadUserCards();
 
   }
-  setStyle(control:string){
-    if (this.userPayment.controls[control].invalid && !this.userPayment.controls[control].untouched) {
-      return {
-        'background-color': 'red',
-        'color': 'white'
-      }
-    } else {
-      return {}
-    }
-  }
+
   checkedRemember():boolean{
     let checkbox = document.getElementById('exampleCheck1') as HTMLInputElement;
     if(checkbox.checked){
       return true;
     }
     return false;
-  }
-
-  payment() {
-    const validForm = this.userPayment.valid;
-    if(this.selectedIndex == null) {
-      if (validForm) {
-        if (this.checkedRemember()) {
-          this.saveCard()
-        }
-        this.createPurchase();
-      }
-    }else{
-      this.createPurchase();
-    }
-  }
-  disableLetters(event:Event){
-    const input = event.target as HTMLInputElement;
-    input.value = input.value.replace(/[^0-9]/g, '')
-  }
-  disableNumbers(event:Event){
-    const input = event.target as HTMLInputElement;
-    input.value = input.value.replace(/[^a-zA-Z ]/g, '')
   }
   createPurchase(){
     let url = MojConfig.adresa_servera + `/PurchaseAdd`;
@@ -112,22 +75,6 @@ export class PlacanjeComponent implements OnInit{
       this.deleteCartRange();
       this.route.navigate(['/aktivacija']);
       window.localStorage.setItem("cijena","");
-    })
-  }
-  saveCard(){
-    let url = MojConfig.adresa_servera + `/CardAdd`;
-    let userID = this.authService.userID();
-
-    this.cardRequest = {
-      cardNumber: this.ngCardNumber,
-      expirationDate: this.ngExpirationDate,
-      userID: userID
-    }
-    this.httpClient.post(url,this.cardRequest,{
-      headers:{
-        "my-auth-token":this.authService.returnToken()
-      }
-    }).subscribe(x=>{
     })
   }
   deleteCartRange(){
@@ -156,16 +103,6 @@ export class PlacanjeComponent implements OnInit{
     })
   }
 
-  onCheckboxChange(index: number) {
-    this.selectedIndex = this.selectedIndex === index ? null : index;
-    if(this.selectedIndex != null){
-      this.rememberStatus = true;
-      this.userPayment.disable()
-    }else{
-      this.rememberStatus = false;
-      this.userPayment.enable();
-    }
-  }
 
   protected readonly Number = Number;
 }

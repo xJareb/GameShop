@@ -96,7 +96,7 @@ Password: u=h0k'$G
 
 ![12](https://github.com/user-attachments/assets/b7d44b1a-b741-4abc-8211-126b198bef91)
 ![13](https://github.com/user-attachments/assets/374d7643-7b06-4a6f-97e7-37316173034e)
-![14](https://github.com/user-attachments/assets/33c873f9-a167-44f8-a2b8-5cb772760758)
+![476798787_8787686758001955_4467823532318362376_n](https://github.com/user-attachments/assets/ea6cae86-6f25-433a-87cb-6d8c55396e52)
 ![15](https://github.com/user-attachments/assets/5b554a1f-fc38-42cb-9a1d-f3da9a328196)
 
 ## User panel

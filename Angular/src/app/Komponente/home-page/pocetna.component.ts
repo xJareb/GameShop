@@ -41,8 +41,6 @@ export class PocetnaComponent implements OnInit{
       this.statusModal = true;
       this.httpClient.get<GameCategoriesResponse>(url).subscribe(x=>{
         this.gameList=x.games;
-        console.log(this.gameList);
-        console.log(x.games)
       })
     }
     else{

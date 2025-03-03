@@ -40,7 +40,7 @@ export class MyAuthServiceService {
   }
   disableShoppingCart(){
     if(!this.isLogged()){
-      this.router.navigate(["/prijava"]);
+      this.router.navigate(["/login"]);
     }
   }
 }

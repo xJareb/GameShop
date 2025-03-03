@@ -1,4 +1,6 @@
 ﻿using GameShop.Data;
+using GameShop.Data.Models;
+using GameShop.Helper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,6 +30,35 @@ namespace GameShop.GenerateData
         {
             var genres = new List<Data.Models.Genre>();
             var games = new List<Data.Models.Games>();
+            var testAccounts = new List<Data.Models.User>();
+
+            var testAccountPrep = new Data.Models.UserAccount
+            {
+                Username = "testacc12",
+                Email = "egymzalik12@gmail.com",
+                Password = LozinkaHasher.HashPassword("adminadmin123A"),
+                BirthDate = DateTime.Now,
+                isAdmin = false,
+                isUser = true,
+                isDeleted = false,
+                isBlackList = false,
+                isGoogleProvider = false
+            };
+            var testAccountAdmin = new Data.Models.UserAccount
+            {
+                Username = "adminadmin",
+                Email =  "jareb33@gmail.com",
+                Password = LozinkaHasher.HashPassword("admintest123A"),
+                BirthDate = DateTime.Now,
+                isAdmin = true,
+                isUser = false,
+                isDeleted = false,
+                isBlackList = false,
+                isGoogleProvider = false
+            };
+            _applicationDbContext.UserAccounts.Add(testAccountPrep);
+            _applicationDbContext.UserAccounts.Add(testAccountAdmin);
+            _applicationDbContext.SaveChanges();
 
             genres.Add(new Data.Models.Genre { Name = "Akcija" });
             genres.Add(new Data.Models.Genre { Name = "Avantura" });
@@ -51,10 +82,13 @@ namespace GameShop.GenerateData
             games.Add(new Data.Models.Games { Name = "Resident Evil Village", Genre = genres.FirstOrDefault(z => z.Name == "Horor"), ReleaseDate = new DateTime(2021, 5, 7), Photo = "https://wallpaperboat.com/wp-content/uploads/2021/05/09/77203/resident-evil-village-13.jpg", Publisher = "Capcom", Description = "Horor preživljavanja.", Price = 50, PercentageDiscount = 10, ActionPrice = 45, Highlighted = false });
             games.Add(new Data.Models.Games { Name = "Need for Speed: Heat", Genre = genres.FirstOrDefault(z => z.Name == "Trke"), ReleaseDate = new DateTime(2019, 11, 8), Photo = "https://th.bing.com/th/id/OIP.JTDySuE8xcBCXf7SXuEAdQHaEK?rs=1&pid=ImgDetMain", Publisher = "EA", Description = "Igra trka.", Price = 30, PercentageDiscount = 5, ActionPrice = 28, Highlighted = true });
 
+            testAccounts.Add(new Data.Models.User { Name = "Test", Surname = "Account", UserAccountID = testAccountPrep.ID });
+            testAccounts.Add(new Data.Models.User{Name = "Admin", Surname = "Admin", UserAccountID = testAccountAdmin.ID});
 
 
             _applicationDbContext.AddRange(genres);
             _applicationDbContext.AddRange(games);
+            _applicationDbContext.AddRange(testAccounts);
             _applicationDbContext.SaveChanges();
 
             return Count();

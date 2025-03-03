@@ -9,41 +9,41 @@
 
         <div>
           <label class="form-label"> Name: </label>
-          <input class="form-control" [(ngModel)]="name">
+          <input class="form-control" [(ngModel)]="name" id="name">
         </div>
 
         <div>
           <label class="form-label"> Genre: </label>
-          <select class="form-control" [(ngModel)]="genreID">
+          <select class="form-control" [(ngModel)]="genreID" id="genre">
             <option *ngFor="let lz of listGenre" [value]="lz.id">{{lz.name}}</option>
           </select>
         </div>
 
         <div>
           <label class="form-label"> Release date: </label>
-          <input class="form-control" type="date" [(ngModel)]="releaseDate">
+          <input class="form-control" type="date" [(ngModel)]="releaseDate" id="releaseDate">
         </div>
 
         <div>
           <label class="form-label"> Photo: </label>
-          <input class="form-control" [(ngModel)]="photo">
+          <input class="form-control" [(ngModel)]="photo" id="photo">
         </div>
 
         <div>
           <label class="form-label"> Publisher: </label>
-          <input class="form-control" [(ngModel)]="publisher">
+          <input class="form-control" [(ngModel)]="publisher" id="publisher">
         </div>
         <div>
           <label class="form-label"> Description: </label>
-          <input class="form-control" [(ngModel)]="description">
+          <input class="form-control" [(ngModel)]="description" id="description">
         </div>
         <div>
           <label class="form-label"> Price: </label>
-          <input class="form-control" type="number" [(ngModel)]="price">
+          <input class="form-control" type="number" [(ngModel)]="price" id="price">
         </div>
         <div>
           <label class="form-label"> Percentage discount: </label>
-          <input class="form-control" type="number" [(ngModel)]="percentageDiscount">
+          <input class="form-control" type="number" [(ngModel)]="percentageDiscount" id="percentageDiscount">
         </div>
 
       </div>

@@ -38,6 +38,17 @@ Update-Database
 ```
 Start endpoint GenerateData/Data to import data in database
 
+## Tests
+
+Install the necessary tools:
+```bash
+npm install
+```
+Start tests
+```bash
+npm test
+```
+
 # 📖 About project
 
 GameShop is an online platform for video game lovers, designed for easy shopping and viewing of the latest titles. The application enables users to:
@@ -63,6 +74,18 @@ The application allows the admin to:
 • Editing or disabling user accounts, if necessary
 
 • Overview of all purchases
+
+# 🧾 Testing accounts
+
+## User
+Username: testacc12
+
+Password: adminadmin123A
+
+## Administrator
+Username: adminadmin
+
+Password: admintest123A
 
 # 💸 Paypal sandbox account
 
